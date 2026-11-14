@@ -118,15 +118,58 @@ What distinguishes them (= the next work): more seeds (variance band),
 a resample-to-resample noise floor (calibrates the floor), and the per-token
 scatter at n5-before (one outlier token vs broad mis-ranking).
 
+## Noise floor — is the proxy limited, or is the measurement?
+
+`experiments/stage1_noise_floor.py`. Split-half reliability = Spearman of two
+independent K=8 effect estimates of the same positions. A proxy cannot correlate
+with the true ranking better than the measurement correlates with itself
+(attenuation), so reliability is the ceiling; disattenuated = rho_proxy /
+sqrt(reliability) estimates the proxy's true-effect agreement.
+
+```
+   N pos      rel_all rel_chaff  proxy_all  proxy_chf disatt_all disatt_chf
+   5 after      0.872    -0.500      0.603     -0.200      0.646        nan
+   5 before     0.948     0.800      0.495      0.000      0.508      0.000
+  15 after      0.937     0.825      0.739      0.614      0.764      0.676
+  15 before     0.823     0.079      0.491      0.236      0.541      0.841
+  30 after      0.902     0.675      0.779      0.478      0.821      0.582
+  30 before     0.800     0.500      0.750      0.496      0.838      0.702
+  60 after      0.891     0.790      0.807      0.701      0.855      0.789
+  60 before     0.878     0.743      0.782      0.594      0.835      0.688
+ 120 after      0.815     0.713      0.796      0.689      0.881      0.816
+ 120 before     0.806     0.694      0.789      0.681      0.879      0.817
+```
+
+### What the floor resolves
+- **Overall measurement is reliable at every scale** (rel_all 0.80–0.95). The
+  unreliability is confined to the small chaff region at small N.
+- **Noise-corrected, the plain-gradient proxy tracks true causal effect in the
+  high 0.8s for N≥30** (disatt_all 0.82–0.88). For a one-backward-pass proxy
+  that is a strong result.
+- The scary small-N negative chaff correlations were **mostly the ground truth
+  being unrankable**: n5_after rel_chaff = −0.50, n15_before rel_chaff = 0.079 —
+  two independent measurements of ~5–15 near-equal tiny effects disagree with
+  each other. Not a proxy failure.
+
+### The one genuine residual: n5_before
+Here the measurement IS reliable (rel_chaff 0.80) yet proxy_chaff = 0.000. The
+per-token scatter explains it: all five chaff tokens have similar measured
+effects (0.19–0.46), while the proxy spans 9.5–18.9 and orders them differently.
+It is a **broad low-stakes mis-ranking within a tight cluster**, not one outlier
+and not blindness. When several tokens matter about equally, their fine-grained
+rank order is near-arbitrary and low-value — a useful caution for the analysis
+step (don't trust fine chaff rankings when effects are clustered), not a
+scale-relevant failure. By N=30 proxy_chaff rises to meet rel_chaff.
+
 ## What this is NOT
 - Still **one prompt, one question**. No cross-prompt generalization.
-- K=8 draws per position is a thin effect estimate; no variance band yet.
+- K=8 draws per position is a thin effect estimate; single seed per cell.
 - Only L2 norm of the gradient. grad*input, sum-of-abs, IG, LRP: not done.
-- No resample-to-resample noise floor / null distribution yet.
+- No logit-difference-vs-foil objective yet.
 
 ## Next
-1. Noise floor: resample-to-resample variance (no-change-but-reseeded) per
-   position → is chaff-only rho as good as possible given the floor?
-2. Multiple seeds and multiple questions → variance bands, resolve the wrinkle.
-3. Add grad*input and the per-swap first-order score; compare proxies.
+1. ~~Noise floor~~ **done** (see above): proxy is near its ceiling for N≥30.
+2. Multiple questions / seeds → cross-prompt generalization and variance bands.
+3. Add grad*input and the per-swap first-order score; compare proxy families.
 4. logit-difference-vs-foil objective (needs hand-written foils).
+5. IG and LRP, the other two proxy families in the plan.
