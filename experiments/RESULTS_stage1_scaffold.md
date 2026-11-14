@@ -62,11 +62,71 @@ gradient norm summed over all input tokens.
 - Only log-prob objective. logit-difference-vs-foil: not done (needs foils).
 - n=1 prompt / 1 seed. No variance estimate.
 
-## Next
+## Causal side — proxy vs measured effect (the real Stage 1 deliverable)
 
-1. Causal side: resample the chaff tokens, measure per-position reply log-prob
-   change + per-position KL under teacher forcing; add a no-change rerun for the
-   sampling-noise floor.
-2. Rank-correlate proxy vs measured effect (the real Stage 1 deliverable).
-3. Add grad*input and the per-swap first-order score.
-4. Multiple prompts / seeds for a noise floor and a null on irrelevant tokens.
+`experiments/stage1_causal.py`. Intervention = single-token resampling under
+teacher forcing (reply R fixed); measured effect per position = mean |ΔlogP| of
+R over K=8 replacement draws, and mean per-reply-token KL. Proxy = gradient L2
+norm. Agreement = Spearman rank correlation. Consistency check passes: the
+gradient-path baseline log-prob exactly matches the teacher-forced baseline.
+
+```
+   N pos      rho_all  rho_chaff   rho_KL  q_proxy   q_meas  c_proxy   c_meas
+   5 after      0.655      0.700    0.716    14.82    10.21    7.258   0.1854
+   5 before     0.499     -0.600    0.487    18.71     9.65   13.357   0.3614
+  15 after      0.679      0.407    0.749    17.19    13.72    6.353   0.1499
+  15 before     0.383      0.014    0.490    24.72    12.24   11.454   0.2822
+  30 after      0.819      0.671    0.891    14.99    11.73    3.171   0.0926
+  30 before     0.720      0.454    0.825    11.28    10.58    3.151   0.0868
+  60 after      0.796      0.664    0.869    17.55    13.49    2.467   0.0727
+  60 before     0.778      0.574    0.881    12.43    10.84    2.252   0.0615
+ 120 after      0.804      0.706    0.835    16.39    13.71    1.228   0.0335
+ 120 before     0.726      0.586    0.851    12.42    11.18    1.462   0.0367
+```
+
+### Main finding
+The gradient proxy predicts the measured causal effect, and the agreement
+**improves with N** rather than degrading: rho_all 0.72–0.82 for N≥30, up to
+~0.80 at N=120. KL is a better-predicted target than |ΔlogP| (rho_KL 0.83–0.89
+for N≥30) — a signal for the "two objectives" decision. Region means track
+causally: the question region is both highest-proxy and highest-impact; chaff
+proxy is small and chaff measured effect is tiny (→0.03 at N=120). The ranking
+the method exists to produce is correct at every scale.
+
+Caveat on magnitude: the proxy *under-states* the question/chaff gap (proxy
+~3.6x, measured ~120x at N=30). It gets the order right, not the ratio — which
+is what the method needs, but worth remembering before reading proxy magnitudes
+as effect sizes.
+
+### The wrinkle (unresolved, flagged honestly)
+At small N (5, 15) in the **before** position the correlation collapses:
+rho_all 0.38–0.50 and rho_chaff goes to **−0.60 / +0.01** — the proxy ranks
+chaff tokens in the wrong order relative to their effect, *there*. The same N in
+the **after** position is fine (0.70). So it is a small-N × position
+interaction, not random. Candidate causes, not yet separated by the data:
+- **Noise floor** — but at N=5 chaff effects are the *largest* in the table
+  (c_meas 0.36), so these aren't noise-floor-tiny values; weakens this for N=5.
+- **Position / early-token artifact** — chaff-first puts chaff at early
+  positions (attention-sink / BOS adjacency); before is systematically worse
+  than after at small N.
+- **Real proxy weakness at low chaff count**, masked at high N by the easy
+  question-vs-chaff separation dominating the correlation.
+- **Small-sample Spearman instability** over ~5 chaff points (present, but can't
+  explain a *systematic* before-worse-than-after on its own).
+
+What distinguishes them (= the next work): more seeds (variance band),
+a resample-to-resample noise floor (calibrates the floor), and the per-token
+scatter at n5-before (one outlier token vs broad mis-ranking).
+
+## What this is NOT
+- Still **one prompt, one question**. No cross-prompt generalization.
+- K=8 draws per position is a thin effect estimate; no variance band yet.
+- Only L2 norm of the gradient. grad*input, sum-of-abs, IG, LRP: not done.
+- No resample-to-resample noise floor / null distribution yet.
+
+## Next
+1. Noise floor: resample-to-resample variance (no-change-but-reseeded) per
+   position → is chaff-only rho as good as possible given the floor?
+2. Multiple seeds and multiple questions → variance bands, resolve the wrinkle.
+3. Add grad*input and the per-swap first-order score; compare proxies.
+4. logit-difference-vs-foil objective (needs hand-written foils).
