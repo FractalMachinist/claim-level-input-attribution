@@ -1,0 +1,31 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "dtype": "float32",
+  "question": "What is the longest bony fish?",
+  "n_chaff": 30,
+  "position": "before",
+  "seed": 0,
+  "n_input_tokens": 52,
+  "reply_text": "The longest bony fish is **the bluefin tuna**. It is known",
+  "reply_logp": -6.373292922973633,
+  "region_rows": {
+    "template": {
+      "n_tokens": 13,
+      "sum_norm": 69.43369889259338,
+      "share_of_sum": 0.2697845831927065,
+      "mean_norm": 5.341053760968721
+    },
+    "chaff": {
+      "n_tokens": 31,
+      "sum_norm": 97.67149329185486,
+      "share_of_sum": 0.379502511429117,
+      "mean_norm": 3.150693331995318
+    },
+    "question": {
+      "n_tokens": 8,
+      "sum_norm": 90.26199340820312,
+      "share_of_sum": 0.3507129053781765,
+      "mean_norm": 11.28274917602539
+    }
+  }
+}

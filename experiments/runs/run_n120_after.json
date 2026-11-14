@@ -1,0 +1,31 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "dtype": "float32",
+  "question": "What is the longest bony fish?",
+  "n_chaff": 120,
+  "position": "after",
+  "seed": 0,
+  "n_input_tokens": 147,
+  "reply_text": "The longest bony fish is **the whale**. While whales are not considered",
+  "reply_logp": -8.173327445983887,
+  "region_rows": {
+    "template": {
+      "n_tokens": 13,
+      "sum_norm": 113.04495811462402,
+      "share_of_sum": 0.2945730346694954,
+      "mean_norm": 8.695766008817232
+    },
+    "question": {
+      "n_tokens": 7,
+      "sum_norm": 114.72351741790771,
+      "share_of_sum": 0.2989470316711098,
+      "mean_norm": 16.38907391684396
+    },
+    "chaff": {
+      "n_tokens": 127,
+      "sum_norm": 155.99020163714886,
+      "share_of_sum": 0.4064799336593948,
+      "mean_norm": 1.2282693042295185
+    }
+  }
+}

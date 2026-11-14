@@ -2,7 +2,7 @@
 
 Companion to `README.md`. This file is the sequence of experiments.
 
-**Provenance.** Unmarked content was stated or approved by Zach in conversation. Items marked are agent suggestions that Zach has not reviewed. Nothing in this plan has been run.
+**Provenance.** Except where the prose says otherwise, content here was stated or approved by Zach in conversation. Where the plan carries an idea Zach has not reviewed or committed to, the surrounding prose says so explicitly (see "Parked ideas", and the uncommitted ideas noted under Stage 3). Early scaffolding toward Stage 1 has been run; see `experiments/`. The stages themselves have not been executed as designed.
 
 ## Ground rules
 
@@ -64,6 +64,7 @@ Companion to `README.md`. This file is the sequence of experiments.
 - Source of LRP: implement or reuse.
 - Thresholds for each stage's failure criterion.
 - Thinking tokens: how gradients through generated tokens are handled.
+- Numerical precision: default to fp32 for attribution. The Stage 1 noise floor is near the scale where fp16 underflows tiny gradients and bf16's coarse mantissa adds error, so a low-precision run could report numerical noise as signal. fp32 (or at minimum an fp32 cross-check against any lower-precision run) is the default until a stage shows it is unnecessary. This is what drove the hardware choice (an 80GB A100: Qwen3-8B in fp32 needs ~32GB for weights alone, plus activations and the backward pass). Still open: whether bf16 is an acceptable speed/memory trade at later stages once the floor is characterized.
 
 ## Not known
 

@@ -1,0 +1,31 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "dtype": "float32",
+  "question": "What is the longest bony fish?",
+  "n_chaff": 5,
+  "position": "before",
+  "seed": 0,
+  "n_input_tokens": 26,
+  "reply_text": "The longest bony fish is the **Saholim** (also known",
+  "reply_logp": -10.773487091064453,
+  "region_rows": {
+    "template": {
+      "n_tokens": 13,
+      "sum_norm": 120.62694668769836,
+      "share_of_sum": 0.3578368686629421,
+      "mean_norm": 9.27899589905372
+    },
+    "chaff": {
+      "n_tokens": 5,
+      "sum_norm": 66.7838888168335,
+      "share_of_sum": 0.19811276259209906,
+      "mean_norm": 13.356777763366699
+    },
+    "question": {
+      "n_tokens": 8,
+      "sum_norm": 149.68955087661743,
+      "share_of_sum": 0.4440503687449588,
+      "mean_norm": 18.71119385957718
+    }
+  }
+}
