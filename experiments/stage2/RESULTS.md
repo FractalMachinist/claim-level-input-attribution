@@ -59,7 +59,18 @@ The proxy ranks the irrelevant context below the question on **80/80 items** (no
 The two objectives **agree strongly** (ρ=0.84) and both keep chaff at the same share of attribution. The foil objective is slightly weaker on the question/chaff separation (1.60 vs 2.16) and on predicting the causal effect (0.48 vs 0.59) — expected, since a single-token logit contrast is a noisier signal than the whole reply's log-prob. But it behaves correctly: the plan's second objective works and tracks the first. (Consistent with Stage 1's hint that the objective matters — there KL beat |ΔlogP|.) The foil objective is also the one the README's step 3 literally describes (claim vs foil), so having it validated matters for the eventual product, not just for completeness.
 
 ### The method survives thinking tokens (gradients through generated reasoning). (row 8)
-**Untested.** Every run so far is thinking-OFF. The plan puts some Stage 2 runs on a thinking budget and makes thinking the default from Stage 3; the open question (RESEARCH_PLAN.md) is how gradients through generated reasoning tokens are handled. Not attempted here.
+**Supported (first cut).** `stage2/run_thinking.py`, 30 SimpleQA + 30 chaff, run twice per question — thinking OFF and thinking ON — attributing the **final answer** (tokens after `</think>`) in both. 28/30 produced a real reasoning block (median 416 reasoning tokens before the answer); the answer is cleanly isolated after `</think>` (median 34 tokens).
+
+| | q/chaff mean | question > chaff | chaff share | proxy-vs-causal ρ |
+|---|---:|---:|---:|---:|
+| thinking OFF | 2.05 | 28/30 | 0.30 | 0.57 |
+| thinking ON | 1.60 | 29/30 | 0.24 | 0.65 |
+
+Attribution survives a generated reasoning prefix: the question still dominates the chaff (on 29/30 items, *more* than thinking-off's 28/30), chaff stays low, and the proxy tracks the causal effect at least as well (ρ=0.65 vs 0.57). The question/chaff ratio drops somewhat (1.60 vs 2.05) — expected, because with reasoning present the final answer draws partly on the generated reasoning tokens, diluting the input's share — but the region split does not break.
+
+*Scope of this cut:* we attribute the **final answer only**. The deeper question the plan raises — attributing *through* the generated think tokens (gradients that flow into model-produced reasoning, not input tokens) — is **not** done here. This establishes that a reasoning prefix doesn't break input attribution; it does not yet attribute the reasoning itself.
+
+*(Enabling this run also added batched generation to `lib/` — verified byte-identical to the serial path — which is a speed change only. An earlier thinking run with a 160-token cap was discarded: it truncated every reply before `</think>` closed, so it attributed mid-reasoning tokens, not answers. The cap is now 2048 with per-sequence early-exit.)*
 
 ## Incidental
 - **0.6B is adequate for Stage 2 extraction** (82/120 substring-correct, 43/120 F1≥0.5) — the model-size lever was not needed.

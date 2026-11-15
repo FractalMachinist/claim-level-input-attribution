@@ -1,0 +1,822 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "dtype": "float32",
+  "test": "thinking_on_vs_off",
+  "n_questions": 30,
+  "n_chaff": 30,
+  "k_draws": 6,
+  "seed": 0,
+  "elapsed_sec": 308.1878561973572,
+  "per_item": [
+    {
+      "question": "What is the counter strength value for the Fume Sword in Dark Souls II?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The **counter strength value** for the *",
+        "q_mean": 6.927940845489502,
+        "chaff_mean": 2.7777292728424072,
+        "q_over_chaff": 2.494102255832962,
+        "chaff_share": 0.31129659243353064,
+        "spearman_proxy_causal": 0.7082523107528687
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 478,
+        "n_answer_tokens": 46,
+        "answer_preview": "\n\nThe counter strength value for the Fum",
+        "q_mean": 45.05174255371094,
+        "chaff_mean": 19.19496726989746,
+        "q_over_chaff": 2.3470601392669947,
+        "chaff_share": 0.2429741193645794,
+        "spearman_proxy_causal": 0.7239234447479248
+      }
+    },
+    {
+      "question": "What is the name of the individual who was awarded the Camsell Medal in 2012?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The individual awarded the Camsell Medal",
+        "q_mean": 8.11483383178711,
+        "chaff_mean": 4.087179660797119,
+        "q_over_chaff": 1.9854360476545532,
+        "chaff_share": 0.30185650736461855,
+        "spearman_proxy_causal": 0.5122012495994568
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 444,
+        "n_answer_tokens": 23,
+        "answer_preview": "\n\nThe individual awarded the Camsell Med",
+        "q_mean": 20.511005401611328,
+        "chaff_mean": 18.961097717285156,
+        "q_over_chaff": 1.0817414533396585,
+        "chaff_share": 0.2716181792416243,
+        "spearman_proxy_causal": 0.40681424736976624
+      }
+    },
+    {
+      "question": "What patch reduced the amount of damage taken in Berserk Stance from 10% to 5% in World of Warcraft?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "In *Berserk* (World of Warcraft), the",
+        "q_mean": 14.593512535095215,
+        "chaff_mean": 5.642630577087402,
+        "q_over_chaff": 2.586295936925939,
+        "chaff_share": 0.25460157724275856,
+        "spearman_proxy_causal": 0.6012743711471558
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 652,
+        "n_answer_tokens": 83,
+        "answer_preview": "\n\nThe patch that reduced the damage take",
+        "q_mean": 53.99072265625,
+        "chaff_mean": 24.9311580657959,
+        "q_over_chaff": 2.165592248613679,
+        "chaff_share": 0.23725038043595756,
+        "spearman_proxy_causal": 0.6174075603485107
+      }
+    },
+    {
+      "question": "What day, month, and year was Will Gay Bottje, the American composer, born?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The information provided is incomplete a",
+        "q_mean": 4.256288528442383,
+        "chaff_mean": 4.615767002105713,
+        "q_over_chaff": 0.9221194498120603,
+        "chaff_share": 0.3611616028805483,
+        "spearman_proxy_causal": 0.5260656476020813
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 322,
+        "n_answer_tokens": 59,
+        "answer_preview": "\n\nThe text provided contains a mix of un",
+        "q_mean": 26.58563232421875,
+        "chaff_mean": 24.252674102783203,
+        "q_over_chaff": 1.0961938552238997,
+        "chaff_share": 0.3193347403933093,
+        "spearman_proxy_causal": 0.6158970594406128
+      }
+    },
+    {
+      "question": "What piece of art by Antonio da Correggio did Augustus III of Poland buy in 1746?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The piece of art by Antonio da Correggio",
+        "q_mean": 3.0380008220672607,
+        "chaff_mean": 1.8296841382980347,
+        "q_over_chaff": 1.6603963265994084,
+        "chaff_share": 0.34374971319412345,
+        "spearman_proxy_causal": 0.4754742980003357
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 317,
+        "n_answer_tokens": 35,
+        "answer_preview": "\n\nThe piece of art by Antonio da Corregg",
+        "q_mean": 18.939287185668945,
+        "chaff_mean": 9.583061218261719,
+        "q_over_chaff": 1.9763295625804593,
+        "chaff_share": 0.1735085410091964,
+        "spearman_proxy_causal": 0.6973900198936462
+      }
+    },
+    {
+      "question": "Which scientists received the American Chemical Society Award in Pure Chemistry in 1937?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The American Chemical Society (ACS) awar",
+        "q_mean": 8.411245346069336,
+        "chaff_mean": 3.623286247253418,
+        "q_over_chaff": 2.321441026759993,
+        "chaff_share": 0.3493808612941285,
+        "spearman_proxy_causal": 0.4168870151042938
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": false,
+        "n_reply_tokens": 2048,
+        "n_answer_tokens": 8,
+        "answer_preview": " H. H. H. H.",
+        "q_mean": 10.024977684020996,
+        "chaff_mean": 7.9883952140808105,
+        "q_over_chaff": 1.2549426280700768,
+        "chaff_share": 0.2520345728578749,
+        "spearman_proxy_causal": 0.6437294483184814
+      }
+    },
+    {
+      "question": "What is the forest cover area of Bihar in square kilometers according to the India State of Forest Report 2019?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The forest cover area of Bihar in square",
+        "q_mean": 8.37470817565918,
+        "chaff_mean": 3.3749783039093018,
+        "q_over_chaff": 2.4814109666893547,
+        "chaff_share": 0.24219657695420316,
+        "spearman_proxy_causal": 0.6124588847160339
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 519,
+        "n_answer_tokens": 34,
+        "answer_preview": "\n\nThe forest cover area of Bihar accordi",
+        "q_mean": 17.346782684326172,
+        "chaff_mean": 10.802453994750977,
+        "q_over_chaff": 1.6058187049678851,
+        "chaff_share": 0.19362488472046516,
+        "spearman_proxy_causal": 0.7420890927314758
+      }
+    },
+    {
+      "question": "Who was awarded the 1993 Ig Nobel Prize for Mathematics?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The 1993 Ig Nobel Prize for Mathematics ",
+        "q_mean": 1.322771430015564,
+        "chaff_mean": 0.36322933435440063,
+        "q_over_chaff": 3.641697695938137,
+        "chaff_share": 0.2831968348895027,
+        "spearman_proxy_causal": 0.6779075860977173
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 222,
+        "n_answer_tokens": 45,
+        "answer_preview": "\n\nThe 1993 Ig Nobel Prize for Mathematic",
+        "q_mean": 29.197288513183594,
+        "chaff_mean": 13.684670448303223,
+        "q_over_chaff": 2.133576297908131,
+        "chaff_share": 0.2242694424048356,
+        "spearman_proxy_causal": 0.690620481967926
+      }
+    },
+    {
+      "question": "In August 1974, the Cary High School band performed at which Switzerland event?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "In August 1974, the Cary High School",
+        "q_mean": 0.30215176939964294,
+        "chaff_mean": 0.19637545943260193,
+        "q_over_chaff": 1.5386432208620473,
+        "chaff_share": 0.3226233188375416,
+        "spearman_proxy_causal": 0.5817972421646118
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": false,
+        "n_reply_tokens": 2048,
+        "n_answer_tokens": 8,
+        "answer_preview": " in Brazil? But that's not in",
+        "q_mean": 12.430521965026855,
+        "chaff_mean": 9.321832656860352,
+        "q_over_chaff": 1.3334847795061715,
+        "chaff_share": 0.24800314186002306,
+        "spearman_proxy_causal": 0.6963178515434265
+      }
+    },
+    {
+      "question": "In which year was Edward A. \"Ted\" Irving awarded the Wollaston Medal by the Geological Society of London?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "Edward A. \"Ted\" Irving was awarded the *",
+        "q_mean": 3.6364786624908447,
+        "chaff_mean": 1.7272882461547852,
+        "q_over_chaff": 2.1053108365591076,
+        "chaff_share": 0.24289894212123295,
+        "spearman_proxy_causal": 0.5943428874015808
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 235,
+        "n_answer_tokens": 30,
+        "answer_preview": "\n\nEdward A. \"Ted\" Irving was awarded the",
+        "q_mean": 24.11719512939453,
+        "chaff_mean": 11.457929611206055,
+        "q_over_chaff": 2.1048475551645467,
+        "chaff_share": 0.20090235962711478,
+        "spearman_proxy_causal": 0.634981632232666
+      }
+    },
+    {
+      "question": "How many singles did Chip Fields-Hurd record for Buddah Records?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "There is no information provided in the ",
+        "q_mean": 6.860511302947998,
+        "chaff_mean": 4.355840682983398,
+        "q_over_chaff": 1.5750142859332272,
+        "chaff_share": 0.41384761976720436,
+        "spearman_proxy_causal": 0.46833187341690063
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 570,
+        "n_answer_tokens": 111,
+        "answer_preview": "\n\nChip Fields-Hurd recorded **two single",
+        "q_mean": 48.17789077758789,
+        "chaff_mean": 17.16339111328125,
+        "q_over_chaff": 2.80701467790402,
+        "chaff_share": 0.2649497102918604,
+        "spearman_proxy_causal": 0.7340956926345825
+      }
+    },
+    {
+      "question": "What place did the album \"Rolling Papers 2\" by Wiz Khalifa receive on the 2018 US Billboard 200 year-end charts?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The album **\"Rolling Papers 2\"** by",
+        "q_mean": 1.2535758018493652,
+        "chaff_mean": 0.9757811427116394,
+        "q_over_chaff": 1.2846895138450314,
+        "chaff_share": 0.26170785709055205,
+        "spearman_proxy_causal": 0.43816938996315
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 433,
+        "n_answer_tokens": 54,
+        "answer_preview": "\n\nThe album \"Rolling Papers 2\" by Wiz Kh",
+        "q_mean": 17.316165924072266,
+        "chaff_mean": 10.969075202941895,
+        "q_over_chaff": 1.5786349900699093,
+        "chaff_share": 0.1699620757045877,
+        "spearman_proxy_causal": 0.4487055540084839
+      }
+    },
+    {
+      "question": "Who was the Friday night headliner of ArcTanGent 2013 on the Arc stage?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The Friday night headliner of ArcTanGent",
+        "q_mean": 11.477190017700195,
+        "chaff_mean": 5.869112968444824,
+        "q_over_chaff": 1.9555237868834852,
+        "chaff_share": 0.30697911605237665,
+        "spearman_proxy_causal": 0.5676443576812744
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 450,
+        "n_answer_tokens": 57,
+        "answer_preview": "\n\nThe provided text contains no informat",
+        "q_mean": 33.69209289550781,
+        "chaff_mean": 31.48477554321289,
+        "q_over_chaff": 1.0701074507984145,
+        "chaff_share": 0.34852493921042865,
+        "spearman_proxy_causal": 0.3306640386581421
+      }
+    },
+    {
+      "question": "What day, month, and year was the first ride on the White Mountain Central Railroad in New Hampshire?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The first ride on the White Mountain Cen",
+        "q_mean": 0.9470977783203125,
+        "chaff_mean": 0.4082846939563751,
+        "q_over_chaff": 2.3196994458516467,
+        "chaff_share": 0.2422046892340579,
+        "spearman_proxy_causal": 0.7078670859336853
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 330,
+        "n_answer_tokens": 28,
+        "answer_preview": "\n\nThe first ride on the White Mountain C",
+        "q_mean": 21.672256469726562,
+        "chaff_mean": 13.9999418258667,
+        "q_over_chaff": 1.5480247517660588,
+        "chaff_share": 0.2109216544405759,
+        "spearman_proxy_causal": 0.7265467047691345
+      }
+    },
+    {
+      "question": "What day, month, and year was the first Sazae-san strip run by the Asahi Shimbun published?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The first Sazae-san strip run by the Asa",
+        "q_mean": 2.5011038780212402,
+        "chaff_mean": 1.1768580675125122,
+        "q_over_chaff": 2.1252383333767213,
+        "chaff_share": 0.27506399249702157,
+        "spearman_proxy_causal": 0.6015710830688477
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 210,
+        "n_answer_tokens": 29,
+        "answer_preview": "\n\nThe first Sazae-san strip run by the A",
+        "q_mean": 21.786428451538086,
+        "chaff_mean": 13.642311096191406,
+        "q_over_chaff": 1.5969749038797623,
+        "chaff_share": 0.210102874937521,
+        "spearman_proxy_causal": 0.5678758025169373
+      }
+    },
+    {
+      "question": "What years was Antonio de Padua Mar\u00eda Severino L\u00f3pez de Santa Anna y P\u00e9rez de Lebr\u00f3n vice president?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The information provided is incomplete a",
+        "q_mean": 9.882672309875488,
+        "chaff_mean": 6.452692031860352,
+        "q_over_chaff": 1.53155803207088,
+        "chaff_share": 0.30996632487196896,
+        "spearman_proxy_causal": 0.5279994010925293
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 361,
+        "n_answer_tokens": 89,
+        "answer_preview": "\n\nThe years when these individuals serve",
+        "q_mean": 131.4186553955078,
+        "chaff_mean": 46.05690002441406,
+        "q_over_chaff": 2.853397760723036,
+        "chaff_share": 0.2426095507218417,
+        "spearman_proxy_causal": 0.7251830697059631
+      }
+    },
+    {
+      "question": "At what school was Leo Strauss working when he died?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "Leo Strauss was a scholar and philosophe",
+        "q_mean": 18.42531967163086,
+        "chaff_mean": 3.381612539291382,
+        "q_over_chaff": 5.448678539467414,
+        "chaff_share": 0.240860790488778,
+        "spearman_proxy_causal": 0.7619768977165222
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 253,
+        "n_answer_tokens": 16,
+        "answer_preview": "\n\nLeo Strauss was a professor at the Uni",
+        "q_mean": 48.56649398803711,
+        "chaff_mean": 12.106456756591797,
+        "q_over_chaff": 4.011619168555931,
+        "chaff_share": 0.22049615040689166,
+        "spearman_proxy_causal": 0.7390045523643494
+      }
+    },
+    {
+      "question": "What is the surname of the individual who won the Perkin Prize for Organic Chemistry in 2013?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The surname of the individual who won th",
+        "q_mean": 2.5132884979248047,
+        "chaff_mean": 1.5815374851226807,
+        "q_over_chaff": 1.589142541082324,
+        "chaff_share": 0.26836092900701997,
+        "spearman_proxy_causal": 0.5242636799812317
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 670,
+        "n_answer_tokens": 28,
+        "answer_preview": "\n\nThe surname of the individual who won ",
+        "q_mean": 20.47769546508789,
+        "chaff_mean": 14.980947494506836,
+        "q_over_chaff": 1.3669159091971042,
+        "chaff_share": 0.22434632611311786,
+        "spearman_proxy_causal": 0.597734272480011
+      }
+    },
+    {
+      "question": "What advanced reservoir simulation technology did Aramco unveil in 2010?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "Aramco unveiled **advanced reservoir sim",
+        "q_mean": 9.459189414978027,
+        "chaff_mean": 3.808753728866577,
+        "q_over_chaff": 2.4835392593873293,
+        "chaff_share": 0.29862610378541155,
+        "spearman_proxy_causal": 0.4676361083984375
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 426,
+        "n_answer_tokens": 75,
+        "answer_preview": "\n\nAramco unveiled advanced reservoir sim",
+        "q_mean": 44.05870056152344,
+        "chaff_mean": 19.506084442138672,
+        "q_over_chaff": 2.2587157710823886,
+        "chaff_share": 0.2698341039470172,
+        "spearman_proxy_causal": 0.6610059142112732
+      }
+    },
+    {
+      "question": "What is the name of the song which is number 17 on the album YoungstaCpt - 3T?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The song that is number 17 on the album ",
+        "q_mean": 4.118143558502197,
+        "chaff_mean": 2.6201722621917725,
+        "q_over_chaff": 1.571707180449797,
+        "chaff_share": 0.33879332471553275,
+        "spearman_proxy_causal": 0.5708074569702148
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 974,
+        "n_answer_tokens": 72,
+        "answer_preview": "\n\nThe information provided does not incl",
+        "q_mean": 22.530580520629883,
+        "chaff_mean": 15.284930229187012,
+        "q_over_chaff": 1.4740388201188577,
+        "chaff_share": 0.22995313143603166,
+        "spearman_proxy_causal": 0.5254807472229004
+      }
+    },
+    {
+      "question": "Who won the Benjamin Franklin Medal for Computer and Cognitive Science in 2012?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The Benjamin Franklin Medal for Computer",
+        "q_mean": 11.1837797164917,
+        "chaff_mean": 3.0068461894989014,
+        "q_over_chaff": 3.719438578384851,
+        "chaff_share": 0.2556740748285015,
+        "spearman_proxy_causal": 0.5068872570991516
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 203,
+        "n_answer_tokens": 31,
+        "answer_preview": "\n\nThe Benjamin Franklin Medal for Comput",
+        "q_mean": 33.92277145385742,
+        "chaff_mean": 17.934492111206055,
+        "q_over_chaff": 1.8914821364058239,
+        "chaff_share": 0.24316801349733327,
+        "spearman_proxy_causal": 0.6797810196876526
+      }
+    },
+    {
+      "question": "In the 2021 census, what was the population of Townview, a suburb in the City of Mount Isa, Australia?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The 2021 Census data for Townview,",
+        "q_mean": 5.295398712158203,
+        "chaff_mean": 3.5488665103912354,
+        "q_over_chaff": 1.4921380380617433,
+        "chaff_share": 0.3014862368088854,
+        "spearman_proxy_causal": 0.5458871722221375
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 324,
+        "n_answer_tokens": 59,
+        "answer_preview": "\n\nThe population of Townview, a suburb i",
+        "q_mean": 23.5557918548584,
+        "chaff_mean": 17.035011291503906,
+        "q_over_chaff": 1.3827869821610677,
+        "chaff_share": 0.2236289964402473,
+        "spearman_proxy_causal": 0.5804481506347656
+      }
+    },
+    {
+      "question": "In which season of Happy Valley does Claire run into Neil?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 11,
+        "n_answer_tokens": 11,
+        "answer_preview": "The answer is: **Season 1**.",
+        "q_mean": 14.428130149841309,
+        "chaff_mean": 4.674344539642334,
+        "q_over_chaff": 3.0866638151036474,
+        "chaff_share": 0.29607398428548654,
+        "spearman_proxy_causal": 0.7449761033058167
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 497,
+        "n_answer_tokens": 18,
+        "answer_preview": "\n\nClaire and Neil meet in **Season 1** o",
+        "q_mean": 34.70730972290039,
+        "chaff_mean": 9.921281814575195,
+        "q_over_chaff": 3.49826870877838,
+        "chaff_share": 0.21759975839969986,
+        "spearman_proxy_causal": 0.826688289642334
+      }
+    },
+    {
+      "question": "From which college did American politician Ellen M. Bard graduate in 1971?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The information provided is incomplete a",
+        "q_mean": 5.772541522979736,
+        "chaff_mean": 8.133660316467285,
+        "q_over_chaff": 0.7097101794739001,
+        "chaff_share": 0.45787124674659313,
+        "spearman_proxy_causal": 0.4506308138370514
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 295,
+        "n_answer_tokens": 52,
+        "answer_preview": "\n\nThe provided text contains unrelated i",
+        "q_mean": 27.58877944946289,
+        "chaff_mean": 25.10236167907715,
+        "q_over_chaff": 1.099051149137819,
+        "chaff_share": 0.3277210941307949,
+        "spearman_proxy_causal": 0.34713464975357056
+      }
+    },
+    {
+      "question": "What year was the municipality of Amalfi, Antioquia, Colombia, founded?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The municipality of Amalfi, Antioquia, C",
+        "q_mean": 1.0155744552612305,
+        "chaff_mean": 0.326241135597229,
+        "q_over_chaff": 3.1129564743639166,
+        "chaff_share": 0.23544849247631344,
+        "spearman_proxy_causal": 0.7761325836181641
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 532,
+        "n_answer_tokens": 82,
+        "answer_preview": "\n\nThe municipality of Amalfi, located in",
+        "q_mean": 49.37335968017578,
+        "chaff_mean": 16.85626220703125,
+        "q_over_chaff": 2.9290811375478416,
+        "chaff_share": 0.20931667213543087,
+        "spearman_proxy_causal": 0.8817558884620667
+      }
+    },
+    {
+      "question": "What is the surname of the individual who won the Green Chemistry Award in 2016?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The surname of the individual who won th",
+        "q_mean": 2.838486671447754,
+        "chaff_mean": 1.7072464227676392,
+        "q_over_chaff": 1.6626109936995777,
+        "chaff_share": 0.276569512225464,
+        "spearman_proxy_causal": 0.6701922416687012
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 306,
+        "n_answer_tokens": 26,
+        "answer_preview": "\n\nThe surname of the individual who won ",
+        "q_mean": 26.85213851928711,
+        "chaff_mean": 33.0914192199707,
+        "q_over_chaff": 0.8114532151308221,
+        "chaff_share": 0.37688421153710944,
+        "spearman_proxy_causal": 0.4398999810218811
+      }
+    },
+    {
+      "question": "At what age was Ken Noda invited by President Ronald Reagan and First Lady Nancy Reagan to perform at the White House?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "Ken Noda was invited by President Ronald",
+        "q_mean": 3.359884023666382,
+        "chaff_mean": 1.232871413230896,
+        "q_over_chaff": 2.725250977197516,
+        "chaff_share": 0.22285366665466638,
+        "spearman_proxy_causal": 0.7156162858009338
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 439,
+        "n_answer_tokens": 50,
+        "answer_preview": "\n\nKen Noda was invited by President Rona",
+        "q_mean": 31.118310928344727,
+        "chaff_mean": 13.129724502563477,
+        "q_over_chaff": 2.3700657940133563,
+        "chaff_share": 0.20631906240593198,
+        "spearman_proxy_causal": 0.752884566783905
+      }
+    },
+    {
+      "question": "How long, in minutes and seconds, is Beyonc\u00e9's album \"Dangerously in Love\"?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "Beyonc\u00e9's album *Dangerously in Love* is",
+        "q_mean": 7.6571550369262695,
+        "chaff_mean": 2.249997615814209,
+        "q_over_chaff": 3.403183622554803,
+        "chaff_share": 0.24889351202853,
+        "spearman_proxy_causal": 0.7505760192871094
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 406,
+        "n_answer_tokens": 27,
+        "answer_preview": "\n\nBeyonc\u00e9's album \"Dangerously in Love\" ",
+        "q_mean": 24.998498916625977,
+        "chaff_mean": 16.12364959716797,
+        "q_over_chaff": 1.5504243481585476,
+        "chaff_share": 0.23822489303375205,
+        "spearman_proxy_causal": 0.6977205276489258
+      }
+    },
+    {
+      "question": "What Serbian player played in the quarterfinals of the 2018 Madrid Open men's singles?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The Serbian player who played in the qua",
+        "q_mean": 2.619659662246704,
+        "chaff_mean": 2.229177713394165,
+        "q_over_chaff": 1.175168604327193,
+        "chaff_share": 0.3655708654321902,
+        "spearman_proxy_causal": 0.019684795290231705
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 353,
+        "n_answer_tokens": 33,
+        "answer_preview": "\n\nIvan Lendl. He was the top seed in the",
+        "q_mean": 37.376747131347656,
+        "chaff_mean": 20.64703941345215,
+        "q_over_chaff": 1.810271505899079,
+        "chaff_share": 0.25387981405531507,
+        "spearman_proxy_causal": 0.4992823004722595
+      }
+    },
+    {
+      "question": "In what year did the mathematician Joachim Neub\u00fcser graduate from the University of Kiel?",
+      "off": {
+        "thinking": false,
+        "had_think_block": false,
+        "n_reply_tokens": 12,
+        "n_answer_tokens": 12,
+        "answer_preview": "The mathematician Joachim Neub\u00fcser gradu",
+        "q_mean": 4.990289211273193,
+        "chaff_mean": 2.7004404067993164,
+        "q_over_chaff": 1.8479538369772466,
+        "chaff_share": 0.3250461455463995,
+        "spearman_proxy_causal": 0.5713600516319275
+      },
+      "on": {
+        "thinking": true,
+        "had_think_block": true,
+        "n_reply_tokens": 274,
+        "n_answer_tokens": 27,
+        "answer_preview": "\n\nThe mathematician Joachim Neub\u00fcser gra",
+        "q_mean": 24.148639678955078,
+        "chaff_mean": 20.0327091217041,
+        "q_over_chaff": 1.20546050622737,
+        "chaff_share": 0.27006486327744167,
+        "spearman_proxy_causal": 0.5683815479278564
+      }
+    }
+  ]
+}
