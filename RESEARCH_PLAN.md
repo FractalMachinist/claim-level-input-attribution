@@ -14,6 +14,7 @@ Companion to `README.md`. This file is the sequence of experiments.
 - **Thinking.** Stage 1 runs without thinking. Some stage 2 runs use a thinking budget. Stage 3 onward uses thinking by default. The gradient math is equally well-defined with or without thinking, so it's better to find out early whether thinking breaks it.
 - **Causal interventions** (resampling, reruns, activation patching, path patching) are the yardstick for any causal claim. Our workflow for constructing and checking causal claims is meant to fold gradually into the automated analysis step (Stage 4).
 - Write each stage's failure criterion before running it. Example for Stage 1: "random-token attribution is at least the question's, on most prompts, at most scales."
+- **Numerical precision is settled: fp32 for all attribution.** The Stage 1 noise floor sits near the scale where fp16 underflows tiny gradients and bf16's coarse mantissa adds error, so a low-precision run could report numerical noise as signal — we keep fp32 to prevent that confound in our measurements. (This originally interacted with a now-dropped plan to quantize onto a smaller GPU; with that gone, fp32 is simply the default.) Parked, not open: whether bf16 is an acceptable speed/memory trade at later stages once the floor is characterized.
 
 ## Stage 1: the core
 
@@ -64,7 +65,7 @@ Companion to `README.md`. This file is the sequence of experiments.
 - Source of LRP: implement or reuse.
 - Thresholds for each stage's failure criterion.
 - Thinking tokens: how gradients through generated tokens are handled.
-- Numerical precision: default to fp32 for attribution. The Stage 1 noise floor is near the scale where fp16 underflows tiny gradients and bf16's coarse mantissa adds error, so a low-precision run could report numerical noise as signal. fp32 (or at minimum an fp32 cross-check against any lower-precision run) is the default until a stage shows it is unnecessary. This is what drove the hardware choice (an 80GB A100: Qwen3-8B in fp32 needs ~32GB for weights alone, plus activations and the backward pass). Still open: whether bf16 is an acceptable speed/memory trade at later stages once the floor is characterized.
+- Model size as a lever: start small, but increase model size whenever size is the highly likely cause of a bad result (e.g. the model does not actually hold a fact, so the causal effect measures noise about an answer it never had). This is a deliberate move, not a default reach for scale.
 
 ## Not known
 
