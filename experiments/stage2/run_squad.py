@@ -218,6 +218,41 @@ def content_hit(proxy, labels, k=1):
     return {"content_hit_top1": hit, "gold_best_rank_frac": best}
 
 
+def auc_detector(scores, is_target):
+    """ROC-AUC of `scores` as a detector of the binary `is_target` label.
+
+    Prong 2 of row 5: can the gold span be RECOVERED from the raw proxy scores
+    alone, without knowing it in advance? AUC is exactly "if you slid a threshold
+    across the raw scores, how well do target tokens end up above non-target
+    ones." AUC=1 -> a threshold separates them perfectly (recoverable intact);
+    AUC=0.5 -> interleaved (unusable). It is GRADED (averages over target /
+    non-target pairs, so one weak boundary token lowers it slightly, not to
+    zero) and uses the RAW scores (no neighbor-smoothing / gap-filling -- that is
+    deployed-tool latitude the SCORE does not grant itself). Implemented as the
+    Mann-Whitney U statistic normalized, which equals ROC-AUC; no sklearn.
+    """
+    pos = [s for s, t in zip(scores, is_target) if t]
+    neg = [s for s, t in zip(scores, is_target) if not t]
+    if not pos or not neg:
+        return float("nan")
+    # rank all scores; AUC = (sum of ranks of positives - npos*(npos+1)/2)
+    # / (npos*nneg), with ties getting average ranks.
+    alls = sorted((s, i) for i, s in enumerate(scores))
+    ranks = [0.0] * len(scores)
+    i = 0
+    while i < len(alls):
+        j = i
+        while j + 1 < len(alls) and alls[j + 1][0] == alls[i][0]:
+            j += 1
+        avg = (i + j) / 2.0 + 1.0  # 1-based average rank for the tie group
+        for k in range(i, j + 1):
+            ranks[alls[k][1]] = avg
+        i = j + 1
+    sum_pos_ranks = sum(r for r, t in zip(ranks, is_target) if t)
+    npos, nneg = len(pos), len(neg)
+    return (sum_pos_ranks - npos * (npos + 1) / 2.0) / (npos * nneg)
+
+
 def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
     input_ids, labels = build_squad_prompt(tok, item, seed)
     if "gold_span" not in labels:
@@ -248,6 +283,15 @@ def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
     rho_ctx = (spearman(proxy_norm[cidx], dlogp[cidx])
                if len(cidx) > 2 else float("nan"))
 
+    # Prong 2 (recoverability): over the PASSAGE tokens (gold_span + context),
+    # how well does the raw proxy detect gold-span membership? ROC-AUC.
+    passage = [i for i, l in enumerate(labels) if l in ("gold_span", "context")]
+    is_gold = [labels[i] == "gold_span" for i in passage]
+    proxy_auc = auc_detector([float(proxy_norm[i]) for i in passage], is_gold)
+    # The causal analogue = the prong-2 CEILING: if even the measured causal
+    # effect cannot separate gold from context, no proxy could. (Validity check.)
+    causal_auc = auc_detector([float(dlogp[i]) for i in passage], is_gold)
+
     return {
         "question": item["question"],
         "gold_text": item["gold_text"],
@@ -260,6 +304,8 @@ def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
         "gold_span_hit": gold_hit,            # naive top-1 (template-confounded)
         "content_hit_top1": ch["content_hit_top1"],   # gold beats context, top-1
         "gold_best_rank_frac": ch["gold_best_rank_frac"],  # 0=best content token
+        "proxy_gold_auc": proxy_auc,          # prong 2: raw proxy recovers gold span
+        "causal_gold_auc": causal_auc,        # prong-2 ceiling (causal detector)
         "top_token_region": top_region,
         "rho_proxy_dlogp_context": rho_ctx,
         "region_proxy_mean": {
@@ -274,6 +320,14 @@ def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
             lab: rows.get(lab, {}).get("share_of_sum", 0.0)
             for lab in ("gold_span", "context", "question", "template")
         },
+        # RAW per-token vectors -- the authoritative export. Every scalar above
+        # is derivable from these offline, so a new per-token metric never forces
+        # a GPU re-run again, and all metrics can be recomputed from ONE run's
+        # raw data by ONE version of the metric code (no cross-run mixing).
+        "labels": labels,
+        "proxy_per_token": proxy_norm.tolist(),
+        "causal_dlogp_per_token": dlogp.tolist(),
+        "causal_kl_per_token": dkl.tolist(),
     }
 
 
