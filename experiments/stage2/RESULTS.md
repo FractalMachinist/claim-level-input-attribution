@@ -32,10 +32,31 @@ Three things, in order of importance:
 *Method note — a metric artifact caught first.* The pre-registered "is the single top proxy token in the gold span?" read ~0% because template/scaffold tokens carry outsized gradient norm (BOS / attention-sink) and dominate any naive top-1 (top token was template on 41/54 items). The fix, used throughout above: compare the gold span only against its real competitor, the context, excluding template. Span labeling uses char **overlap** not containment, so short answers whose boundary falls mid-token are not dropped (0/120 lost here vs 6/60 before).
 
 ### The proxy stays predictive as context complexity scales (distractor facts, longer context). (row 6)
-**Untested.** This run is the extractive core on compact single-paragraph contexts (≤400 chars). The scaling axes the plan names — multiple distractor facts (team/color/city, ask one), longer contexts — have not been run. The test: hold the task fixed, vary context complexity, and check whether the proxy still picks the right span and still tracks the causal effect. Includes the negative case (question answered from memory with irrelevant context present → the proxy should *not* light the context; plan line 43). This is the natural next Stage 2 run.
+**Partial** — the negative case is tested and passes decisively; the distractor-fact and longer-context scaling axes are still untested.
+
+*Negative case (tested, `stage2/run_negative.py`, 80 items).* The direct test of the product claim "flag when the model attended to what it *shouldn't*": give the model a closed-book SimpleQA question it answers from its own weights, with an **irrelevant** context paragraph stapled in front. The proxy should rank that context *below* the question, and the causal measurement should confirm the context barely matters. Two conditions, to see whether topical surface-similarity fools it: **unrelated** context vs **same-topic** context (fluent prose from the question's own broad topic).
+
+| condition | n | proxy ctx/question | causal ctx/question | proxy ranks ctx < question |
+|---|---:|---:|---:|---:|
+| unrelated | 46 | 0.19 | 0.006 | 46/46 |
+| same-topic | 34 | 0.15 | 0.008 | 34/34 |
+
+The proxy ranks the irrelevant context below the question on **80/80 items** (no item where irrelevant context out-scores the question; worst case is a single same-topic *tie*). The causal measurement agrees on 80/80 — perturbing the irrelevant context moves the reply ~0.6–0.8% as much as perturbing the question. And **same-topic context does not fool the proxy** — if anything it scores *lower* than unrelated (0.15 vs 0.19), so surface "looks-relevant" prose is not mistaken for relevance. This is a harder null than Stage 1's random chaff (fluent text, not noise) and the proxy passes it. Note the attribution is not zero on the context (ctx/q ≈ 0.15–0.19, context share of total proxy ≈ 0.26) — fluent prose draws *some* gradient — but it is correctly ranked well below the question, and the causal side confirms that non-zero proxy over-states the context's true ~0 effect (the same proxy-overstates-small-effects caution as Stage 1).
+
+*Still untested:* multiple distractor facts (several candidate spans, ask about one — does the proxy pick the right line?) and longer / multi-paragraph contexts. The test: hold the task fixed, scale context complexity, check the proxy still finds the right span and tracks the causal effect.
 
 ### A claim-vs-foil contrast objective (logit-difference) works, not only reply log-probability. (row 7)
-**Untested.** Everything in Stage 1 and Stage 2 so far uses the reply log-probability objective. The logit-difference-against-a-foil objective (the other objective the plan commits to at every stage) needs hand-written foils and has not been run here. The test: for each item, write a foil answer, attribute the gold-vs-foil logit difference, and compare to the log-prob attribution. (Stage 1 already hinted the objective matters — KL was better-predicted than |ΔlogP|.)
+**Supported.** `stage1/run_foil_objective.py`, 40 closed-book SimpleQA questions + 30 chaff. For each item we run two attributions on the same inputs: the usual reply-log-probability objective, and the **logit-difference** objective — the gradient of `logit(real answer) − logit(foil)` at the first answer position, where the foil is the first token of a different SimpleQA answer of the *same answer_type* (Person/Place/Date/Number), an automatic same-register alternative (hand-written foils are the eventual refinement; this scales).
+
+| | median |
+|---|---:|
+| agreement between the two objectives (Spearman on token ranking) | **0.84** |
+| log-prob objective: question/chaff mean | 2.16 |
+| foil objective: question/chaff mean | 1.60 |
+| log-prob objective vs causal effect (Spearman) | 0.59 |
+| foil objective vs causal effect (Spearman) | 0.48 |
+
+The two objectives **agree strongly** (ρ=0.84) and both keep chaff at the same share of attribution. The foil objective is slightly weaker on the question/chaff separation (1.60 vs 2.16) and on predicting the causal effect (0.48 vs 0.59) — expected, since a single-token logit contrast is a noisier signal than the whole reply's log-prob. But it behaves correctly: the plan's second objective works and tracks the first. (Consistent with Stage 1's hint that the objective matters — there KL beat |ΔlogP|.) The foil objective is also the one the README's step 3 literally describes (claim vs foil), so having it validated matters for the eventual product, not just for completeness.
 
 ### The method survives thinking tokens (gradients through generated reasoning). (row 8)
 **Untested.** Every run so far is thinking-OFF. The plan puts some Stage 2 runs on a thinking budget and makes thinking the default from Stage 3; the open question (RESEARCH_PLAN.md) is how gradients through generated reasoning tokens are handled. Not attempted here.

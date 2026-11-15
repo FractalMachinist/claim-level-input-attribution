@@ -33,8 +33,8 @@ States: **supported** (an experiment has demonstrated it) · **partial** (some e
 | 3 | There is a measurable noise floor / null distribution for attribution on irrelevant tokens, so the report can say a score is *notable*. | `stage1/run_noise_floor.py` | **partial** (floor characterized on single prompt; not yet across the benchmark) |
 | 4 | The proxy works regardless of whether the model's answer is correct (confident confabulation included). | `stage1/run_simpleqa.py` (no-filter design) | **supported** |
 | 5 | The proxy *finds the relevant span* when the answer lives in the context — not just ignores irrelevant filler. | Stage 2: extractive (SQuAD); `stage2/RESULTS.md` | **supported** (causal: answer tokens dominate, ~10× context / ~18× when correct; proxy predicts it, ρ≈0.42 pos on 96% of 120 SQuAD items) |
-| 6 | The proxy stays predictive as context complexity scales (distractor facts, longer context). | Stage 2 | **planned** |
-| 7 | A claim-vs-foil contrast objective (logit-difference) works, not only reply log-probability. | Stage 1/2: foil objective (needs hand-written foils) | **planned** |
+| 6 | The proxy stays predictive as context complexity scales (distractor facts, longer context). | Stage 2; `stage2/run_negative.py` | **partial** (negative case passes 80/80: irrelevant context ranked below the question, same-topic doesn't fool it; distractor-fact / longer-context scaling untested) |
+| 7 | A claim-vs-foil contrast objective (logit-difference) works, not only reply log-probability. | Stage 1/2: `stage1/run_foil_objective.py` | **supported** (foil objective agrees with log-prob ρ=0.84, tracks causal ρ=0.48; 40 items) |
 | 8 | The method survives thinking tokens (gradients through generated reasoning). | Stage 2 onward (thinking budget) | **planned** |
 | 9 | The method holds under *intentionally* hard-to-reason-about relevance (two people named Mary, scattered formatting). | Stage 3 | **planned** |
 | 10 | The annotation step works — the user can mark Request/Claims/Dressing, and an LLM can assist or stand in well enough to be useful. | not yet designed | **planned** |
