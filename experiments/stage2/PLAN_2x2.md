@@ -2,6 +2,8 @@
 
 Zach's call (2026-11-15), replacing an earlier pre-gate idea. This is the live task spec for the autonomous GPU session; if context compacts, resume from here.
 
+> **Superseded framing (read this first).** This plan set out to chase "the proxy shows a wrong model drew from outside the gold span." After the run, that framing was retired as a category error: the proxy measures counterfactual influence, not internal sourcing, and model correctness is orthogonal to attribution correctness — this technique is not a wrongness detector. The run itself was good; it found that gold-span attribution *covaries* with correctness, which is logged as an observation, not a capability. See `RESULTS.md` → "Scope". The paragraphs below are kept as the record of what we intended.
+
 ## The reframe
 
 Do NOT filter SQuAD items by whether the model answers correctly or confidently. Instead **split** every item into a 2×2 and ask whether attribution quality *differs across cells*:
