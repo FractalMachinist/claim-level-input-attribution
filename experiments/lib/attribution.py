@@ -177,6 +177,41 @@ def input_grad(model, input_ids, reply_ids):
     return per_pos_norm.detach().cpu(), float(total.detach().cpu())
 
 
+def input_grad_foil(model, input_ids, real_tok, foil_tok):
+    """Gradient of the logit-difference (real answer vs foil) w.r.t. inputs.
+
+    The plan's second objective (RESEARCH_PLAN.md: "two objectives at every
+    stage: log-probability and logit-difference against a foil"). Instead of the
+    reply's log-prob, we attribute the contrast logit(real) - logit(foil) at the
+    first answer position -- "which input tokens push the model toward the real
+    answer and away from the foil." This is the contrast the README's step 3
+    actually calls for (claim vs foil), so it is the more on-target objective.
+
+    Single-token form: real_tok and foil_tok are the first-token ids of the two
+    answers. The objective is evaluated at the position that predicts the
+    answer's first token, i.e. the last input position (next-token prediction).
+    Returns (per-input-position gradient L2 norm, the scalar logit difference).
+    """
+    device = model.device
+    embed = model.get_input_embeddings()
+    inp_len = input_ids.shape[0]
+
+    inp_emb = embed(input_ids.unsqueeze(0).to(device)).detach().clone()
+    inp_emb.requires_grad_(True)
+    out = model(inputs_embeds=inp_emb)
+    logits = out.logits[0]  # [T, V] fp32
+    # the next token after the prompt is predicted by the last position
+    pos = inp_len - 1
+    diff = logits[pos, real_tok] - logits[pos, foil_tok]
+
+    model.zero_grad(set_to_none=True)
+    diff.backward()
+
+    g = inp_emb.grad[0]  # [T, D]
+    per_pos_norm = g[:inp_len].norm(dim=-1)
+    return per_pos_norm.detach().cpu(), float(diff.detach().cpu())
+
+
 def summarize(labels, per_pos_norm):
     import collections
     by = collections.defaultdict(float)
