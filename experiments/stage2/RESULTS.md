@@ -1,62 +1,45 @@
 # Stage 2 results — extractive attribution on SQuAD (correctness × confidence 2×2)
 
-**Status (2026-11-15):** First Stage 2 result. The gradient proxy **finds the answer span in the context** — when the model answers correctly, the gold span carries ~2× the per-token attribution of the surrounding distractor text. A separate, cooler-than-expected observation: **how concentrated the attribution is on the gold span covaries with whether the model got the answer right.** We are careful below about what that covariation does and does not mean — it is an observation about the data, not a claim that this technique detects model wrongness (it does not; see "Scope").
+**Status (2026-11-15):** First Stage 2 result, and the core assumption (row 5) is **supported on both the proxy and the causal side**: the answer tokens causally dominate the reply (perturbing them moves it ~10× more than perturbing the rest of the context, ~18× on items the model gets right), and the gradient proxy predicts that (proxy-vs-causal ρ≈0.42, positive on 96% of items). The proxy orders correctly but understates the magnitude — same as Stage 1. A logged side-observation: attribution concentration covaries with correctness; this is data about the model, *not* a claim that the technique detects wrongness (model correctness is orthogonal to attribution correctness — the "Results, by assumption" section and `PLAN_2x2.md` say why).
 
 **Setup.** Qwen3-0.6B, fp32, A100-80GB. 120 compact SQuAD v1.1 dev items (context ≤400 chars, answer ≤25 chars). Each prompt = `{context}\n\nQuestion: {q}\nAnswer in as few words as possible.`, thinking OFF. Four token regions by character offset: **gold_span** (the answer inside the context, located by SQuAD `answer_start`), **context** (rest of paragraph — the distractor region), **question**, **template** (chat scaffolding). Proxy = plain-gradient L2 norm (same as Stage 1). Causal yardstick = single-token resampling under teacher forcing (same as Stage 1). Procedure: `stage2/run_squad.py`, reusing `lib/`. Raw: `stage2/runs/squad_2x2_n120.json`.
 
-**The 2×2 (Zach's design).** We do *not* filter by correctness or confidence; we run every item and split post-hoc into correct/wrong × confident/unconfident (confidence = teacher-forced log-prob of the model's own reply, median split). The question is whether attribution quality *differs across cells* — which, if it does, is an observation about how attribution relates to correctness. (The original framing hoped the wrong cells would show the proxy "detecting" wrongness; that framing was retired — see "Scope.")
+**The 2×2 (Zach's design).** We do *not* filter by correctness or confidence; we run every item and split post-hoc into correct/wrong × confident/unconfident (confidence = teacher-forced log-prob of the model's own reply, median split). The question is whether attribution quality *differs across cells* — which, if it does, is an observation about how attribution relates to correctness, not a wrongness detector (the original framing hoped otherwise; retired, per row 5 point 3 and `PLAN_2x2.md`).
 
-## A measurement artifact we caught first (don't skip this)
+## Results, by assumption
 
-The pre-registered headline metric was "is the single highest-proxy token inside the gold span?" It came back **~0% across all cells** — which looks like total failure. It is not. The top-1 token is a **template/chat-scaffold token on 41 of 54 items**: those tokens carry outsized gradient norm (a BOS / attention-sink artifact), so the answer span can never win a naive top-1. The fix is to compare the gold span against its *real* competitor — the distractor context — excluding template. All metrics below are template-excluded. (The naive hit rate is retained in the JSON as `naive_top1_hit_rate` for the record.)
+This section has one heading per assumption the STATUS.md table assigns to Stage 2, taken from the table verbatim, whether or not we have tested it. Headings with `Untested` are things Stage 2 is meant to answer and has not — they are here on purpose, so the doc states every question it should answer and an unanswered one is visible rather than silently absent.
 
-A second fix: span labeling now uses token/char **overlap**, not containment, so short answers whose boundary falls mid-token are no longer dropped (6/60 lost in the first run → 0/120 lost here).
+### The proxy *finds the relevant span* when the answer lives in the context — not just ignores irrelevant filler. (row 5)
+**Supported.** This is the core Stage 2 result, and it is confirmed on *both* sides — the proxy and the causal yardstick — not the proxy alone.
 
-## Result
+Per-token attribution on the **gold_span** vs the **context** (the distractor region), median ratio across 120 items. The causal column is the measured single-token-resampling effect (same intervention as Stage 1), not the gradient proxy:
 
-Per-token proxy ratio **gold_span : context** (median across items); `gold>ctx` = fraction of items where the gold span's mean proxy exceeds the context's.
-
-| cell | n | gold/ctx ratio | gold>ctx |
+| | proxy gold/ctx | **causal gold/ctx** | gold>ctx (proxy / causal) |
 |---|---:|---:|---:|
-| correct / confident | 48 | **2.44** | 83% |
-| correct / unconfident | 34 | 1.61 | 85% |
-| wrong / confident | 12 | **1.05** | 50% |
-| wrong / unconfident | 26 | 1.53 | 81% |
+| all items | 1.70 | **10.3** | 96/120 · 99/120 |
+| correct (substring) | 1.89 | **18.3** | — |
+| wrong (substring) | 1.42 | 1.37 | — |
 
-(Correctness here = strict substring match of a gold answer in the reply.)
+Three things, in order of importance:
 
-### What is solid
-**The proxy finds the answer span.** When the model answers correctly, the gold span carries ~2× the per-token attribution of the surrounding context (2.44 confident, 1.61 unconfident; gold out-scores context on 83–85% of items). This is the core Stage 2 claim — attribution works when the answer lives *in* the context, not just when irrelevant filler should be ignored (Stage 1). It is the in-context analogue of Stage 1's "question beats chaff."
+1. **The causal measurement independently says the gold span matters most.** Perturbing the answer tokens moves the reply ~10× more than perturbing the rest of the context (18× on items the model gets right). The proxy says gold>context on 96/120 items; the causal measurement says so on 99/120 — they agree. And **Spearman(proxy, causal effect) over context positions is ρ≈0.42, positive on 96% of items.** So this is not "the gradient score is high on the answer" (a statement about the proxy describing itself); it is "**the answer tokens causally dominate, and the proxy predicts that.**" That is what makes row 5 *supported* rather than merely suggestive.
 
-### The interesting observation: attribution concentration covaries with correctness
-Across the 2×2, the gold/context ratio is higher when the model answered correctly and lower when it did not — correct cells sit around 2.3–2.4, wrong cells lower. The size of the gap depends on how "wrong" is defined (the strict substring axis, 82/120 correct, and token-F1≥0.5, 43/120 correct, disagree substantially — substring is permissive):
+2. **The proxy gets the ranking right but understates the magnitude** — proxy ratio ~1.7–1.9 where the causal ratio is ~10–18. This is the same behavior seen in Stage 1 (proxy orders correctly, compresses the gap). Read proxy magnitudes as a ranking, not an effect size.
 
-| cell | n (substring) | gold/ctx | n (F1≥0.5) | gold/ctx |
-|---|---:|---:|---:|---:|
-| correct / confident | 48 | 2.44 | 31 | 2.32 |
-| wrong / confident | 12 | 1.05 | 29 | 1.84 |
+3. **Attribution concentration covaries with correctness** — and the causal side shows this far more sharply than the proxy. Causal gold/ctx is ~18× when the model is right vs ~1.4× when wrong (substring axis; ~22× vs ~3.9× under an F1≥0.5 axis — the wrong-cell magnitude is axis-dependent, the direction is not). This is logged as an **observation about the data**, not as a capability. It is explicitly *not* "the proxy detects when the model is wrong": the measurement is counterfactual influence, not the model's internal sourcing, and a ~1× ratio in the wrong cell is consistent with several internal stories (a consulted-but-vetoed span, redundant parametric+context support, or a correct read that failed downstream). Model correctness is orthogonal to attribution correctness; this technique flags attended-shouldn't / ignored-should, not model wrongness. (This is why the table has no "detects wrongness" row — see `PLAN_2x2.md`.)
 
-The substring cut makes the wrong/confident cell look dramatic (1.05); the F1 cut softens it (1.84, still below 2.32). Either way the direction is the same: **more concentrated gold-span attribution goes with being right.** This is a real and genuinely interesting covariation — worth understanding — and nothing more than that is claimed here (small cells: wrong/confident is n=12–29).
+*Method note — a metric artifact caught first.* The pre-registered "is the single top proxy token in the gold span?" read ~0% because template/scaffold tokens carry outsized gradient norm (BOS / attention-sink) and dominate any naive top-1 (top token was template on 41/54 items). The fix, used throughout above: compare the gold span only against its real competitor, the context, excluding template. Span labeling uses char **overlap** not containment, so short answers whose boundary falls mid-token are not dropped (0/120 lost here vs 6/60 before).
 
-### Scope: this is NOT a wrongness detector (why there is no "detects confident failure" claim)
-An earlier draft promoted that covariation to an assumption — "the proxy detects when a confidently-wrong model drew from outside the gold span." That was a category error and has been removed. The reasons, which bound what *any* finding in these cells can mean:
+### The proxy stays predictive as context complexity scales (distractor facts, longer context). (row 6)
+**Untested.** This run is the extractive core on compact single-paragraph contexts (≤400 chars). The scaling axes the plan names — multiple distractor facts (team/color/city, ask one), longer contexts — have not been run. The test: hold the task fixed, vary context complexity, and check whether the proxy still picks the right span and still tracks the causal effect. Includes the negative case (question answered from memory with irrelevant context present → the proxy should *not* light the context; plan line 43). This is the natural next Stage 2 run.
 
-- **The proxy measures counterfactual influence, not internal sourcing.** A low gold-span score means "perturbing the answer's location wouldn't move the reply much" — it does **not** establish that the model "drew from elsewhere." Low influence is equally consistent with: the model consulted the span but another computation vetoed it; it answered from parametric memory *and* the context redundantly, so no single location is load-bearing; or it attended correctly and failed downstream.
-- **Model correctness is orthogonal to attribution correctness.** The system's job (README) is to flag when the model attended to what it *shouldn't* or ignored what it *should*. A confidently-wrong answer is not in that target set: a model can be wrong for reasons wholly outside our scope (bad recall, a reasoning slip) while attending perfectly well to the gold span. This technique is **not** the right instrument for flagging input→output disconnects like failed recall or misinterpretation, and does not claim to be.
-- Consistent with this, the gold span still out-scores context even in the wrong cells (ratio > 1 under F1) — i.e. wrong answers do not stop attending to the answer's location. That is what the ensemble view predicts and what makes "detects wrongness" the wrong claim.
+### A claim-vs-foil contrast objective (logit-difference) works, not only reply log-probability. (row 7)
+**Untested.** Everything in Stage 1 and Stage 2 so far uses the reply log-probability objective. The logit-difference-against-a-foil objective (the other objective the plan commits to at every stage) needs hand-written foils and has not been run here. The test: for each item, write a foil answer, attribute the gold-vs-foil logit difference, and compare to the log-prob attribution. (Stage 1 already hinted the objective matters — KL was better-predicted than |ΔlogP|.)
 
-So the covariation is logged as an **observation about the data**, not as a capability of the tool.
+### The method survives thinking tokens (gradients through generated reasoning). (row 8)
+**Untested.** Every run so far is thinking-OFF. The plan puts some Stage 2 runs on a thinking budget and makes thinking the default from Stage 3; the open question (RESEARCH_PLAN.md) is how gradients through generated reasoning tokens are handled. Not attempted here.
 
-### Secondary observations
-- **Proxy-vs-causal agreement over context positions** (Spearman) is ρ≈0.39–0.44 across all cells — lower than Stage 1's chaff regime (expected: context tokens have real, varied, correlated effects, a harder ranking than chaff-vs-question), but consistently positive and cell-independent.
-- **0.6B is adequate for Stage 2 extraction** (82/120 substring-correct, 43/120 F1≥0.5) — the model-size lever was not needed. The 2×2 cells are populated, if unevenly.
-
-## What Stage 2 has NOT done
-- Only plain gradients, L2 norm, log-prob objective (same scope choice as Stage 1).
-- No distractor-fact / context-complexity scaling yet (plan's Stage 2 also wants: distractor facts, a negative "answered from memory" case). This run is the extractive core only.
-- Single seed; confidence is a median split, not a calibrated threshold.
-
-## Next
-1. The negative case: question answered from memory with irrelevant context present — proxy should not light the context (plan line 43). This is squarely in scope (attended-to-what-it-shouldn't) and the natural Stage 2 follow-up.
-2. Distractor facts (team/color/city, ask one) — does the proxy pick the right line among several candidate spans?
-3. The correctness×attribution covariation is a side-observation worth a cleaner look *if* it becomes relevant, but it is not on the critical path — detecting model wrongness is out of scope (see "Scope").
+## Incidental
+- **0.6B is adequate for Stage 2 extraction** (82/120 substring-correct, 43/120 F1≥0.5) — the model-size lever was not needed.
+- Only plain gradients, L2 norm (same proxy-scope choice as Stage 1); single seed; confidence is a median split, not a calibrated threshold.
