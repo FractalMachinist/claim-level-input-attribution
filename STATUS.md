@@ -6,18 +6,19 @@ See `README.md` for the idea and terms (Request / Claims / Dressing / Foil), `RE
 
 ---
 
-## Ideal user flow (DRAFT — Zach to revise; synthesized from README)
+## Ideal user flow
 
-> This section is the product vision and is the author's to own. The draft below is assembled from the README so the table has something to hang on; replace or correct freely.
+A user has relied on an LLM for a consequential answer and wants to know what actually shaped it. The system gives them that, from the one exchange in full — no hand-built matched pairs, no re-running the model a hundred times.
 
-A user has relied on an LLM for a consequential answer and wants to know what actually shaped it. They hand the system **one response and its full context** — no hand-built matched pairs, no re-running the model a hundred times themselves.
+Actors below are deliberately not all "the system": the README leaves open who annotates, where foils come from, and how the analysis works, and the flow keeps those open rather than assuming the most-automated answer.
 
-1. **The system annotates** the context and response into Request, Claims, and Dressing — it finds the load-bearing parts of the answer on its own.
-2. **For each claim, it takes foils** — plausible alternative versions of that claim — so "what influenced this" has a concrete contrast to measure against.
-3. **It attributes** each claim (vs. its foils) back to the input tokens, using cheap white-box gradient scores rather than hundreds of ablation passes.
-4. **It reports** in plain terms — the README's target form is *"The model said X. This depended on A and B. It did not appear to take C into account."* — as text or as annotation around the reply.
+1. **Annotate.** The user marks the parts of the answer they find crucial (ideally like highlighting lines in a PDF or HTML doc), splitting out their Request, the LLM's most important Claims, and the persuasive Dressing around those claims. An LLM could do this split for the user, help with it, or add to it — a model may be better than a reader at spotting dressing.
+2. **Take foils.** The user and the system can both contribute alternatives — responses *or* dressings — that would have mattered to the user had they been produced. A changed probability, a different recommendation, or a shift in tone can each matter, so we generate foils that are substantially different from the original.
+3. **Attribute.** For each claim (against its foils), attribute the model's choice back to the input tokens, using a cheap proxy — currently white-box gradient scores — instead of hundreds of ablation passes.
+4. **Analyze.** Turn the proxy scores into claims worth reporting, by a process not yet pinned down — for example a set of causal alterations that strongly support the attributions before they're shown. This step is the project's main open problem.
+5. **Report.** Say it in plain terms — the README's example form is *"The model said X. This depended on A and B. It did not appear to take C into account."* — as text or as annotation around the reply.
 
-The payoff is the Joe/Jane case from the README: two users get materially different answers, and the system shows the email domain drove the difference when it shouldn't have — from a single response each, cheaply enough to run routinely.
+The payoff is the Joe/Jane case from the README: two users get materially different answers and wouldn't have known; the system shows the email domain drove the difference when it shouldn't have — from a single response each, cheaply enough to run routinely.
 
 ---
 
@@ -36,10 +37,11 @@ States: **supported** (an experiment has demonstrated it) · **partial** (some e
 | 7 | A claim-vs-foil contrast objective (logit-difference) works, not only reply log-probability. | Stage 1/2: foil objective (needs hand-written foils) | **planned** |
 | 8 | The method survives thinking tokens (gradients through generated reasoning). | Stage 2 onward (thinking budget) | **planned** |
 | 9 | The method holds under *intentionally* hard-to-reason-about relevance (two people named Mary, scattered formatting). | Stage 3 | **planned** |
-| 10 | The annotation step (Request/Claims/Dressing) can be produced, not just assumed. | not yet designed | **planned** |
-| 11 | Foils can be generated at useful quality (LLM / user / template). | not yet designed | **planned** |
-| 12 | The analysis+report step turns many token attributions into a faithful, readable "depended on A, not C". | Stage 4 analysis step; `RESEARCH_PLAN.md` | **planned** (explicitly unresolved) |
-| 13 | It beats or complements the black-box baseline (ContextCite) at matched granularity. | comparison vs ContextCite | **planned** |
+| 10 | The annotation step works — the user can mark Request/Claims/Dressing, and an LLM can assist or stand in well enough to be useful. | not yet designed | **planned** |
+| 11 | Foils can be contributed at useful quality, by the user or the system (LLM / templates), for claims *and* dressing. | not yet designed | **planned** |
+| 12 | **Analyze:** proxy scores can be turned into attributions worth trusting — e.g. confirmed by causal alterations before they're reported. This is the project's main open problem. | Stage 4 analysis step; `RESEARCH_PLAN.md` | **planned** (explicitly unresolved) |
+| 13 | **Report:** the confirmed attributions render as a faithful, readable "depended on A, not C" — text or annotation on the reply. | Stage 4 | **planned** |
+| 14 | It beats or complements the black-box baseline (ContextCite) at matched granularity. | comparison vs ContextCite | **planned** |
 
 ### How to read the state column
-Rows 1–4 are the Stage 1 core, and they're in. Row 5 (extractive) is the next GPU run and the real test of whether "attribution" means "finds what matters," not just "ignores noise." Rows 7–9 are the plan's deliberately-hard stages. Rows 10–13 are the parts of the full flow we have *not* started — annotation, foil generation, the analysis/report synthesis, and the baseline comparison — and they're where the flow is still a sketch, not a demonstration.
+Rows 1–4 are the Stage 1 core, and they're in. Row 5 (extractive) is the next GPU run and the real test of whether "attribution" means "finds what matters," not just "ignores noise." Rows 7–9 are the plan's deliberately-hard stages. Rows 10–14 are the parts of the full flow we have *not* started — annotation, foil generation, the analysis step (row 12, the main open problem), the report, and the baseline comparison — and they're where the flow is still a sketch, not a demonstration.
