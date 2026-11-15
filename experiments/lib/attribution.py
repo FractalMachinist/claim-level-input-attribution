@@ -59,7 +59,8 @@ def pick_chaff_vocab(tok, n_candidates=4000, seed=0):
     return keep
 
 
-def build_prompt(tok, question, n_chaff, chaff_vocab, position="before", seed=0):
+def build_prompt(tok, question, n_chaff, chaff_vocab, position="before", seed=0,
+                 enable_thinking=False):
     """Build input_ids and a region label per position.
 
     Regions: 'template' (chat scaffolding), 'chaff' (random tokens),
@@ -81,9 +82,12 @@ def build_prompt(tok, question, n_chaff, chaff_vocab, position="before", seed=0)
         raise ValueError(position)
 
     msgs = [{"role": "user", "content": user_content}]
-    # enable_thinking=False: Qwen3 non-thinking format (empty <think> block).
+    # enable_thinking toggles Qwen3's reasoning format. Default False (empty
+    # <think> block) keeps every existing caller's behavior unchanged; Stage 2
+    # row 8 flips it True to test attribution with a generated reasoning prefix.
     text = tok.apply_chat_template(
-        msgs, tokenize=False, add_generation_prompt=True, enable_thinking=False
+        msgs, tokenize=False, add_generation_prompt=True,
+        enable_thinking=enable_thinking,
     )
 
     # Character spans of question / chaff *within user_content*, then shifted to
