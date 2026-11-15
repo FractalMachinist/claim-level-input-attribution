@@ -1,11 +1,6 @@
 # Claim-level input attribution for LLM epistemics audits
 
-**Status:** Stage 1 of the core hypothesis is **supported** — a plain gradient
-proxy predicts the causal effect of perturbing input tokens, generalizing across
-50 prompts on an external benchmark. See **[STATUS.md](STATUS.md)** for the
-ideal user flow, the assumptions it rests on, and which are demonstrated vs.
-planned. Stage 1 findings: [experiments/stage1/RESULTS.md](experiments/stage1/RESULTS.md).
-The sections below describe the idea as originally framed.
+**Status:** Stage 1 of the core hypothesis is **supported** — a plain gradient proxy predicts the causal effect of perturbing input tokens, generalizing across 50 prompts on an external benchmark. See **[STATUS.md](STATUS.md)** for the ideal user flow, the assumptions it rests on, and which are demonstrated vs. planned. Stage 1 findings: [experiments/stage1/RESULTS.md](experiments/stage1/RESULTS.md). The sections below describe the idea as originally framed.
 
 ## Problem
 

@@ -1,48 +1,29 @@
 # Status
 
-Where the project stands, framed as the **ideal user flow** we're building toward
-and the **assumptions that flow rests on**. Each assumption names the experiment
-meant to settle it. If the whole table reads `supported`, the flow is
-demonstrated end to end — i.e. we're done building. So this table is both a
-status board and a definition of done.
+Where the project stands, framed as the **ideal user flow** we're building toward and the **assumptions that flow rests on**. Each assumption names the experiment meant to settle it. If the whole table reads `supported`, the flow is demonstrated end to end — i.e. we're done building. So this table is both a status board and a definition of done.
 
-See `README.md` for the idea and terms (Request / Claims / Dressing / Foil),
-`RESEARCH_PLAN.md` for the staged experiment sequence, and
-`experiments/stage1/RESULTS.md` for the Stage 1 findings behind the states below.
+See `README.md` for the idea and terms (Request / Claims / Dressing / Foil), `RESEARCH_PLAN.md` for the staged experiment sequence, and `experiments/stage1/RESULTS.md` for the Stage 1 findings behind the states below.
 
 ---
 
 ## Ideal user flow (DRAFT — Zach to revise; synthesized from README)
 
-> This section is the product vision and is the author's to own. The draft below
-> is assembled from the README so the table has something to hang on; replace or
-> correct freely.
+> This section is the product vision and is the author's to own. The draft below is assembled from the README so the table has something to hang on; replace or correct freely.
 
-A user has relied on an LLM for a consequential answer and wants to know what
-actually shaped it. They hand the system **one response and its full context** —
-no hand-built matched pairs, no re-running the model a hundred times themselves.
+A user has relied on an LLM for a consequential answer and wants to know what actually shaped it. They hand the system **one response and its full context** — no hand-built matched pairs, no re-running the model a hundred times themselves.
 
-1. **The system annotates** the context and response into Request, Claims, and
-   Dressing — it finds the load-bearing parts of the answer on its own.
-2. **For each claim, it takes foils** — plausible alternative versions of that
-   claim — so "what influenced this" has a concrete contrast to measure against.
-3. **It attributes** each claim (vs. its foils) back to the input tokens, using
-   cheap white-box gradient scores rather than hundreds of ablation passes.
-4. **It reports** in plain terms — the README's target form is *"The model said
-   X. This depended on A and B. It did not appear to take C into account."* — as
-   text or as annotation around the reply.
+1. **The system annotates** the context and response into Request, Claims, and Dressing — it finds the load-bearing parts of the answer on its own.
+2. **For each claim, it takes foils** — plausible alternative versions of that claim — so "what influenced this" has a concrete contrast to measure against.
+3. **It attributes** each claim (vs. its foils) back to the input tokens, using cheap white-box gradient scores rather than hundreds of ablation passes.
+4. **It reports** in plain terms — the README's target form is *"The model said X. This depended on A and B. It did not appear to take C into account."* — as text or as annotation around the reply.
 
-The payoff is the Joe/Jane case from the README: two users get materially
-different answers, and the system shows the email domain drove the difference
-when it shouldn't have — from a single response each, cheaply enough to run
-routinely.
+The payoff is the Joe/Jane case from the README: two users get materially different answers, and the system shows the email domain drove the difference when it shouldn't have — from a single response each, cheaply enough to run routinely.
 
 ---
 
 ## Assumptions this flow rests on
 
-States: **supported** (an experiment has demonstrated it) · **partial** (some
-evidence, not yet conclusive) · **planned** (experiment identified, not run).
+States: **supported** (an experiment has demonstrated it) · **partial** (some evidence, not yet conclusive) · **planned** (experiment identified, not run).
 
 | # | Assumption the flow needs | Experiment that tests it | State |
 |---|---|---|---|
@@ -61,9 +42,4 @@ evidence, not yet conclusive) · **planned** (experiment identified, not run).
 | 13 | It beats or complements the black-box baseline (ContextCite) at matched granularity. | comparison vs ContextCite | **planned** |
 
 ### How to read the state column
-Rows 1–4 are the Stage 1 core, and they're in. Row 5 (extractive) is the next
-GPU run and the real test of whether "attribution" means "finds what matters,"
-not just "ignores noise." Rows 7–9 are the plan's deliberately-hard stages. Rows
-10–13 are the parts of the full flow we have *not* started — annotation, foil
-generation, the analysis/report synthesis, and the baseline comparison — and
-they're where the flow is still a sketch, not a demonstration.
+Rows 1–4 are the Stage 1 core, and they're in. Row 5 (extractive) is the next GPU run and the real test of whether "attribution" means "finds what matters," not just "ignores noise." Rows 7–9 are the plan's deliberately-hard stages. Rows 10–13 are the parts of the full flow we have *not* started — annotation, foil generation, the analysis/report synthesis, and the baseline comparison — and they're where the flow is still a sketch, not a demonstration.
