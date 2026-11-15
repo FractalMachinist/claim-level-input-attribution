@@ -1,65 +1,51 @@
 #!/usr/bin/env python
-"""Stage 1 cross-prompt generalization over SimpleQA.
+"""Stage 1 procedure: cross-prompt generalization over SimpleQA.
 
-Stage 1 so far (stage1_causal.py) established, on ONE hand-written question, that
-the plain-gradient proxy predicts the measured causal effect of resampling chaff
-tokens. This script tests whether that holds ACROSS MANY prompts, using a
-recognizable external benchmark instead of hand-written questions, so we don't
-have to defend a homemade question set.
+Stage 1 on one hand-written question (run_causal.py) established that the
+plain-gradient proxy predicts the measured causal effect of resampling chaff
+tokens. This tests whether that holds ACROSS MANY prompts, using a recognizable
+external benchmark (SimpleQA; Wei et al. 2024) instead of hand-written
+questions, so we don't have to defend a homemade question set.
 
-Benchmark: SimpleQA (OpenAI; Wei et al. 2024). 4,326 short closed-book factual
-questions, answered from the model's own parametric knowledge -- no supporting
-context. That is exactly the Stage 1 regime: the whole prompt is
-{question tokens + N chaff tokens}, and NOTHING in it should matter except the
-question. The answer span lives in the model's weights, not the prompt, which is
-what separates this from a Stage 2 extractive (read-it-from-context) task.
+SimpleQA = 4,326 short closed-book factual questions, answered from the model's
+own parametric knowledge, no supporting context. That is exactly the Stage 1
+regime: the whole prompt is {question tokens + N chaff}, and NOTHING in it should
+matter except the question. (Contrast Stage 2, where the answer lives in a
+context paragraph -- that is extractive, run from stage2/.)
 
-NO FILTERING on confidence or correctness (deliberate, see RESEARCH_PLAN.md
-discussion): the Stage 1 claim -- "chaff with no epistemic reason to be attended
-to scores near the noise floor, and the proxy tracks the causal effect" -- holds
-whether or not the model knows the answer. A confidently-confabulated answer is a
-valid datapoint: the model produced *some* reply, and we test whether gradient
-attribution correctly says it did NOT come from the random chaff. Filtering would
-select a friendly subset and invite a cherry-picking critique. We RECORD the
-reply's self-confidence (teacher-forced log-prob) as a covariate, but never gate
-on it -- so we can later ask "does proxy quality depend on model confidence?"
-without having excluded the low-confidence items that would answer it.
+NO FILTERING on confidence or correctness (deliberate, see RESEARCH_PLAN.md and
+the Stage 1 results doc): the Stage 1 claim holds whether or not the model knows
+the answer. A confidently-confabulated answer is a valid datapoint -- the model
+produced *some* reply, and we test whether gradient attribution correctly says it
+did NOT come from the random chaff. We RECORD the reply's self-confidence
+(teacher-forced log-prob) as a covariate, never gate on it.
 
-Per question we reuse the trusted Stage 1 core unchanged (build_prompt,
-generate_reply, input_grad, measured_effect) and record, for each N:
-  - region split of the proxy (question / chaff / template),
-  - Spearman(proxy, |dLogP|) and Spearman(proxy, KL), over all positions and
-    within the chaff region,
-  - region means of proxy and measured effect,
-  - reply text + self log-prob (the confidence covariate).
+The generalization result is the DISTRIBUTION across questions. Machinery:
+lib/attribution.py and lib/causal.py.
 
-The generalization result is the DISTRIBUTION of these across questions: does the
-proxy predict the causal effect on most prompts, and does chaff stay near the
-floor on most prompts? Aggregates are written alongside the per-question rows.
-
-Precision: fp32 throughout (RESEARCH_PLAN.md: settled, prevents the low-precision
-numerical-noise confound at the Stage 1 floor).
+Run from experiments/:
+  python stage1/run_simpleqa.py --csv ../data/simpleqa/simple_qa_test_set.csv \
+      --n-questions 50 --n-chaff 15 30 60 --positions before after \
+      --out stage1/runs/simpleqa.json
 """
 
 import argparse
 import ast
 import csv
 import json
+import os
 import random
+import sys
 import time
 
 import torch
 
-from stage1_grad_scaffold import (
-    MODEL,
-    build_prompt,
-    generate_reply,
-    input_grad,
-    pick_chaff_vocab,
-    summarize,
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from lib.attribution import (  # noqa: E402
+    MODEL, build_prompt, generate_reply, input_grad, load_model,
+    pick_chaff_vocab, summarize,
 )
-from stage1_causal import measured_effect, spearman
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from lib.causal import measured_effect, spearman  # noqa: E402
 
 
 def load_simpleqa(path, n_questions, seed, max_q_chars):
@@ -165,11 +151,7 @@ def main():
     args = ap.parse_args()
 
     t0 = time.time()
-    tok = AutoTokenizer.from_pretrained(MODEL)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.float32).eval()
-    if torch.cuda.is_available():
-        model.cuda()
-    print(f"[load] {MODEL} fp32 in {time.time()-t0:.1f}s on {model.device}")
+    tok, model = load_model()
 
     chaff_vocab = pick_chaff_vocab(tok, seed=args.seed)
     questions = load_simpleqa(args.csv, args.n_questions, args.seed,
@@ -218,14 +200,12 @@ def main():
                 continue
             rho_all = [r["spearman_proxy_dlogp_all"] for r in runs]
             rho_kl = [r["spearman_proxy_kl_all"] for r in runs]
-            # chaff vs question mean-norm (proxy) across prompts
             chaff_share = [r["proxy_region"].get("chaff", {}).get("share_of_sum")
                            for r in runs]
             q_mean = [r["proxy_region"].get("question", {}).get("mean_norm")
                       for r in runs]
             c_mean = [r["proxy_region"].get("chaff", {}).get("mean_norm")
                       for r in runs]
-            # per-prompt: does question out-rank chaff in mean proxy?
             q_gt_c = [(qm is not None and cm is not None and qm > cm)
                       for qm, cm in zip(q_mean, c_mean)]
             aggregates[key] = {

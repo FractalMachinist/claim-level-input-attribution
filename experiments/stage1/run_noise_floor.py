@@ -1,63 +1,35 @@
 #!/usr/bin/env python
-"""Stage 1 noise floor: how consistently can the measured effect be measured?
+"""Stage 1 procedure: measurement noise floor (split-half reliability).
 
 The causal script estimates each position's effect as mean |ΔlogP| over K
-replacement draws. That estimate has sampling error (which tokens got drawn).
-If a position's effect can't be measured consistently, no proxy can be expected
-to rank it correctly -- so the ceiling on proxy-vs-measured rank agreement is
-set by the measurement's own self-consistency, not by the proxy.
+replacement draws. That estimate has sampling error. If a position's effect
+can't be measured consistently, no proxy can be expected to rank it correctly --
+so the ceiling on proxy-vs-measured rank agreement is set by the measurement's
+own self-consistency, not by the proxy.
 
-Method:
-  - For each input position, draw TWO independent sets of K replacements and
-    compute two independent effect estimates, eA[i] and eB[i].
-  - Split-half reliability = Spearman(eA, eB) over positions (and within chaff).
-    This is an upper bound on any proxy's achievable rank correlation with the
-    "true" effect: a proxy cannot correlate with the true ranking better than
-    two independent measurements of it correlate with each other (attenuation).
-  - Also report a per-position noise band: std of the per-draw |ΔlogP| across
-    the 2K draws, so we can see which positions are simply unmeasurable at K.
-  - Corrected proxy agreement: rho(proxy, mean(eA,eB)) / sqrt(reliability) is a
-    rough disattenuated estimate of the proxy's true-effect correlation.
+Method: two independent K-draw effect estimates per position (eA, eB).
+Split-half reliability = Spearman(eA, eB) is an upper bound on any proxy's
+achievable rank correlation with the true effect; proxy agreement divided by
+sqrt(reliability) is a rough disattenuated estimate of the true correlation.
+Machinery: lib/attribution.py and lib/causal.py.
 
-Pairs with stage1_causal.py (same intervention, same teacher forcing, fp32).
+Run from experiments/:  python stage1/run_noise_floor.py --n-chaff 30 --out stage1/runs/x.json
 """
 
 import argparse
 import json
-import time
+import os
+import sys
 
 import torch
 
-from stage1_causal import spearman, teacher_forced_logp_and_dist
-from stage1_grad_scaffold import (
-    MODEL,
-    build_prompt,
-    generate_reply,
-    input_grad,
-    pick_chaff_vocab,
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+from lib.attribution import (  # noqa: E402
+    MODEL, build_prompt, generate_reply, input_grad, load_model, pick_chaff_vocab,
 )
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-
-def effect_estimate(model, full, inp_len, reply_ids, base_rows,
-                    chaff_vocab, k_draws, gen):
-    """One |ΔlogP| estimate per position from K draws (independent of others)."""
-    device = model.device
-    n_vocab = len(chaff_vocab)
-    eff = torch.zeros(inp_len)
-    for i in range(inp_len):
-        batch = full.unsqueeze(0).repeat(k_draws, 1).clone()
-        repl = [chaff_vocab[int(torch.randint(n_vocab, (1,), generator=gen))]
-                for _ in range(k_draws)]
-        batch[:, i] = torch.tensor(repl, device=device)
-        with torch.no_grad():
-            logp = torch.log_softmax(model(batch).logits, dim=-1)  # [K,T,V]
-        d = 0.0
-        for j, tokid in enumerate(reply_ids.tolist()):
-            pos = inp_len + j - 1
-            d = d + (logp[:, pos, tokid] - base_rows[j, tokid])
-        eff[i] = d.abs().mean().item()
-    return eff
+from lib.causal import (  # noqa: E402
+    effect_estimate, spearman, teacher_forced_logp_and_dist,
+)
 
 
 def main():
@@ -71,12 +43,7 @@ def main():
     ap.add_argument("--out", default=None)
     args = ap.parse_args()
 
-    t0 = time.time()
-    tok = AutoTokenizer.from_pretrained(MODEL)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.float32).eval()
-    if torch.cuda.is_available():
-        model.cuda()
-    print(f"[load] {MODEL} fp32 in {time.time()-t0:.1f}s on {model.device}")
+    tok, model = load_model()
 
     chaff_vocab = pick_chaff_vocab(tok, seed=args.seed)
     input_ids, labels, _ = build_prompt(

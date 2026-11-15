@@ -1,11 +1,19 @@
 #!/usr/bin/env python
-"""Summarize Stage 1 sweep JSONs into a table. Run from project root."""
+"""Summarize Stage 1 sweep (chaff-sweep) JSONs into a table.
+
+Run from experiments/:  python stage1/summarize_sweep.py
+"""
 import glob
 import json
+import os
+
+RUNS = os.path.join(os.path.dirname(__file__), "runs")
 
 rows = []
-for f in sorted(glob.glob("experiments/runs/*.json")):
+for f in sorted(glob.glob(os.path.join(RUNS, "*.json"))):
     d = json.load(open(f))
+    if "region_rows" not in d:  # skip causal_* and simpleqa_* (other schemas)
+        continue
     r = d["region_rows"]
     q = r.get("question", {})
     c = r.get("chaff", {})

@@ -1,10 +1,16 @@
 #!/usr/bin/env python
-"""Summarize Stage 1 causal JSONs: proxy-vs-measured rank agreement. Run from root."""
+"""Summarize Stage 1 causal JSONs: proxy-vs-measured rank agreement.
+
+Run from experiments/:  python stage1/summarize_causal.py
+"""
 import glob
 import json
+import os
+
+RUNS = os.path.join(os.path.dirname(__file__), "runs")
 
 rows = []
-for f in sorted(glob.glob("experiments/runs/causal_*.json")):
+for f in sorted(glob.glob(os.path.join(RUNS, "causal_*.json"))):
     d = json.load(open(f))
     labels = d["labels"]
     proxy = d["proxy_norm"]

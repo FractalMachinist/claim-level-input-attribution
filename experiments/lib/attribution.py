@@ -1,41 +1,37 @@
 #!/usr/bin/env python
-"""Stage 1 scaffold: plain gradient of a reply w.r.t. input embeddings.
+"""Reusable attribution machinery -- import this, do not run it.
 
-The smallest test of the core mechanic (README "The idea", step 3). Builds a
-prompt of N random "chaff" tokens plus a simple factual question, generates a
-short reply with thinking OFF, then computes the plain gradient of the reply's
-log-probability (teacher-forced) w.r.t. the input embeddings. Reports how the
-gradient magnitude is distributed across prompt regions.
+Shared across stages: model loading, the chaff-vocab sampler, prompt building
+with region labels, greedy reply generation, the plain-gradient input
+attribution, and the per-region summary. The runnable experiment procedures
+live in stageN/run_*.py and import from here.
 
-Stage 1 question (RESEARCH_PLAN.md): with no epistemic reason to attend to the
-chaff, does the question outweigh the chaff in the proxy, at various N? This
-scaffold only establishes the plumbing and prints the region split for one
-prompt; the sweep over N, means-vs-sums, position, and the causal (resample)
-side come next.
-
-Precision: fp32 throughout (RESEARCH_PLAN.md open-decisions entry). bf16 is
-available on this A100 but is deliberately not used here — the Stage 1 noise
-floor is where low precision could masquerade as signal.
-
-Design notes / open points (NOT settled — flagged for Zach):
-- Objective here is reply log-prob. logit-difference-vs-foil is the other
-  objective in the plan; added in the next iteration (needs hand-written foils).
-- Aggregation of per-token embedding gradients to a scalar per input position
-  uses the L2 norm of the gradient vector at that position. Sum-of-abs and
-  grad*input are alternatives the plan wants compared; not done yet.
-- "Chaff" tokens are sampled uniformly from a filtered vocab (ascii-ish, no
-  specials). Whether that is the right null is itself a Stage 1 question.
+Precision: fp32 throughout (RESEARCH_PLAN.md: settled, prevents the
+low-precision numerical-noise confound at the Stage 1 noise floor).
 """
 
-import argparse
-import json
 import re
-import time
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 MODEL = "Qwen/Qwen3-0.6B"
+
+
+def load_model(model_name=MODEL, verbose=True):
+    """Load tokenizer + fp32 model onto GPU if available. Returns (tok, model)."""
+    import time
+    t0 = time.time()
+    tok = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name, dtype=torch.float32
+    ).eval()
+    if torch.cuda.is_available():
+        model.cuda()
+    if verbose:
+        print(f"[load] {model_name} fp32 in {time.time()-t0:.1f}s "
+              f"on {model.device}")
+    return tok, model
 
 
 def pick_chaff_vocab(tok, n_candidates=4000, seed=0):
@@ -198,64 +194,3 @@ def summarize(labels, per_pos_norm):
             "mean_norm": by[lab] / cnt[lab],
         }
     return rows
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--question", default="What is the longest bony fish?")
-    ap.add_argument("--n-chaff", type=int, default=30)
-    ap.add_argument("--position", choices=["before", "after"], default="before")
-    ap.add_argument("--max-new-tokens", type=int, default=16)
-    ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--out", default=None, help="write JSON result here")
-    args = ap.parse_args()
-
-    t0 = time.time()
-    tok = AutoTokenizer.from_pretrained(MODEL)
-    model = AutoModelForCausalLM.from_pretrained(MODEL, dtype=torch.float32)
-    model.eval()
-    if torch.cuda.is_available():
-        model.cuda()
-    print(f"[load] {MODEL} fp32 in {time.time()-t0:.1f}s on {model.device}")
-
-    chaff_vocab = pick_chaff_vocab(tok, seed=args.seed)
-    input_ids, labels, user_content = build_prompt(
-        tok, args.question, args.n_chaff, chaff_vocab, args.position, args.seed
-    )
-    reply_ids = generate_reply(model, tok, input_ids, args.max_new_tokens)
-    reply_text = tok.decode(reply_ids, skip_special_tokens=True)
-    print(f"[prompt] {len(input_ids)} tokens; regions: "
-          f"{ {l: labels.count(l) for l in set(labels)} }")
-    print(f"[reply]  {reply_text!r}")
-
-    per_pos_norm, logp = input_grad(model, input_ids, reply_ids)
-    rows = summarize(labels, per_pos_norm)
-
-    print(f"[logp] teacher-forced reply log-prob = {logp:.3f}")
-    print(f"{'region':<10}{'n':>5}{'sum_norm':>14}{'share':>9}{'mean_norm':>14}")
-    for lab in ("question", "chaff", "template"):
-        if lab in rows:
-            r = rows[lab]
-            print(f"{lab:<10}{r['n_tokens']:>5}{r['sum_norm']:>14.4e}"
-                  f"{r['share_of_sum']:>9.3f}{r['mean_norm']:>14.4e}")
-
-    result = {
-        "model": MODEL,
-        "dtype": "float32",
-        "question": args.question,
-        "n_chaff": args.n_chaff,
-        "position": args.position,
-        "seed": args.seed,
-        "n_input_tokens": len(input_ids),
-        "reply_text": reply_text,
-        "reply_logp": logp,
-        "region_rows": rows,
-    }
-    if args.out:
-        with open(args.out, "w") as f:
-            json.dump(result, f, indent=2)
-        print(f"[out] wrote {args.out}")
-
-
-if __name__ == "__main__":
-    main()
