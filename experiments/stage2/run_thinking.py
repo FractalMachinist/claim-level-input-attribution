@@ -34,8 +34,8 @@ import torch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from lib.attribution import (  # noqa: E402
-    MODEL, build_prompt, generate_reply, input_grad, load_model,
-    pick_chaff_vocab, summarize,
+    MODEL, build_prompt, generate_replies_batched, generate_reply, input_grad,
+    load_model, pick_chaff_vocab, summarize,
 )
 from lib.causal import measured_effect, spearman  # noqa: E402
 
@@ -70,12 +70,21 @@ def region_mean(arr, labels, lab):
 
 
 def run_cond(model, tok, question, chaff_vocab, n_chaff, enable_thinking,
-             max_new_tokens, k_draws, seed):
-    input_ids, labels, _ = build_prompt(
-        tok, question, n_chaff, chaff_vocab, "before", seed,
-        enable_thinking=enable_thinking,
-    )
-    reply_ids = generate_reply(model, tok, input_ids, max_new_tokens)
+             max_new_tokens, k_draws, seed, input_ids=None, labels=None,
+             reply_ids=None):
+    """Attribution + causal for one (question, thinking) condition.
+
+    Generation is now done up front in a batch (main()), so input_ids/labels/
+    reply_ids are passed in. If not passed, falls back to generating here (keeps
+    the function usable standalone).
+    """
+    if input_ids is None:
+        input_ids, labels, _ = build_prompt(
+            tok, question, n_chaff, chaff_vocab, "before", seed,
+            enable_thinking=enable_thinking,
+        )
+    if reply_ids is None:
+        reply_ids = generate_reply(model, tok, input_ids, max_new_tokens)
     if len(reply_ids) == 0:
         return {"error": "empty reply"}
     full_reply_text = tok.decode(reply_ids, skip_special_tokens=False)
@@ -118,8 +127,11 @@ def main():
     ap.add_argument("--n-chaff", type=int, default=30)
     ap.add_argument("--max-q-chars", type=int, default=120)
     ap.add_argument("--max-new-off", type=int, default=12)
-    ap.add_argument("--max-new-on", type=int, default=160,
-                    help="thinking needs room for the reasoning block + answer")
+    ap.add_argument("--max-new-on", type=int, default=2048,
+                    help="high ceiling so thinking finishes; per-seq EOS early-"
+                         "exit means finished replies cost little even batched")
+    ap.add_argument("--gen-batch", type=int, default=16,
+                    help="prompts generated together (batched generation)")
     ap.add_argument("--k-draws", type=int, default=6)
     ap.add_argument("--model", default=MODEL)
     ap.add_argument("--seed", type=int, default=0)
@@ -132,20 +144,51 @@ def main():
     chaff_vocab = pick_chaff_vocab(tok, seed=args.seed)
     questions = load_simpleqa(args.simpleqa, args.seed, args.max_q_chars)
 
+    qs = questions[:args.n_questions]
+
+    # --- Phase 1: batched generation (the slow part, now parallel) ---
+    # Build all prompts (off + on), generate replies in batches per condition.
+    off_prompts, on_prompts = [], []
+    for q in qs:
+        iid_off, lab_off, _ = build_prompt(tok, q["question"], args.n_chaff,
+                                           chaff_vocab, "before", args.seed,
+                                           enable_thinking=False)
+        iid_on, lab_on, _ = build_prompt(tok, q["question"], args.n_chaff,
+                                         chaff_vocab, "before", args.seed,
+                                         enable_thinking=True)
+        off_prompts.append((iid_off, lab_off))
+        on_prompts.append((iid_on, lab_on))
+
+    def gen_all(prompts, cap, tag):
+        replies = []
+        bs = args.gen_batch
+        for k in range(0, len(prompts), bs):
+            chunk = [p[0] for p in prompts[k:k + bs]]
+            replies.extend(generate_replies_batched(model, tok, chunk, cap))
+            print(f"[gen-{tag}] {min(k+bs,len(prompts))}/{len(prompts)}  "
+                  f"{(time.time()-t0):.0f}s")
+        return replies
+
+    off_replies = gen_all(off_prompts, args.max_new_off, "off")
+    on_replies = gen_all(on_prompts, args.max_new_on, "on")
+
+    # --- Phase 2: attribution + causal per item (serial; trusted core) ---
     per_item, done = [], 0
-    for q in questions:
-        if done >= args.n_questions:
-            break
+    for i, q in enumerate(qs):
         off = run_cond(model, tok, q["question"], chaff_vocab, args.n_chaff,
-                       False, args.max_new_off, args.k_draws, args.seed)
+                       False, args.max_new_off, args.k_draws, args.seed,
+                       input_ids=off_prompts[i][0], labels=off_prompts[i][1],
+                       reply_ids=off_replies[i])
         on = run_cond(model, tok, q["question"], chaff_vocab, args.n_chaff,
-                      True, args.max_new_on, args.k_draws, args.seed)
+                      True, args.max_new_on, args.k_draws, args.seed,
+                      input_ids=on_prompts[i][0], labels=on_prompts[i][1],
+                      reply_ids=on_replies[i])
         if "error" in off or "error" in on:
             continue
         per_item.append({"question": q["question"], "off": off, "on": on})
         done += 1
         if done % args.progress_every == 0:
-            print(f"[prog] {done}/{args.n_questions}  {done/(time.time()-t0):.2f}/s")
+            print(f"[attr] {done}/{len(qs)}  {done/(time.time()-t0):.2f}/s")
 
     import statistics as st
 

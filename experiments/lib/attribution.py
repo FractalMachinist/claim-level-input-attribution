@@ -149,6 +149,62 @@ def generate_reply(model, tok, input_ids, max_new_tokens=16):
     return reply_ids
 
 
+@torch.no_grad()
+def generate_replies_batched(model, tok, input_ids_list, max_new_tokens=16):
+    """Greedy-generate replies for many prompts at once. Returns a list of
+    reply-id tensors, one per prompt, each stripped of padding and aligned to
+    exactly what the per-prompt generate_reply would return.
+
+    Correctness notes for batched causal-LM generation:
+    - LEFT-pad: prompts have different lengths; for a decoder-only model the
+      generated continuation must start right after each prompt's last real
+      token, which only lines up if padding is on the LEFT. Right-padding would
+      make the model attend to pad tokens as if they were context -> wrong.
+    - An attention_mask marks the real tokens so padding is ignored.
+    - Greedy + per-sequence EOS: generate stops a sequence when it emits EOS;
+      the batch runs until all sequences stop or the cap is hit. A short reply
+      costs little even in a batch with one long reply, because finished
+      sequences stop contributing new tokens.
+    - We slice each output from its own prompt length (uniform after left-pad)
+      and drop trailing pad tokens, so each returned tensor matches the
+      single-prompt result.
+    """
+    device = model.device
+    pad_id = tok.pad_token_id if tok.pad_token_id is not None else tok.eos_token_id
+    maxlen = max(x.shape[0] for x in input_ids_list)
+
+    batch = torch.full((len(input_ids_list), maxlen), pad_id, dtype=torch.long)
+    attn = torch.zeros((len(input_ids_list), maxlen), dtype=torch.long)
+    for j, ids in enumerate(input_ids_list):
+        L = ids.shape[0]
+        batch[j, maxlen - L:] = ids       # LEFT-pad
+        attn[j, maxlen - L:] = 1
+    batch, attn = batch.to(device), attn.to(device)
+
+    out = model.generate(
+        batch, attention_mask=attn,
+        max_new_tokens=max_new_tokens,
+        do_sample=False, temperature=None, top_p=None, top_k=None,
+        pad_token_id=pad_id,
+    )
+    gen = out[:, maxlen:].cpu()  # [B, <=max_new_tokens], continuation only
+    replies = []
+    for j in range(gen.shape[0]):
+        row = gen[j]
+        # strip trailing pad tokens (finished sequences are pad-filled after EOS)
+        nonpad = (row != pad_id).nonzero().flatten()
+        if len(nonpad) == 0:
+            replies.append(row[:0])
+            continue
+        # keep through the last non-pad token (EOS itself is kept if != pad;
+        # since pad_id == eos here, a trailing EOS is indistinguishable from pad
+        # and is stripped -- matching generate_reply, which also excludes the
+        # pad/eos tail for teacher forcing).
+        last = int(nonpad[-1].item())
+        replies.append(row[: last + 1])
+    return replies
+
+
 def input_grad(model, input_ids, reply_ids):
     """Plain gradient of teacher-forced reply log-prob w.r.t. input embeddings.
 
