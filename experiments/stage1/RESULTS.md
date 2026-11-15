@@ -1,16 +1,36 @@
-# Stage 1 scaffold — first results
+# Stage 1 results
 
-**Status:** proxy-side plumbing only. No causal (resample) side yet, so nothing
-here is validated against a measured effect. One prompt, one question, one seed.
-Read these as "the plumbing works and gives a sane-looking signal", not as a
-Stage 1 conclusion.
+**Status (2026-11-15):** Stage 1 core finding established and **generalized
+across 50 prompts** on an external benchmark. The plain gradient proxy predicts
+the measured causal effect of perturbing input tokens, and agreement improves
+with the number of distractor tokens. See "Cross-prompt generalization" below
+for the headline result; the single-prompt sections that precede it are how we
+got there.
 
-**Setup.** Qwen3-0.6B, **fp32**, A100-80GB (instance 60694029). Prompt = N
+**Reading order for a newcomer** (optional — your own tools may route you
+differently): the argument runs *causal tests → proxy → gradients*. We first
+build a causal yardstick (does perturbing a token actually change the answer?),
+then ask whether a cheap gradient score predicts that yardstick. If you want the
+punchline, skip to "Cross-prompt generalization (SimpleQA)".
+
+**Glossary** (this doc assumes some ML terms):
+- *Teacher forcing* — fix the model's generated reply, then score it; removes
+  sampling noise so the only variation is the input perturbation.
+- *Proxy* — the cheap gradient-based score we hope predicts influence.
+- *Measured / causal effect* — what actually happens to the reply when we
+  resample an input token. The ground truth the proxy is judged against.
+- *Spearman ρ (rho)* — rank correlation; 1.0 = proxy orders tokens exactly as
+  their measured effect does, 0 = unrelated, <0 = reversed.
+- *Chaff* — random filler tokens with no epistemic reason to matter (Stage 1's
+  stand-in for irrelevant context).
+
+**Setup.** Qwen3-0.6B, **fp32**, A100-80GB. Single-prompt sections: prompt = N
 random "chaff" tokens + the question "What is the longest bony fish?", thinking
 OFF. Proxy = plain gradient of the teacher-forced reply log-prob w.r.t. input
 embeddings; per-position score = L2 norm of that gradient. Regions labeled by
-character offset (robust to tokenization shifts). Script:
-`experiments/stage1_grad_scaffold.py`. Raw JSON: `experiments/runs/`.
+character offset (robust to tokenization shifts). Procedures:
+`experiments/stage1/run_*.py` (machinery in `experiments/lib/`). Raw JSON:
+`experiments/stage1/runs/`.
 
 ## Table
 
@@ -64,7 +84,7 @@ gradient norm summed over all input tokens.
 
 ## Causal side — proxy vs measured effect (the real Stage 1 deliverable)
 
-`experiments/stage1_causal.py`. Intervention = single-token resampling under
+`stage1/run_causal.py`. Intervention = single-token resampling under
 teacher forcing (reply R fixed); measured effect per position = mean |ΔlogP| of
 R over K=8 replacement draws, and mean per-reply-token KL. Proxy = gradient L2
 norm. Agreement = Spearman rank correlation. Consistency check passes: the
@@ -120,7 +140,7 @@ scatter at n5-before (one outlier token vs broad mis-ranking).
 
 ## Noise floor — is the proxy limited, or is the measurement?
 
-`experiments/stage1_noise_floor.py`. Split-half reliability = Spearman of two
+`stage1/run_noise_floor.py`. Split-half reliability = Spearman of two
 independent K=8 effect estimates of the same positions. A proxy cannot correlate
 with the true ranking better than the measurement correlates with itself
 (attenuation), so reliability is the ceiling; disattenuated = rho_proxy /
@@ -161,15 +181,72 @@ rank order is near-arbitrary and low-value — a useful caution for the analysis
 step (don't trust fine chaff rankings when effects are clustered), not a
 scale-relevant failure. By N=30 proxy_chaff rises to meet rel_chaff.
 
-## What this is NOT
-- Still **one prompt, one question**. No cross-prompt generalization.
-- K=8 draws per position is a thin effect estimate; single seed per cell.
-- Only L2 norm of the gradient. grad*input, sum-of-abs, IG, LRP: not done.
-- No logit-difference-vs-foil objective yet.
+## Cross-prompt generalization (SimpleQA) — the headline result
+
+`stage1/run_simpleqa.py`. The single-prompt sections above are one question; the
+obvious objection is that we picked a friendly example. This replaces the
+hand-written question with **50 questions sampled from SimpleQA** (OpenAI; Wei et
+al. 2024) — a recognizable closed-book factual benchmark, so there is no homemade
+question set to defend. Same regime: {question + N chaff}, answer from the
+model's own weights, chaff should not matter. Same proxy and same causal
+yardstick, now run per question and aggregated across the 50.
+
+**No filtering.** We do *not* drop questions the model gets wrong or is unsure
+of. The Stage 1 claim — chaff with no reason to matter should score near the
+floor, and the proxy should track the causal effect — holds whether or not the
+model knows the answer. 0.6B confidently *confabulates* most SimpleQA answers
+(e.g. answers "Bogotá" for a Beijing question) and the proxy still works. Each
+reply's self-confidence (log-prob) is recorded as a covariate but never used to
+select. Filtering would quietly select a friendly subset.
+
+Median across 50 prompts (ρ = Spearman proxy-vs-measured; "ρ>0 on" = fraction of
+prompts with positive agreement; "q>chaff" = fraction where the question region
+out-scores chaff in mean proxy):
+
+| N (chaff) | pos | ρ(proxy, \|ΔlogP\|) | ρ>0 on | ρ(proxy, KL) | q>chaff |
+|---:|:--|---:|---:|---:|---:|
+| 15 | before | 0.39 | 94% | 0.41 | 72% |
+| 15 | after  | 0.48 | 98% | 0.51 | 82% |
+| 30 | before | 0.60 | 100% | 0.64 | 84% |
+| 30 | after  | 0.67 | 100% | 0.72 | 92% |
+| 60 | before | 0.74 | 100% | 0.80 | 94% |
+| 60 | after  | **0.79** | 100% | **0.83** | **100%** |
+
+Raw: `stage1/runs/simpleqa_n50_N15-30-60.json` (per-question rows + aggregates).
+
+### What generalizes
+1. **The core finding holds across prompts, not just one.** On a benchmark we
+   didn't write, the proxy predicts the causal effect; at N≥30 the agreement is
+   positive on **100%** of prompts.
+2. **Agreement improves monotonically with N** — the same trend as the single
+   prompt, now a population effect (0.39→0.60→0.74 before; 0.48→0.67→0.79 after).
+   The plan feared possible degradation with N; we see the opposite, robustly.
+3. **KL is consistently the better-predicted target** than |ΔlogP| — true in
+   every row. Feeds the "two objectives" decision.
+4. **Position is a real but minor effect:** "after" beats "before" in every row.
+
+### The honest wrinkle (same as the single prompt, now at population scale)
+At small N (15), "question out-ranks chaff in mean proxy" holds on only 72–82%
+of prompts — i.e. on ~1 in 4 short-chaff prompts, some chaff token out-scores the
+question region on average. This is the small-N unrankability seen in the
+single-prompt noise floor (few near-equal tiny effects), and it **resolves as N
+grows** (→94–100% at N=60). The proxy is most reliable exactly where there is
+more signal to separate. Reported, not hidden.
+
+## What Stage 1 has NOT done
+- Only **plain gradients, L2 norm**. grad×input, sum-of-abs, IG, LRP: not done.
+  (Deliberate for the sprint — if the simplest proxy works, that is the result.
+  IG/LRP are the natural next proxies if a later stage breaks plain gradients.)
+- Only the **log-prob objective**. logit-difference-vs-foil: not done (needs
+  hand-written foils). KL being best-predicted is a hint the objective matters.
+- **One seed per cell**; K=8 draws per position is a thin effect estimate. No
+  formal variance bands yet (the 50-prompt distribution is a partial stand-in).
+- Still **Stage 1 regime only**: chaff is irrelevant *by construction*. Stage 2
+  tests the harder case where the answer lives in the context (see
+  `experiments/stage2/DESIGN_NOTES.md`).
 
 ## Next
-1. ~~Noise floor~~ **done** (see above): proxy is near its ceiling for N≥30.
-2. Multiple questions / seeds → cross-prompt generalization and variance bands.
-3. Add grad*input and the per-swap first-order score; compare proxy families.
-4. logit-difference-vs-foil objective (needs hand-written foils).
-5. IG and LRP, the other two proxy families in the plan.
+1. Stage 2: extractive (SQuAD) — does the proxy *find* the relevant span, not
+   just ignore irrelevant chaff? Data and design staged.
+2. logit-difference-vs-foil objective (needs foils); grad×input comparison.
+3. Variance bands (more seeds) if a result hinges on a close margin.
