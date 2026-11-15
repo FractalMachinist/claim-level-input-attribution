@@ -1,1 +1,5 @@
 BRIEF.md
+
+# Redistributable benchmark datasets: kept in the project for audit/rerun,
+# but not vendored into the public repo. Fetch with `make data` (see Makefile).
+data/
