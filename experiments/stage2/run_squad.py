@@ -119,11 +119,17 @@ def build_squad_prompt(tok, item, seed=0):
     input_ids = enc["input_ids"][0]
     offsets = enc["offset_mapping"][0].tolist()
 
+    def overlaps(a, b, span):
+        return a < span[1] and b > span[0]
+
     def region_of(a, b):
         if b <= a:
             return "template"
-        # gold_span takes priority over context (it's inside it)
-        if a >= gold_span[0] and b <= gold_span[1]:
+        # gold_span takes priority over context (it's inside it). Use OVERLAP,
+        # not containment: a token that straddles the span boundary still counts
+        # as gold -- otherwise short answers whose first/last char falls
+        # mid-token drop the whole item (6/60 lost in the first run).
+        if overlaps(a, b, gold_span):
             return "gold_span"
         if a >= q_span[0] and b <= q_span[1]:
             return "question"
@@ -153,15 +159,63 @@ def is_correct(reply_text, all_answers):
     return False
 
 
+def token_f1(reply_text, all_answers):
+    """Max SQuAD token-F1 of the reply against any gold answer.
+
+    Recorded alongside the strict substring `correct` flag so the correctness
+    axis of the 2x2 can be drawn either way in analysis -- substring match
+    mislabels 'time and space' vs gold 'time or space' as wrong; F1 catches it.
+    """
+    import collections
+    pred = normalize(reply_text).split()
+    best = 0.0
+    for a in all_answers:
+        gold = normalize(a).split()
+        if not pred or not gold:
+            continue
+        common = collections.Counter(pred) & collections.Counter(gold)
+        same = sum(common.values())
+        if same == 0:
+            continue
+        prec = same / len(pred)
+        rec = same / len(gold)
+        best = max(best, 2 * prec * rec / (prec + rec))
+    return best
+
+
 def region_mean(arr, labels, lab):
     idx = [i for i, l in enumerate(labels) if l == lab]
     return float(arr[idx].mean()) if idx else float("nan")
 
 
 def top_token_region(proxy, labels):
-    """Region of the single highest-proxy input token."""
-    i = int(torch.tensor(proxy).argmax())
+    """Region of the single highest-proxy input token (all regions)."""
+    i = int(proxy.argmax())
     return labels[i]
+
+
+def content_hit(proxy, labels, k=1):
+    """Does a gold_span token rank in the top-k AMONG CONTENT tokens?
+
+    Template/chat-scaffold tokens carry outsized gradient norm (BOS /
+    attention-sink artifact) and dominate a naive top-1, so the gold span never
+    wins against them. The meaningful question is whether the answer span beats
+    its actual competitor -- the distractor context. We restrict to content
+    regions (gold_span + context + question) and ask whether a gold token is in
+    the top-k there. k=1 is the strict headline; we also report the gold span's
+    best rank among content tokens.
+    """
+    content_idx = [i for i, l in enumerate(labels)
+                   if l in ("gold_span", "context", "question")]
+    if not content_idx:
+        return {"content_hit_top1": False, "gold_best_rank_frac": float("nan")}
+    # rank content tokens by proxy, descending
+    ranked = sorted(content_idx, key=lambda i: float(proxy[i]), reverse=True)
+    gold_positions = [rank for rank, i in enumerate(ranked)
+                      if labels[i] == "gold_span"]
+    hit = any(r < k for r in gold_positions)
+    best = (min(gold_positions) / len(ranked)) if gold_positions else float("nan")
+    return {"content_hit_top1": hit, "gold_best_rank_frac": best}
 
 
 def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
@@ -179,9 +233,13 @@ def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
     )
 
     correct = is_correct(reply_text, item["all_answers"])
-    # gold-span hit: is the top proxy token in the gold span?
+    f1 = token_f1(reply_text, item["all_answers"])
+    # Naive top-1 (all regions) -- kept for diagnostics; dominated by template.
     top_region = top_token_region(proxy_norm, labels)
     gold_hit = (top_region == "gold_span")
+    # The REAL headline: does the gold span beat its competitor, the context,
+    # once the template/sink tokens are excluded?
+    ch = content_hit(proxy_norm, labels, k=1)
 
     rows = summarize(labels, proxy_norm)
     # spearman proxy-vs-measured over CONTEXT positions (incl. gold_span)
@@ -195,10 +253,13 @@ def run_one(model, tok, item, max_new_tokens, k_draws, chaff_vocab, seed):
         "gold_text": item["gold_text"],
         "reply_text": reply_text,
         "reply_logp": grad_logp,          # confidence axis
-        "correct": correct,               # correctness axis
+        "correct": correct,               # correctness axis (strict substring)
+        "token_f1": f1,                   # softer correctness (SQuAD token-F1)
         "n_input_tokens": len(input_ids),
         "n_reply_tokens": len(reply_ids),
-        "gold_span_hit": gold_hit,
+        "gold_span_hit": gold_hit,            # naive top-1 (template-confounded)
+        "content_hit_top1": ch["content_hit_top1"],   # gold beats context, top-1
+        "gold_best_rank_frac": ch["gold_best_rank_frac"],  # 0=best content token
         "top_token_region": top_region,
         "rho_proxy_dlogp_context": rho_ctx,
         "region_proxy_mean": {
@@ -231,26 +292,35 @@ def summarize_cells(per_item, conf_threshold):
     def agg(rs):
         import statistics
         n = len(rs)
-        hit = sum(1 for r in rs if r["gold_span_hit"]) / n if n else float("nan")
-        gold_sh = statistics.median(r["region_share_of_proxy"]["gold_span"]
-                                    for r in rs) if n else float("nan")
-        ctx_sh = statistics.median(r["region_share_of_proxy"]["context"]
-                                   for r in rs) if n else float("nan")
-        # gold vs context mean-norm: does gold outscore the rest of context?
+
+        def med(vals):
+            v = [x for x in vals if x == x]  # drop nan
+            return statistics.median(v) if v else float("nan")
+
+        # Headline (template-excluded): gold beats context top-1 among content.
+        content_hit = sum(1 for r in rs if r["content_hit_top1"]) / n
+        # gold span's best rank among content tokens (0=top; lower is better).
+        best_rank = med(r["gold_best_rank_frac"] for r in rs)
+        # gold vs context mean-norm ratio -- the cleanest "is the answer
+        # special" signal, and the one that separated correct from wrong/conf.
+        ratio = med(r["region_proxy_mean"]["gold_span"]
+                    / r["region_proxy_mean"]["context"]
+                    for r in rs if r["region_proxy_mean"]["context"] > 0)
         gold_gt_ctx = sum(
             1 for r in rs
             if r["region_proxy_mean"]["gold_span"]
-            > r["region_proxy_mean"]["context"]) / n if n else float("nan")
-        rho = [r["rho_proxy_dlogp_context"] for r in rs
-               if r["rho_proxy_dlogp_context"] == r["rho_proxy_dlogp_context"]]
-        rho_med = statistics.median(rho) if rho else float("nan")
+            > r["region_proxy_mean"]["context"]) / n
+        rho_med = med(r["rho_proxy_dlogp_context"] for r in rs)
+        # naive (confounded) hit, kept for the record
+        naive_hit = sum(1 for r in rs if r["gold_span_hit"]) / n
         return {
             "n": n,
-            "gold_span_hit_rate": hit,
-            "median_gold_share_of_proxy": gold_sh,
-            "median_context_share_of_proxy": ctx_sh,
+            "content_hit_top1_rate": content_hit,
+            "median_gold_best_rank_frac": best_rank,
+            "median_gold_to_context_ratio": ratio,
             "frac_gold_mean_gt_context_mean": gold_gt_ctx,
             "median_rho_proxy_dlogp_context": rho_med,
+            "naive_top1_hit_rate": naive_hit,
         }
 
     return {f"{c}/{cf}": agg(rs) for (c, cf), rs in sorted(cells.items())}
@@ -329,11 +399,15 @@ def main():
 
     cells = summarize_cells(per_item, conf_threshold)
     print("\n=== 2x2 cells (correctness x confidence) ===")
+    print("  (gold/ctx = median per-token proxy ratio gold_span:context;")
+    print("   the key signal is whether this > 1 means the answer is 'special')")
     for key, a in cells.items():
-        print(f"[{key:>15}] n={a['n']:>3}  gold_hit={a['gold_span_hit_rate']:.0%}  "
-              f"gold_share={a['median_gold_share_of_proxy']:.3f}  "
-              f"gold>ctx mean on {a['frac_gold_mean_gt_context_mean']:.0%}  "
-              f"rho(ctx)={a['median_rho_proxy_dlogp_context']:.3f}")
+        print(f"[{key:>15}] n={a['n']:>3}  "
+              f"gold/ctx={a['median_gold_to_context_ratio']:.2f}  "
+              f"gold>ctx on {a['frac_gold_mean_gt_context_mean']:.0%}  "
+              f"content_hit={a['content_hit_top1_rate']:.0%}  "
+              f"rho(ctx)={a['median_rho_proxy_dlogp_context']:.3f}  "
+              f"(naive_hit={a['naive_top1_hit_rate']:.0%})")
 
     result = {
         "model": args.model, "dtype": "float32", "benchmark": "SQuAD-v1.1-dev",

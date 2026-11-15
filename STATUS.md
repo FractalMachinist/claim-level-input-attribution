@@ -32,7 +32,8 @@ States: **supported** (an experiment has demonstrated it) · **partial** (some e
 | 2 | That proxy-vs-causal agreement holds across many prompts, not one cherry-picked example. | `stage1/run_simpleqa.py` (50 SimpleQA Qs, no filter) | **supported** |
 | 3 | There is a measurable noise floor / null distribution for attribution on irrelevant tokens, so the report can say a score is *notable*. | `stage1/run_noise_floor.py` | **partial** (floor characterized on single prompt; not yet across the benchmark) |
 | 4 | The proxy works regardless of whether the model's answer is correct (confident confabulation included). | `stage1/run_simpleqa.py` (no-filter design) | **supported** |
-| 5 | The proxy *finds the relevant span* when the answer lives in the context — not just ignores irrelevant filler. | Stage 2: extractive (SQuAD); `stage2/DESIGN_NOTES.md` | **planned** (data + design staged) |
+| 5 | The proxy *finds the relevant span* when the answer lives in the context — not just ignores irrelevant filler. | Stage 2: extractive (SQuAD); `stage2/RESULTS.md` | **supported** (gold span carries ~2× the context's per-token proxy when the model answers correctly, 120 SQuAD items) |
+| 5b | The proxy detects when a *confidently wrong* model drew from outside the gold span (the epistemics payoff). | Stage 2: wrong/confident cell | **partial** (directional: gold/ctx 1.05–1.84 vs 2.3 for correct; sensitive to the correctness definition, small cells — see RESULTS) |
 | 6 | The proxy stays predictive as context complexity scales (distractor facts, longer context). | Stage 2 | **planned** |
 | 7 | A claim-vs-foil contrast objective (logit-difference) works, not only reply log-probability. | Stage 1/2: foil objective (needs hand-written foils) | **planned** |
 | 8 | The method survives thinking tokens (gradients through generated reasoning). | Stage 2 onward (thinking budget) | **planned** |

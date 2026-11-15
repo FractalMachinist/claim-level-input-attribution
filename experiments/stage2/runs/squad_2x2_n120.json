@@ -1,0 +1,4014 @@
+{
+  "model": "Qwen/Qwen3-0.6B",
+  "dtype": "float32",
+  "benchmark": "SQuAD-v1.1-dev",
+  "n_items": 120,
+  "n_scored": 120,
+  "n_correct": 82,
+  "conf_threshold": -0.833326667547226,
+  "max_ctx_chars": 400,
+  "max_ans_chars": 25,
+  "k_draws": 6,
+  "seed": 0,
+  "elapsed_sec": 789.3990678787231,
+  "cells": {
+    "correct/conf": {
+      "n": 48,
+      "content_hit_top1_rate": 0.20833333333333334,
+      "median_gold_best_rank_frac": 0.05718954248366013,
+      "median_gold_to_context_ratio": 2.440910900670853,
+      "frac_gold_mean_gt_context_mean": 0.8333333333333334,
+      "median_rho_proxy_dlogp_context": 0.38520193099975586,
+      "naive_top1_hit_rate": 0.08333333333333333
+    },
+    "correct/unconf": {
+      "n": 34,
+      "content_hit_top1_rate": 0.14705882352941177,
+      "median_gold_best_rank_frac": 0.1272604588394062,
+      "median_gold_to_context_ratio": 1.611058859046556,
+      "frac_gold_mean_gt_context_mean": 0.8529411764705882,
+      "median_rho_proxy_dlogp_context": 0.4400964081287384,
+      "naive_top1_hit_rate": 0.0
+    },
+    "wrong/conf": {
+      "n": 12,
+      "content_hit_top1_rate": 0.16666666666666666,
+      "median_gold_best_rank_frac": 0.1819734530548507,
+      "median_gold_to_context_ratio": 1.049781937350854,
+      "frac_gold_mean_gt_context_mean": 0.5,
+      "median_rho_proxy_dlogp_context": 0.4323890060186386,
+      "naive_top1_hit_rate": 0.0
+    },
+    "wrong/unconf": {
+      "n": 26,
+      "content_hit_top1_rate": 0.15384615384615385,
+      "median_gold_best_rank_frac": 0.10157699443413729,
+      "median_gold_to_context_ratio": 1.527479459971325,
+      "frac_gold_mean_gt_context_mean": 0.8076923076923077,
+      "median_rho_proxy_dlogp_context": 0.4187062680721283,
+      "naive_top1_hit_rate": 0.038461538461538464
+    }
+  },
+  "per_item": [
+    {
+      "question": "When did Martin Luther receive his Doctor of Theology?",
+      "gold_text": "19 October 1512",
+      "reply_text": "On 21 October 1512, Martin",
+      "reply_logp": -0.6133092045783997,
+      "correct": true,
+      "token_f1": 0.5,
+      "n_input_tokens": 111,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.06976744186046512,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.1887849122285843,
+      "region_proxy_mean": {
+        "gold_span": 3.9955356121063232,
+        "context": 3.1833674907684326,
+        "question": 9.03058910369873,
+        "template": 19.720548629760742
+      },
+      "region_measured_mean": {
+        "gold_span": 0.7872394323348999,
+        "context": 0.5527898073196411,
+        "question": 1.9777573347091675,
+        "template": 2.9827911853790283
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03870210123241144,
+        "context": 0.2659533365356683,
+        "question": 0.09840748497948046,
+        "template": 0.5969370772524398
+      }
+    },
+    {
+      "question": "Who is the play-by-play announcer for the game?",
+      "gold_text": "Kevin Harlan",
+      "reply_text": "Kevin Harlan.",
+      "reply_logp": -0.014693966135382652,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 91,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.6656869649887085,
+      "region_proxy_mean": {
+        "gold_span": 0.4691629409790039,
+        "context": 0.07278341799974442,
+        "question": 0.13630279898643494,
+        "template": 0.49374449253082275
+      },
+      "region_measured_mean": {
+        "gold_span": 19.6749210357666,
+        "context": 0.04222099110484123,
+        "question": 0.11697053909301758,
+        "template": 2.560011625289917
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.07418905255313571,
+        "context": 0.20333079543232202,
+        "question": 0.0718455102705883,
+        "template": 0.650634641743954
+      }
+    },
+    {
+      "question": "What type of religious behavior was Tesla against?",
+      "gold_text": "fanaticism",
+      "reply_text": "Tesla opposed religious fanaticism.",
+      "reply_logp": -0.2692950367927551,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 79,
+      "n_reply_tokens": 7,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.05555555555555555,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.21033765375614166,
+      "region_proxy_mean": {
+        "gold_span": 2.5744404792785645,
+        "context": 1.402278184890747,
+        "question": 3.500044107437134,
+        "template": 2.975303888320923
+      },
+      "region_measured_mean": {
+        "gold_span": 4.292952060699463,
+        "context": 0.24428346753120422,
+        "question": 2.002856492996216,
+        "template": 2.978238105773926
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.030806846729074525,
+        "context": 0.37755573813887255,
+        "question": 0.1465905463142863,
+        "template": 0.44504686881776656
+      }
+    },
+    {
+      "question": "Warner Center is located in which area?",
+      "gold_text": "San Fernando Valley",
+      "reply_text": "Warner Center is located in the San Fernando Valley.",
+      "reply_logp": -0.552343487739563,
+      "correct": true,
+      "token_f1": 0.5454545454545454,
+      "n_input_tokens": 98,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.0273972602739726,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.3157075345516205,
+      "region_proxy_mean": {
+        "gold_span": 17.63734245300293,
+        "context": 6.2328410148620605,
+        "question": 16.099119186401367,
+        "template": 7.11055850982666
+      },
+      "region_measured_mean": {
+        "gold_span": 8.15825366973877,
+        "context": 0.866473376750946,
+        "question": 3.7867965698242188,
+        "template": 3.4775266647338867
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.07286425786527187,
+        "context": 0.5493210217199499,
+        "question": 0.13301895524631288,
+        "template": 0.2447957651684654
+      }
+    },
+    {
+      "question": "When was San Francisco voted to be the location for Super Bowl 50?",
+      "gold_text": "May 21, 2013",
+      "reply_text": "May 21, 2013.",
+      "reply_logp": -0.30828243494033813,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 131,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.03773584905660377,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.14362774789333344,
+      "region_proxy_mean": {
+        "gold_span": 1.8936357498168945,
+        "context": 1.7097606658935547,
+        "question": 4.2278008460998535,
+        "template": 11.63918685913086
+      },
+      "region_measured_mean": {
+        "gold_span": 5.0830888748168945,
+        "context": 0.15663647651672363,
+        "question": 1.6405315399169922,
+        "template": 4.493467807769775
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03718073526700471,
+        "context": 0.2752775075743481,
+        "question": 0.11621549751135178,
+        "template": 0.5713262596472954
+      }
+    },
+    {
+      "question": "What was Nikola Tesla's ethnicity?",
+      "gold_text": "Serbian",
+      "reply_text": "Nikola Tesla was Serbian.",
+      "reply_logp": -0.6946129202842712,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 104,
+      "n_reply_tokens": 8,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.02531645569620253,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5043910145759583,
+      "region_proxy_mean": {
+        "gold_span": 8.212099075317383,
+        "context": 1.3457558155059814,
+        "question": 5.309758186340332,
+        "template": 6.340145111083984
+      },
+      "region_measured_mean": {
+        "gold_span": 0.16779831051826477,
+        "context": 0.08859270066022873,
+        "question": 3.853790283203125,
+        "template": 1.9053112268447876
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05504622224212193,
+        "context": 0.3247447218327628,
+        "question": 0.08897912739189494,
+        "template": 0.5312299285332203
+      }
+    },
+    {
+      "question": "What are two examples of measurements are bound within algorithms to establish complexity classes?",
+      "gold_text": "time or space",
+      "reply_text": "Time and space.",
+      "reply_logp": -1.8374204635620117,
+      "correct": false,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 70,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.24444444444444444,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.1825513243675232,
+      "region_proxy_mean": {
+        "gold_span": 7.3658127784729,
+        "context": 8.647185325622559,
+        "question": 12.32730770111084,
+        "template": 18.10077667236328
+      },
+      "region_measured_mean": {
+        "gold_span": 3.8427860736846924,
+        "context": 0.6879674792289734,
+        "question": 3.5103912353515625,
+        "template": 4.336599826812744
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.02495080956876075,
+        "context": 0.28314925493168325,
+        "question": 0.1809482098882839,
+        "template": 0.5109517256112721
+      }
+    },
+    {
+      "question": "What was the average cost for a TV ad lasting 30 seconds during Super Bowl 50?",
+      "gold_text": "$5 million",
+      "reply_text": "The average cost for a 30-second commercial during Super",
+      "reply_logp": -0.6095798015594482,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 134,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.11926605504587157,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5356793403625488,
+      "region_proxy_mean": {
+        "gold_span": 2.4025375843048096,
+        "context": 1.7608132362365723,
+        "question": 2.8821041584014893,
+        "template": 10.987257957458496
+      },
+      "region_measured_mean": {
+        "gold_span": 0.11672695726156235,
+        "context": 0.2699100971221924,
+        "question": 0.8906764984130859,
+        "template": 1.1961802244186401
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.014714224946381345,
+        "context": 0.31273641183215545,
+        "question": 0.1117916029983924,
+        "template": 0.5607577602230708
+      }
+    },
+    {
+      "question": "What was the name of the fund setup to help with investing in the community? ",
+      "gold_text": "50 fund",
+      "reply_text": "The Super Bowl 50 Host Committee's 50",
+      "reply_logp": -2.0962002277374268,
+      "correct": false,
+      "token_f1": 0.22222222222222224,
+      "n_input_tokens": 110,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.047058823529411764,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.6270142197608948,
+      "region_proxy_mean": {
+        "gold_span": 16.994375228881836,
+        "context": 9.81000804901123,
+        "question": 8.023225784301758,
+        "template": 12.909978866577148
+      },
+      "region_measured_mean": {
+        "gold_span": 8.57793140411377,
+        "context": 2.3235268592834473,
+        "question": 1.639289379119873,
+        "template": 2.12921142578125
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04428111043332649,
+        "context": 0.5708687160092,
+        "question": 0.10452791016890656,
+        "template": 0.280322263388567
+      }
+    },
+    {
+      "question": "What was media day called for Super Bowl 50?",
+      "gold_text": "Super Bowl Opening Night.",
+      "reply_text": "Super Bowl Opening Night.",
+      "reply_logp": -0.6237850189208984,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 117,
+      "n_reply_tokens": 6,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.021739130434782608,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.31298089027404785,
+      "region_proxy_mean": {
+        "gold_span": 13.204174995422363,
+        "context": 2.5956292152404785,
+        "question": 11.318008422851562,
+        "template": 10.532917022705078
+      },
+      "region_measured_mean": {
+        "gold_span": 11.993805885314941,
+        "context": 0.399835467338562,
+        "question": 2.1396543979644775,
+        "template": 2.661480665206909
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.10277424415088185,
+        "context": 0.31112607171692713,
+        "question": 0.17618665500855166,
+        "template": 0.40991302912363936
+      }
+    },
+    {
+      "question": "At what rate is Orange County developing its business centers?",
+      "gold_text": "rapidly",
+      "reply_text": "Orange County is developing its business centers rapidly.",
+      "reply_logp": -0.38346460461616516,
+      "correct": true,
+      "token_f1": 0.2222222222222222,
+      "n_input_tokens": 98,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.1506849315068493,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.3822343945503235,
+      "region_proxy_mean": {
+        "gold_span": 3.174224376678467,
+        "context": 1.2231967449188232,
+        "question": 5.449857234954834,
+        "template": 4.632733345031738
+      },
+      "region_measured_mean": {
+        "gold_span": 0.6046139001846313,
+        "context": 0.051216498017311096,
+        "question": 5.452280044555664,
+        "template": 1.7619363069534302
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.012950591108237958,
+        "context": 0.31440455130158407,
+        "question": 0.20011496054657807,
+        "template": 0.47252989704359993
+      }
+    },
+    {
+      "question": "What was Brisbane's job?",
+      "gold_text": "newspaper editor",
+      "reply_text": "Arthur Brisbane was a newspaper editor.",
+      "reply_logp": -0.24952132999897003,
+      "correct": true,
+      "token_f1": 0.5714285714285715,
+      "n_input_tokens": 113,
+      "n_reply_tokens": 8,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.022727272727272728,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.46769264340400696,
+      "region_proxy_mean": {
+        "gold_span": 9.879886627197266,
+        "context": 1.6904542446136475,
+        "question": 6.60592794418335,
+        "template": 6.310297966003418
+      },
+      "region_measured_mean": {
+        "gold_span": 5.1375298500061035,
+        "context": 0.6888695955276489,
+        "question": 12.706722259521484,
+        "template": 2.062751054763794
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05768297334978981,
+        "context": 0.4046531557998475,
+        "question": 0.0771364182181124,
+        "template": 0.4605274526322503
+      }
+    },
+    {
+      "question": "Motion pictures, petroleum and aircraft manufacturing have been major industries since which decade?",
+      "gold_text": "1920s",
+      "reply_text": "Since the 1920s.",
+      "reply_logp": -0.09432847052812576,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 103,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.07692307692307693,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5692744255065918,
+      "region_proxy_mean": {
+        "gold_span": 0.3813784122467041,
+        "context": 0.21662425994873047,
+        "question": 0.8271185159683228,
+        "template": 1.272964596748352
+      },
+      "region_measured_mean": {
+        "gold_span": 4.046599388122559,
+        "context": 0.024887580424547195,
+        "question": 0.6090461611747742,
+        "template": 2.1348154544830322
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.033174299343819595,
+        "context": 0.22611740392894078,
+        "question": 0.18706249925775797,
+        "template": 0.5536457974694816
+      }
+    },
+    {
+      "question": "Which Newton turnover resulted in seven points for Denver?",
+      "gold_text": "a fumble",
+      "reply_text": "Newton's seven-point turnover was the one that led to the",
+      "reply_logp": -5.911073684692383,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 105,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.0875,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.3204386234283447,
+      "region_proxy_mean": {
+        "gold_span": 18.23197364807129,
+        "context": 12.805283546447754,
+        "question": 37.64691162109375,
+        "template": 21.572097778320312
+      },
+      "region_measured_mean": {
+        "gold_span": 0.3734108507633209,
+        "context": 0.642916202545166,
+        "question": 11.598464965820312,
+        "template": 3.3407201766967773
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.030749844777719523,
+        "context": 0.49673671314997603,
+        "question": 0.1693196276197806,
+        "template": 0.30319381445252386
+      }
+    },
+    {
+      "question": "Which network broadcasted the 50th Super Bowl game? ",
+      "gold_text": "CBS",
+      "reply_text": "The CBS network broadcasted the 50th Super Bowl",
+      "reply_logp": -0.5220231413841248,
+      "correct": true,
+      "token_f1": 0.2857142857142857,
+      "n_input_tokens": 127,
+      "n_reply_tokens": 12,
+      "gold_span_hit": true,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "gold_span",
+      "rho_proxy_dlogp_context": 0.6084290742874146,
+      "region_proxy_mean": {
+        "gold_span": 29.950361251831055,
+        "context": 2.2751858234405518,
+        "question": 3.2701711654663086,
+        "template": 8.44792652130127
+      },
+      "region_measured_mean": {
+        "gold_span": 15.165759086608887,
+        "context": 0.1840968132019043,
+        "question": 3.541717529296875,
+        "template": 2.209104061126709
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.062024167453077955,
+        "context": 0.41933946151233015,
+        "question": 0.08126632250105914,
+        "template": 0.43737004853353273
+      }
+    },
+    {
+      "question": "What does southern California have a reputation for?",
+      "gold_text": "high growth rates",
+      "reply_text": "Southern California has a reputation for high growth.",
+      "reply_logp": -0.9735852479934692,
+      "correct": false,
+      "token_f1": 0.4,
+      "n_input_tokens": 126,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.009900990099009901,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.35924574732780457,
+      "region_proxy_mean": {
+        "gold_span": 8.132176399230957,
+        "context": 1.8033092021942139,
+        "question": 7.920974254608154,
+        "template": 8.45621109008789
+      },
+      "region_measured_mean": {
+        "gold_span": 4.013188362121582,
+        "context": 0.1523054987192154,
+        "question": 3.1719794273376465,
+        "template": 2.221203565597534
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05357756427239404,
+        "context": 0.3603847767630982,
+        "question": 0.12176753652926298,
+        "template": 0.46427012243524474
+      }
+    },
+    {
+      "question": "What was the name of the hotel the Panthers chose to stay in during Super Bowl 50?",
+      "gold_text": "Santa Clara Marriott",
+      "reply_text": "The Panthers stayed at the San Jose Marriott.",
+      "reply_logp": -1.37761390209198,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 73,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.4583333333333333,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.41490545868873596,
+      "region_proxy_mean": {
+        "gold_span": 5.4219794273376465,
+        "context": 10.911718368530273,
+        "question": 11.744454383850098,
+        "template": 13.412720680236816
+      },
+      "region_measured_mean": {
+        "gold_span": 0.1736612766981125,
+        "context": 1.5268974304199219,
+        "question": 1.7663451433181763,
+        "template": 2.146003484725952
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0189667991713924,
+        "context": 0.34353572162889057,
+        "question": 0.24650190339994765,
+        "template": 0.3909955757997694
+      }
+    },
+    {
+      "question": "What story of little truth is a pillar of history?",
+      "gold_text": "posting on the door",
+      "reply_text": "The story of the posting on the door.",
+      "reply_logp": -1.87589693069458,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 116,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4430404305458069,
+      "region_proxy_mean": {
+        "gold_span": 16.0615291595459,
+        "context": 4.852531909942627,
+        "question": 11.498520851135254,
+        "template": 18.256202697753906
+      },
+      "region_measured_mean": {
+        "gold_span": 10.161916732788086,
+        "context": 0.47539421916007996,
+        "question": 2.181703567504883,
+        "template": 3.3768017292022705
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.06407725175323381,
+        "context": 0.37750259607500103,
+        "question": 0.10321467582978419,
+        "template": 0.455205476341981
+      }
+    },
+    {
+      "question": "When did he make the quoted remarks about Super Bowl 50?",
+      "gold_text": "early 2012",
+      "reply_text": "In early 2012.",
+      "reply_logp": -0.46133309602737427,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 82,
+      "n_reply_tokens": 9,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.10526315789473684,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.24123847484588623,
+      "region_proxy_mean": {
+        "gold_span": 2.5648508071899414,
+        "context": 2.321167230606079,
+        "question": 5.902657985687256,
+        "template": 8.038710594177246
+      },
+      "region_measured_mean": {
+        "gold_span": 4.470306873321533,
+        "context": 0.19569317996501923,
+        "question": 1.7748945951461792,
+        "template": 3.643070936203003
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04074271242916131,
+        "context": 0.23966667247194276,
+        "question": 0.18752769337461603,
+        "template": 0.5320629217242799
+      }
+    },
+    {
+      "question": "What funds cannot be used if a teacher is not registered?",
+      "gold_text": "Oireachtas funds",
+      "reply_text": "Oireachtas funds cannot be used if a teacher is",
+      "reply_logp": -0.556904137134552,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 93,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4156695306301117,
+      "region_proxy_mean": {
+        "gold_span": 7.494883060455322,
+        "context": 2.1945784091949463,
+        "question": 5.473245143890381,
+        "template": 10.74690055847168
+      },
+      "region_measured_mean": {
+        "gold_span": 21.460147857666016,
+        "context": 0.26402777433395386,
+        "question": 2.565168857574463,
+        "template": 3.624533176422119
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.07853110182009031,
+        "context": 0.24374392675559053,
+        "question": 0.11469689873812398,
+        "template": 0.5630280726861951
+      }
+    },
+    {
+      "question": "At what university's facility did the Broncos practice?",
+      "gold_text": "Stanford University",
+      "reply_text": "The Broncos practiced at Stanford University.",
+      "reply_logp": -0.026208842173218727,
+      "correct": true,
+      "token_f1": 0.5714285714285715,
+      "n_input_tokens": 63,
+      "n_reply_tokens": 8,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.6867630481719971,
+      "region_proxy_mean": {
+        "gold_span": 1.1185427904129028,
+        "context": 0.23352265357971191,
+        "question": 0.2789728045463562,
+        "template": 0.5405899286270142
+      },
+      "region_measured_mean": {
+        "gold_span": 11.753782272338867,
+        "context": 0.09501845389604568,
+        "question": 1.533294916152954,
+        "template": 1.1826653480529785
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.09122677002860714,
+        "context": 0.26664090004855623,
+        "question": 0.09101051822736432,
+        "template": 0.5511218116954723
+      }
+    },
+    {
+      "question": "What other kind of sport is popular in southern California?",
+      "gold_text": "College",
+      "reply_text": "College sports.",
+      "reply_logp": -0.8041821718215942,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 76,
+      "n_reply_tokens": 4,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.058823529411764705,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.25305894017219543,
+      "region_proxy_mean": {
+        "gold_span": 17.140779495239258,
+        "context": 4.997260093688965,
+        "question": 12.203569412231445,
+        "template": 23.017494201660156
+      },
+      "region_measured_mean": {
+        "gold_span": 12.134520530700684,
+        "context": 0.3945138454437256,
+        "question": 1.9631671905517578,
+        "template": 4.363170623779297
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0188921175794426,
+        "context": 0.22582179982193976,
+        "question": 0.12105408447479768,
+        "template": 0.6342319981238199
+      }
+    },
+    {
+      "question": "What year did a Super Bowl play in the bay area around San Francisco, prior to Super Bowl 50?",
+      "gold_text": "1985",
+      "reply_text": "The Super Bowl in San Francisco Bay Area since 20",
+      "reply_logp": -3.7360665798187256,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 138,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.8407079646017699,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.38453829288482666,
+      "region_proxy_mean": {
+        "gold_span": 1.481931209564209,
+        "context": 7.8027544021606445,
+        "question": 15.470399856567383,
+        "template": 15.456543922424316
+      },
+      "region_measured_mean": {
+        "gold_span": 0.4796580374240875,
+        "context": 0.5893682837486267,
+        "question": 1.6583102941513062,
+        "template": 2.5674424171447754
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.004222440841058385,
+        "context": 0.48910959053449027,
+        "question": 0.23141758083930816,
+        "template": 0.27525038778514316
+      }
+    },
+    {
+      "question": "What was one of theories as to what caused Tesla's father's unspecified illness?",
+      "gold_text": "stroke",
+      "reply_text": "Tesla's father's unspecified illness was attributed to a theory of",
+      "reply_logp": -4.956130504608154,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 133,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.26851851851851855,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.055174656212329865,
+      "region_proxy_mean": {
+        "gold_span": 13.303396224975586,
+        "context": 11.229351997375488,
+        "question": 37.753173828125,
+        "template": 39.71449661254883
+      },
+      "region_measured_mean": {
+        "gold_span": 1.215390920639038,
+        "context": 0.8809911012649536,
+        "question": 5.991701602935791,
+        "template": 3.25390625
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.005158274420084739,
+        "context": 0.40492963919245784,
+        "question": 0.20493842794695646,
+        "template": 0.38497365844050097
+      }
+    },
+    {
+      "question": "What was he hoping to stimulate with the toe squishing?",
+      "gold_text": "brain cells",
+      "reply_text": "He was hoping to stimulate his brain cells with the toe squ",
+      "reply_logp": -1.9616235494613647,
+      "correct": true,
+      "token_f1": 0.3076923076923077,
+      "n_input_tokens": 72,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.10638297872340426,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.36652445793151855,
+      "region_proxy_mean": {
+        "gold_span": 17.27068328857422,
+        "context": 9.240135192871094,
+        "question": 13.933926582336426,
+        "template": 15.968179702758789
+      },
+      "region_measured_mean": {
+        "gold_span": 12.36123275756836,
+        "context": 0.5396965742111206,
+        "question": 4.7501373291015625,
+        "template": 2.0818796157836914
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03852956984385562,
+        "context": 0.3607455568702383,
+        "question": 0.15542758956526317,
+        "template": 0.4452972837206429
+      }
+    },
+    {
+      "question": "What function is used by algorithms to define measurements like time or space?",
+      "gold_text": "bounding",
+      "reply_text": "The function used is the **time-space function**.",
+      "reply_logp": -3.6080148220062256,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 69,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.20454545454545456,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5238269567489624,
+      "region_proxy_mean": {
+        "gold_span": 10.27359676361084,
+        "context": 7.842370986938477,
+        "question": 9.023926734924316,
+        "template": 13.677594184875488
+      },
+      "region_measured_mean": {
+        "gold_span": 0.6431586742401123,
+        "context": 0.7365507483482361,
+        "question": 3.917844533920288,
+        "template": 4.5856194496154785
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.014601182066292868,
+        "context": 0.34552107820786543,
+        "question": 0.15390130941912147,
+        "template": 0.4859764303067203
+      }
+    },
+    {
+      "question": "Where was the practice place the Panthers used for the Super Bowl?",
+      "gold_text": "San Jose",
+      "reply_text": "The Panthers used the San Jose Marriott for the Super Bowl.",
+      "reply_logp": -1.8943136930465698,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 66,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.024390243902439025,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.4371523857116699,
+      "region_proxy_mean": {
+        "gold_span": 107.56138610839844,
+        "context": 30.381460189819336,
+        "question": 32.811832427978516,
+        "template": 15.324616432189941
+      },
+      "region_measured_mean": {
+        "gold_span": 2.0835437774658203,
+        "context": 3.0029397010803223,
+        "question": 4.956395626068115,
+        "template": 2.593726396560669
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.11886225195277607,
+        "context": 0.4700285864505802,
+        "question": 0.199425554739954,
+        "template": 0.21168360685668974
+      }
+    },
+    {
+      "question": "In what year did Tesla die?",
+      "gold_text": "1943",
+      "reply_text": "Tesla died in 1943.",
+      "reply_logp": -0.33473074436187744,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 104,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.5443037974683544,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.16356906294822693,
+      "region_proxy_mean": {
+        "gold_span": 0.7214390635490417,
+        "context": 1.3768479824066162,
+        "question": 7.955889701843262,
+        "template": 6.906773567199707
+      },
+      "region_measured_mean": {
+        "gold_span": 2.9074199199676514,
+        "context": 0.0921437218785286,
+        "question": 2.679295539855957,
+        "template": 2.5729265213012695
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.009257708113942357,
+        "context": 0.3091917019028767,
+        "question": 0.12761524999774193,
+        "template": 0.553935339985439
+      }
+    },
+    {
+      "question": "What date was Super Bowl Opening Night held?",
+      "gold_text": "February 1, 2016",
+      "reply_text": "February 1, 2016.",
+      "reply_logp": -0.19119477272033691,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 114,
+      "n_reply_tokens": 11,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.011235955056179775,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": -0.08583928644657135,
+      "region_proxy_mean": {
+        "gold_span": 0.8931786417961121,
+        "context": 1.211748719215393,
+        "question": 3.148465394973755,
+        "template": 7.782342433929443
+      },
+      "region_measured_mean": {
+        "gold_span": 3.9837636947631836,
+        "context": 0.16608574986457825,
+        "question": 2.551121473312378,
+        "template": 3.0184576511383057
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.02567473574877373,
+        "context": 0.28252740783250285,
+        "question": 0.07039179953361384,
+        "template": 0.6214060568851095
+      }
+    },
+    {
+      "question": "Who did the sign language of the National Anthem at Super Bowl 50?",
+      "gold_text": "Marlee Matlin",
+      "reply_text": "The sign language of the National Anthem at Super Bowl 5",
+      "reply_logp": -2.400334358215332,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 71,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.13043478260869565,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.17008797824382782,
+      "region_proxy_mean": {
+        "gold_span": 21.38208770751953,
+        "context": 11.060537338256836,
+        "question": 21.211563110351562,
+        "template": 19.413312911987305
+      },
+      "region_measured_mean": {
+        "gold_span": 0.2524336576461792,
+        "context": 0.5367346405982971,
+        "question": 9.094000816345215,
+        "template": 1.9307574033737183
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.07263442417660974,
+        "context": 0.26300661303376227,
+        "question": 0.2521930397052007,
+        "template": 0.41216592308442734
+      }
+    },
+    {
+      "question": "What did Luther call these donations?",
+      "gold_text": "false assurances",
+      "reply_text": "Luther called these donations \"salvation.\"",
+      "reply_logp": -3.7351796627044678,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 82,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.2631578947368421,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": -0.011184154078364372,
+      "region_proxy_mean": {
+        "gold_span": 5.470583915710449,
+        "context": 5.869572162628174,
+        "question": 17.82341766357422,
+        "template": 9.087349891662598
+      },
+      "region_measured_mean": {
+        "gold_span": 0.5435670018196106,
+        "context": 0.4255908131599426,
+        "question": 13.216608047485352,
+        "template": 3.352962017059326
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.017626557477336467,
+        "context": 0.47280307109982594,
+        "question": 0.1435703545700811,
+        "template": 0.36600001685275646
+      }
+    },
+    {
+      "question": "After asking if the books were his, what else did Eck ask Luther?",
+      "gold_text": "stood by their contents",
+      "reply_text": "Eck asked Luther to consider the question.",
+      "reply_logp": -3.688357353210449,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 120,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.16842105263157894,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.42904406785964966,
+      "region_proxy_mean": {
+        "gold_span": 4.7879486083984375,
+        "context": 4.523680210113525,
+        "question": 6.336068153381348,
+        "template": 12.322871208190918
+      },
+      "region_measured_mean": {
+        "gold_span": 0.3147295415401459,
+        "context": 0.7332162261009216,
+        "question": 2.625000476837158,
+        "template": 3.005211591720581
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.02511909934235599,
+        "context": 0.4627869605370149,
+        "question": 0.10803332728256118,
+        "template": 0.40406061283806793
+      }
+    },
+    {
+      "question": "Who announced the game play-by-play for Super Bowl 50?",
+      "gold_text": "Kevin Harlan",
+      "reply_text": "Kevin Harlan.",
+      "reply_logp": -0.5093393325805664,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 93,
+      "n_reply_tokens": 5,
+      "gold_span_hit": true,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "gold_span",
+      "rho_proxy_dlogp_context": 0.6679425835609436,
+      "region_proxy_mean": {
+        "gold_span": 36.61757278442383,
+        "context": 4.019704818725586,
+        "question": 7.345119476318359,
+        "template": 10.834643363952637
+      },
+      "region_measured_mean": {
+        "gold_span": 17.350454330444336,
+        "context": 0.25314465165138245,
+        "question": 0.5088763236999512,
+        "template": 2.8689115047454834
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.1610968995357731,
+        "context": 0.31242546642916497,
+        "question": 0.1292577267007127,
+        "template": 0.3972199073343492
+      }
+    },
+    {
+      "question": "What Florida stadium was considered for Super Bowl 50?",
+      "gold_text": "Sun Life Stadium",
+      "reply_text": "The answer is the Miami Sun Life Stadium.",
+      "reply_logp": -2.2393722534179688,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 70,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.08888888888888889,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.09719888120889664,
+      "region_proxy_mean": {
+        "gold_span": 14.70440673828125,
+        "context": 9.755483627319336,
+        "question": 13.990300178527832,
+        "template": 13.068833351135254
+      },
+      "region_measured_mean": {
+        "gold_span": 10.119633674621582,
+        "context": 0.5727511048316956,
+        "question": 1.8800232410430908,
+        "template": 2.6334104537963867
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05360620693927482,
+        "context": 0.3793543943544139,
+        "question": 0.17000956995736344,
+        "template": 0.3970298287489478
+      }
+    },
+    {
+      "question": "In addition to teaching within the family, where else is informal teaching done?",
+      "gold_text": "the wider community",
+      "reply_text": "Informal teaching is done in the wider community.",
+      "reply_logp": -2.8690590858459473,
+      "correct": true,
+      "token_f1": 0.6,
+      "n_input_tokens": 99,
+      "n_reply_tokens": 11,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.10810810810810811,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.71708083152771,
+      "region_proxy_mean": {
+        "gold_span": 11.040722846984863,
+        "context": 5.7565999031066895,
+        "question": 16.811283111572266,
+        "template": 17.580617904663086
+      },
+      "region_measured_mean": {
+        "gold_span": 7.998875141143799,
+        "context": 0.5770369172096252,
+        "question": 3.1879830360412598,
+        "template": 3.548893928527832
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.032312196178324,
+        "context": 0.3257179719671376,
+        "question": 0.21320234705970773,
+        "template": 0.4287674847948307
+      }
+    },
+    {
+      "question": "How much did Tesla spend on the injured pigeon?",
+      "gold_text": "over $2,000",
+      "reply_text": "$2,000.",
+      "reply_logp": -0.6674346923828125,
+      "correct": false,
+      "token_f1": 0.8,
+      "n_input_tokens": 116,
+      "n_reply_tokens": 8,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4905965328216553,
+      "region_proxy_mean": {
+        "gold_span": 3.206733226776123,
+        "context": 2.2264981269836426,
+        "question": 3.8565802574157715,
+        "template": 14.106365203857422
+      },
+      "region_measured_mean": {
+        "gold_span": 1.7150633335113525,
+        "context": 0.20185410976409912,
+        "question": 1.5911093950271606,
+        "template": 2.720266342163086
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03902676452558895,
+        "context": 0.2941965778252141,
+        "question": 0.05364065725484586,
+        "template": 0.6131360003943511
+      }
+    },
+    {
+      "question": "What is the name of the area past the border that the megaregion extends into?",
+      "gold_text": "Tijuana",
+      "reply_text": "The megaregion extends east into Las Vegas and south",
+      "reply_logp": -0.832237720489502,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 110,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.11764705882352941,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.33293887972831726,
+      "region_proxy_mean": {
+        "gold_span": 3.9661197662353516,
+        "context": 3.4318885803222656,
+        "question": 4.199848651885986,
+        "template": 6.6939592361450195
+      },
+      "region_measured_mean": {
+        "gold_span": 0.22302953898906708,
+        "context": 0.7836927771568298,
+        "question": 1.9557548761367798,
+        "template": 1.7588491439819336
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.025116990868119336,
+        "context": 0.4708982607907061,
+        "question": 0.1507173132519702,
+        "template": 0.35326743508920433
+      }
+    },
+    {
+      "question": "Besides Death Wish Coffee, how many other competitors participated in the contest?",
+      "gold_text": "nine",
+      "reply_text": "Besides Death Wish Coffee, there were nine other competitors.",
+      "reply_logp": -1.1557865142822266,
+      "correct": true,
+      "token_f1": 0.19999999999999998,
+      "n_input_tokens": 87,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.20967741935483872,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.12201680988073349,
+      "region_proxy_mean": {
+        "gold_span": 5.964378356933594,
+        "context": 4.1043267250061035,
+        "question": 5.85554313659668,
+        "template": 8.976605415344238
+      },
+      "region_measured_mean": {
+        "gold_span": 12.4527587890625,
+        "context": 0.30042868852615356,
+        "question": 4.43015193939209,
+        "template": 3.8685054779052734
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.011886960992411662,
+        "context": 0.40081472527270234,
+        "question": 0.14004062534434827,
+        "template": 0.4472576883905377
+      }
+    },
+    {
+      "question": "Is the focus on spiritual mentorship in Hinduism high or low?",
+      "gold_text": "extremely high",
+      "reply_text": "High.",
+      "reply_logp": -0.43342864513397217,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 91,
+      "n_reply_tokens": 3,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.25757575757575757,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.2023632526397705,
+      "region_proxy_mean": {
+        "gold_span": 2.3858985900878906,
+        "context": 1.6496639251708984,
+        "question": 4.520716667175293,
+        "template": 13.202895164489746
+      },
+      "region_measured_mean": {
+        "gold_span": 0.23343457281589508,
+        "context": 0.1067841425538063,
+        "question": 0.9915251731872559,
+        "template": 3.070509672164917
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.010048525998531803,
+        "context": 0.18064220285800536,
+        "question": 0.11423756287710213,
+        "template": 0.6950717082663607
+      }
+    },
+    {
+      "question": "Prior to Manning, who was the oldest quarterback to play in a Super Bowl?",
+      "gold_text": "John Elway",
+      "reply_text": "Prior to Peyton Manning, the oldest quarterback to play in a",
+      "reply_logp": -0.8455354571342468,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 118,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.07526881720430108,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.48829108476638794,
+      "region_proxy_mean": {
+        "gold_span": 9.279763221740723,
+        "context": 3.8434083461761475,
+        "question": 5.672160625457764,
+        "template": 10.290822982788086
+      },
+      "region_measured_mean": {
+        "gold_span": 0.29942190647125244,
+        "context": 0.6171720623970032,
+        "question": 2.3061470985412598,
+        "template": 2.9651412963867188
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.042397926485886986,
+        "context": 0.44485307225934095,
+        "question": 0.12093805244779247,
+        "template": 0.3918109488069796
+      }
+    },
+    {
+      "question": "Which newspaper defined southern California?",
+      "gold_text": "Los Angeles Times",
+      "reply_text": "The Los Angeles Times.",
+      "reply_logp": -0.31468716263771057,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 87,
+      "n_reply_tokens": 6,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.04838709677419355,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.34565815329551697,
+      "region_proxy_mean": {
+        "gold_span": 3.4827117919921875,
+        "context": 1.5043418407440186,
+        "question": 6.08957052230835,
+        "template": 9.442157745361328
+      },
+      "region_measured_mean": {
+        "gold_span": 10.311698913574219,
+        "context": 0.12589038908481598,
+        "question": 2.729810953140259,
+        "template": 2.1158804893493652
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.029547964146727102,
+        "context": 0.23399036244777918,
+        "question": 0.06888670797394494,
+        "template": 0.6675749654315488
+      }
+    },
+    {
+      "question": "How many teachers were found to have felt occupational stress in a 2000 study?",
+      "gold_text": "42%",
+      "reply_text": "A 2000 study found that 42",
+      "reply_logp": -0.5460619926452637,
+      "correct": true,
+      "token_f1": 0.33333333333333337,
+      "n_input_tokens": 94,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.4057971014492754,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.11141467094421387,
+      "region_proxy_mean": {
+        "gold_span": 0.9147200584411621,
+        "context": 1.3617204427719116,
+        "question": 2.421265125274658,
+        "template": 8.096364974975586
+      },
+      "region_measured_mean": {
+        "gold_span": 7.503145694732666,
+        "context": 0.1969565749168396,
+        "question": 0.16610120236873627,
+        "template": 1.1039986610412598
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.008766189202236823,
+        "context": 0.213150069248747,
+        "question": 0.13148997908163432,
+        "template": 0.6465937624673819
+      }
+    },
+    {
+      "question": "What is the name of the water body that is found to the east?",
+      "gold_text": "Colorado River",
+      "reply_text": "The Colorado River.",
+      "reply_logp": -1.1471062898635864,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 79,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.7872822284698486,
+      "region_proxy_mean": {
+        "gold_span": 29.689950942993164,
+        "context": 7.437262058258057,
+        "question": 13.000056266784668,
+        "template": 24.908897399902344
+      },
+      "region_measured_mean": {
+        "gold_span": 4.04477071762085,
+        "context": 1.04563307762146,
+        "question": 3.0621485710144043,
+        "template": 3.0159249305725098
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05203485795631892,
+        "context": 0.2541748450315472,
+        "question": 0.1480960652734584,
+        "template": 0.5456942317386755
+      }
+    },
+    {
+      "question": "How long did Western Europe control Cyprus?",
+      "gold_text": "380 years",
+      "reply_text": "380 years.",
+      "reply_logp": -0.011437343433499336,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 91,
+      "n_reply_tokens": 6,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.06060606060606061,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.1937204748392105,
+      "region_proxy_mean": {
+        "gold_span": 0.0678200051188469,
+        "context": 0.0652075782418251,
+        "question": 0.20073221623897552,
+        "template": 0.39609381556510925
+      },
+      "region_measured_mean": {
+        "gold_span": 13.22519588470459,
+        "context": 0.01442973967641592,
+        "question": 2.9613707065582275,
+        "template": 2.788029193878174
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.018049664211492737,
+        "context": 0.24296145404808772,
+        "question": 0.08013452048463071,
+        "template": 0.6588543612557889
+      }
+    },
+    {
+      "question": "Who makes up the BBC commentary team with Greg Brady and Rocky Boiman?",
+      "gold_text": "Darren Fletcher",
+      "reply_text": "The BBC commentary team includes Greg Brady and Rocky Boiman.",
+      "reply_logp": -0.34807297587394714,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 81,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.5714285714285714,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4475989043712616,
+      "region_proxy_mean": {
+        "gold_span": 0.7291719913482666,
+        "context": 1.2195967435836792,
+        "question": 2.4557011127471924,
+        "template": 2.1544787883758545
+      },
+      "region_measured_mean": {
+        "gold_span": 0.11959494650363922,
+        "context": 0.08809901773929596,
+        "question": 3.8515639305114746,
+        "template": 1.3683803081512451
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.010625618971664582,
+        "context": 0.3643295700277672,
+        "question": 0.23260185429013444,
+        "template": 0.3924429567104337
+      }
+    },
+    {
+      "question": "What device was one of the first to aid a controversy?",
+      "gold_text": "printing press",
+      "reply_text": "The printing press.",
+      "reply_logp": -0.5756471157073975,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 107,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.012195121951219513,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.2690848410129547,
+      "region_proxy_mean": {
+        "gold_span": 4.185009479522705,
+        "context": 1.6478403806686401,
+        "question": 5.623124122619629,
+        "template": 6.775423526763916
+      },
+      "region_measured_mean": {
+        "gold_span": 3.526179075241089,
+        "context": 0.1770688146352768,
+        "question": 1.9224201440811157,
+        "template": 2.608161687850952
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.023959817405285622,
+        "context": 0.3301948236747545,
+        "question": 0.16096620214454596,
+        "template": 0.48487915677541393
+      }
+    },
+    {
+      "question": "When did he talk about his thoughts on gender?",
+      "gold_text": "1926",
+      "reply_text": "In 1926.",
+      "reply_logp": -0.6314260959625244,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 90,
+      "n_reply_tokens": 8,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.23076923076923078,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.37101373076438904,
+      "region_proxy_mean": {
+        "gold_span": 4.266939640045166,
+        "context": 3.1885573863983154,
+        "question": 9.280117988586426,
+        "template": 18.268461227416992
+      },
+      "region_measured_mean": {
+        "gold_span": 6.3915629386901855,
+        "context": 0.17428582906723022,
+        "question": 3.310518741607666,
+        "template": 2.960178852081299
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.02380394873872818,
+        "context": 0.23569079509137317,
+        "question": 0.10354186290838498,
+        "template": 0.6369633932615136
+      }
+    },
+    {
+      "question": "What was later discovered written by Luther?",
+      "gold_text": "his last statement",
+      "reply_text": "Luther's last statement was found on a piece of paper",
+      "reply_logp": -3.2062454223632812,
+      "correct": true,
+      "token_f1": 0.33333333333333337,
+      "n_input_tokens": 65,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.275,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5721924901008606,
+      "region_proxy_mean": {
+        "gold_span": 15.01728343963623,
+        "context": 15.193135261535645,
+        "question": 23.705955505371094,
+        "template": 32.479637145996094
+      },
+      "region_measured_mean": {
+        "gold_span": 5.323668003082275,
+        "context": 1.460432529449463,
+        "question": 4.113658905029297,
+        "template": 3.1916234493255615
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.030641977831342204,
+        "context": 0.3203415630658274,
+        "question": 0.09674151483627003,
+        "template": 0.5522749442665603
+      }
+    },
+    {
+      "question": "What is the first model of education, in the Australian system?",
+      "gold_text": "primary",
+      "reply_text": "The first model of education in Australia is primary education.",
+      "reply_logp": -0.7230125069618225,
+      "correct": true,
+      "token_f1": 0.3636363636363636,
+      "n_input_tokens": 90,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.06153846153846154,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.538555383682251,
+      "region_proxy_mean": {
+        "gold_span": 7.012686729431152,
+        "context": 2.7110073566436768,
+        "question": 6.510380744934082,
+        "template": 13.557827949523926
+      },
+      "region_measured_mean": {
+        "gold_span": 1.346998929977417,
+        "context": 0.22897092998027802,
+        "question": 6.284407138824463,
+        "template": 1.785780668258667
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0124946312705396,
+        "context": 0.25600332313759083,
+        "question": 0.12759629468442024,
+        "template": 0.6039057509074494
+      }
+    },
+    {
+      "question": "Which region of California is Palm Springs located in?",
+      "gold_text": "southern",
+      "reply_text": "Palm Springs is located in the southern California coast.",
+      "reply_logp": -1.0992097854614258,
+      "correct": true,
+      "token_f1": 0.2222222222222222,
+      "n_input_tokens": 64,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.1282051282051282,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.7201613187789917,
+      "region_proxy_mean": {
+        "gold_span": 12.291092872619629,
+        "context": 5.209694862365723,
+        "question": 6.920238494873047,
+        "template": 4.288151741027832
+      },
+      "region_measured_mean": {
+        "gold_span": 11.213829040527344,
+        "context": 1.1027096509933472,
+        "question": 2.169760227203369,
+        "template": 1.6069546937942505
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03711665649386086,
+        "context": 0.4719672613778316,
+        "question": 0.16718194874198414,
+        "template": 0.3237341333863234
+      }
+    },
+    {
+      "question": "University City is an example of a business district located in which city?",
+      "gold_text": "San Diego",
+      "reply_text": "University City is located in Downtown San Diego.",
+      "reply_logp": -0.8424791693687439,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 102,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.2077922077922078,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.519318163394928,
+      "region_proxy_mean": {
+        "gold_span": 10.17587661743164,
+        "context": 7.245331287384033,
+        "question": 10.640429496765137,
+        "template": 6.53099250793457
+      },
+      "region_measured_mean": {
+        "gold_span": 0.4148142635822296,
+        "context": 0.8621630668640137,
+        "question": 2.360978126525879,
+        "template": 2.926335334777832
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.026507699186743512,
+        "context": 0.594523500863462,
+        "question": 0.16630704292835924,
+        "template": 0.21266175702143536
+      }
+    },
+    {
+      "question": "Who is the General Manager for the Broncos?",
+      "gold_text": "John Elway",
+      "reply_text": "John Elway.",
+      "reply_logp": -0.015632176771759987,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 111,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.03488372093023256,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4547954797744751,
+      "region_proxy_mean": {
+        "gold_span": 0.4139014184474945,
+        "context": 0.12227138876914978,
+        "question": 0.4122292101383209,
+        "template": 0.5950907468795776
+      },
+      "region_measured_mean": {
+        "gold_span": 15.695442199707031,
+        "context": 0.05612851306796074,
+        "question": 0.6295104026794434,
+        "template": 2.925673723220825
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04388081340038489,
+        "context": 0.32839377811058695,
+        "question": 0.10197489258998005,
+        "template": 0.5257505158990481
+      }
+    },
+    {
+      "question": "Who would decide on the curricula that is consistent and standard?",
+      "gold_text": "the relevant authority",
+      "reply_text": "Curricula are decided by the relevant authority or standardized program.",
+      "reply_logp": -5.180308818817139,
+      "correct": true,
+      "token_f1": 0.3636363636363636,
+      "n_input_tokens": 91,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.15151515151515152,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.7060605883598328,
+      "region_proxy_mean": {
+        "gold_span": 10.872764587402344,
+        "context": 8.238053321838379,
+        "question": 17.611299514770508,
+        "template": 19.70669937133789
+      },
+      "region_measured_mean": {
+        "gold_span": 6.66737174987793,
+        "context": 0.9520101547241211,
+        "question": 8.256307601928711,
+        "template": 6.154925346374512
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.028428281870574345,
+        "context": 0.3733510125528335,
+        "question": 0.16883927163041945,
+        "template": 0.42938143394617273
+      }
+    },
+    {
+      "question": "Who did the Panthers play to advance to the Super Bowl?",
+      "gold_text": "Arizona Cardinals",
+      "reply_text": "The Panthers advanced to the Super Bowl.",
+      "reply_logp": -0.798503577709198,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 119,
+      "n_reply_tokens": 9,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.24468085106382978,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.448800265789032,
+      "region_proxy_mean": {
+        "gold_span": 5.474546909332275,
+        "context": 3.430100202560425,
+        "question": 19.823223114013672,
+        "template": 10.527538299560547
+      },
+      "region_measured_mean": {
+        "gold_span": 0.3414483070373535,
+        "context": 0.13644522428512573,
+        "question": 2.792416572570801,
+        "template": 1.557652235031128
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.014528319718927919,
+        "context": 0.3732139621022942,
+        "question": 0.26303375367431814,
+        "template": 0.34922396450445975
+      }
+    },
+    {
+      "question": "Downtown Santa Monica and Downtown Glendale are a part of which area?",
+      "gold_text": "Los Angeles Area",
+      "reply_text": "Downtown Santa Monica and Downtown Glendale are part of the",
+      "reply_logp": -0.4587087631225586,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 104,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.05063291139240506,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5709553360939026,
+      "region_proxy_mean": {
+        "gold_span": 6.2101006507873535,
+        "context": 1.83945631980896,
+        "question": 7.351202011108398,
+        "template": 7.770057201385498
+      },
+      "region_measured_mean": {
+        "gold_span": 0.2821619212627411,
+        "context": 0.07543612271547318,
+        "question": 2.466125726699829,
+        "template": 1.7072700262069702
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04448269063456208,
+        "context": 0.28108690985603,
+        "question": 0.21062542358142952,
+        "template": 0.46380497592797837
+      }
+    },
+    {
+      "question": "What tactic did researchers employ to offset the former deficit of work surrounding the complexity of algorithmic problems?",
+      "gold_text": "foundations were laid out",
+      "reply_text": "Researchers used Turing machines as a foundational framework to offset the complexity",
+      "reply_logp": -6.442052841186523,
+      "correct": false,
+      "token_f1": 0.11111111111111112,
+      "n_input_tokens": 103,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.36504584550857544,
+      "region_proxy_mean": {
+        "gold_span": 15.358067512512207,
+        "context": 9.447476387023926,
+        "question": 12.381135940551758,
+        "template": 16.747163772583008
+      },
+      "region_measured_mean": {
+        "gold_span": 1.373940110206604,
+        "context": 0.8500963449478149,
+        "question": 2.7209837436676025,
+        "template": 4.679257392883301
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04986262393678552,
+        "context": 0.4294201073927627,
+        "question": 0.1808887443472006,
+        "template": 0.3398285243232512
+      }
+    },
+    {
+      "question": "Where was Tesla's property sent?",
+      "gold_text": "Belgrade",
+      "reply_text": "Tesla's property was sent to Belgrade.",
+      "reply_logp": -0.7228090763092041,
+      "correct": true,
+      "token_f1": 0.25,
+      "n_input_tokens": 118,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.03225806451612903,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5976894497871399,
+      "region_proxy_mean": {
+        "gold_span": 8.179170608520508,
+        "context": 2.3231542110443115,
+        "question": 5.185458660125732,
+        "template": 8.704667091369629
+      },
+      "region_measured_mean": {
+        "gold_span": 0.3286054730415344,
+        "context": 0.11672244220972061,
+        "question": 6.640420436859131,
+        "template": 2.383880853652954
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03558531673202141,
+        "context": 0.4346183228803456,
+        "question": 0.05640125513710053,
+        "template": 0.4733951052505325
+      }
+    },
+    {
+      "question": "What other two famous performers were part of the Super Bowl 50 halftime?",
+      "gold_text": "Beyonc\u00e9 and Bruno Mars",
+      "reply_text": "Coldplay and Beyonc\u00e9.",
+      "reply_logp": -0.20784452557563782,
+      "correct": false,
+      "token_f1": 0.5714285714285715,
+      "n_input_tokens": 129,
+      "n_reply_tokens": 7,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.2692307692307692,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4171791076660156,
+      "region_proxy_mean": {
+        "gold_span": 1.1941853761672974,
+        "context": 1.265164852142334,
+        "question": 2.0563104152679443,
+        "template": 5.87891960144043
+      },
+      "region_measured_mean": {
+        "gold_span": 2.6808743476867676,
+        "context": 0.4979581832885742,
+        "question": 0.41574862599372864,
+        "template": 3.3507375717163086
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.020641270815627912,
+        "context": 0.37175832673467585,
+        "question": 0.09952023390574638,
+        "template": 0.5080801685439499
+      }
+    },
+    {
+      "question": "What could a teacher help in organizing?",
+      "gold_text": "school functions",
+      "reply_text": "help organize school functions.",
+      "reply_logp": -1.783630132675171,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 89,
+      "n_reply_tokens": 6,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.078125,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.32369500398635864,
+      "region_proxy_mean": {
+        "gold_span": 6.534494876861572,
+        "context": 3.255444288253784,
+        "question": 10.3279390335083,
+        "template": 18.511489868164062
+      },
+      "region_measured_mean": {
+        "gold_span": 7.7997636795043945,
+        "context": 0.3593175411224365,
+        "question": 4.291139125823975,
+        "template": 4.495035171508789
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.01814813042377922,
+        "context": 0.25315597400864276,
+        "question": 0.08605076986382881,
+        "template": 0.6426451257037492
+      }
+    },
+    {
+      "question": "At which Super Bowl did Beyonce headline the halftime show?",
+      "gold_text": "Super Bowl XLVII",
+      "reply_text": "Beyonc\u00e9 headed the Super Bowl XLVII halftime show",
+      "reply_logp": -2.23838472366333,
+      "correct": true,
+      "token_f1": 0.6,
+      "n_input_tokens": 125,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.19,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": 0.3146808445453644,
+      "region_proxy_mean": {
+        "gold_span": 17.85170555114746,
+        "context": 15.266782760620117,
+        "question": 34.248512268066406,
+        "template": 21.934795379638672
+      },
+      "region_measured_mean": {
+        "gold_span": 7.942328453063965,
+        "context": 0.8760693073272705,
+        "question": 7.344775199890137,
+        "template": 2.5338196754455566
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03918646240690192,
+        "context": 0.5697085690505872,
+        "question": 0.1503585104229504,
+        "template": 0.2407464581195605
+      }
+    },
+    {
+      "question": "What kind of fiction is Tesla's work featured in?",
+      "gold_text": "science fiction",
+      "reply_text": "Tesla's work is featured in science fiction.",
+      "reply_logp": -1.0660669803619385,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 78,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.11320754716981132,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.6920366883277893,
+      "region_proxy_mean": {
+        "gold_span": 12.617912292480469,
+        "context": 5.207629203796387,
+        "question": 15.131206512451172,
+        "template": 33.14602279663086
+      },
+      "region_measured_mean": {
+        "gold_span": 5.547296047210693,
+        "context": 0.5369866490364075,
+        "question": 2.1771931648254395,
+        "template": 1.9484221935272217
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.02087697013395048,
+        "context": 0.1809419720567528,
+        "question": 0.11265904309827601,
+        "template": 0.6855220147110207
+      }
+    },
+    {
+      "question": "Where was the ESPN Deportes Spanish version of Super Bowl 50 available?",
+      "gold_text": "WatchESPN.",
+      "reply_text": "The ESPN Deportes Spanish version of Super Bowl 5",
+      "reply_logp": -0.14818963408470154,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 117,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.3720456659793854,
+      "region_proxy_mean": {
+        "gold_span": 1.5919855833053589,
+        "context": 0.6388764381408691,
+        "question": 1.5088385343551636,
+        "template": 4.750121593475342
+      },
+      "region_measured_mean": {
+        "gold_span": 0.05376608297228813,
+        "context": 0.02517758309841156,
+        "question": 5.334263324737549,
+        "template": 1.265297532081604
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.025225940846184656,
+        "context": 0.2530842629354367,
+        "question": 0.11954213424241492,
+        "template": 0.6021476619759638
+      }
+    },
+    {
+      "question": "How many total yards did the Panthers have in the NFC Championship?",
+      "gold_text": "487",
+      "reply_text": "The Panthers had 487 yards in the NFC Championship",
+      "reply_logp": -1.3747475147247314,
+      "correct": true,
+      "token_f1": 0.25,
+      "n_input_tokens": 120,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.12631578947368421,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4816037714481354,
+      "region_proxy_mean": {
+        "gold_span": 14.638951301574707,
+        "context": 13.586953163146973,
+        "question": 18.89338493347168,
+        "template": 28.621353149414062
+      },
+      "region_measured_mean": {
+        "gold_span": 12.485175132751465,
+        "context": 0.7628558278083801,
+        "question": 0.9540233612060547,
+        "template": 1.5134292840957642
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.021238225678609515,
+        "context": 0.5322236092529402,
+        "question": 0.10050542935995055,
+        "template": 0.3460327357084997
+      }
+    },
+    {
+      "question": "How quick was the effect of Luther's preaching?",
+      "gold_text": "immediate",
+      "reply_text": "Luther's preaching brought about quick change.",
+      "reply_logp": -3.3684334754943848,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 97,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.20833333333333334,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.41923072934150696,
+      "region_proxy_mean": {
+        "gold_span": 8.54238510131836,
+        "context": 5.976485729217529,
+        "question": 14.463836669921875,
+        "template": 15.598913192749023
+      },
+      "region_measured_mean": {
+        "gold_span": 0.6608346700668335,
+        "context": 0.49770858883857727,
+        "question": 2.8726754188537598,
+        "template": 4.002493858337402
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.009590163073420758,
+        "context": 0.4227009946678468,
+        "question": 0.12990333981343055,
+        "template": 0.4378055024453019
+      }
+    },
+    {
+      "question": "Who is taught at teacher's colleges?",
+      "gold_text": "teachers",
+      "reply_text": "Teachers.",
+      "reply_logp": -0.83441561460495,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 89,
+      "n_reply_tokens": 3,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.203125,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5233935713768005,
+      "region_proxy_mean": {
+        "gold_span": 8.752764701843262,
+        "context": 6.0947585105896,
+        "question": 19.475358963012695,
+        "template": 26.021650314331055
+      },
+      "region_measured_mean": {
+        "gold_span": 0.23313789069652557,
+        "context": 0.2971456050872803,
+        "question": 3.229661703109741,
+        "template": 4.328622341156006
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0077902937810737085,
+        "context": 0.3092003434836184,
+        "question": 0.10400287023220554,
+        "template": 0.5790064925031023
+      }
+    },
+    {
+      "question": "What is the name of the spiritual teacher in Hinduism?",
+      "gold_text": "guru",
+      "reply_text": "Guru.",
+      "reply_logp": -0.9783105254173279,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 89,
+      "n_reply_tokens": 4,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5043262839317322,
+      "region_proxy_mean": {
+        "gold_span": 15.670604705810547,
+        "context": 3.5306997299194336,
+        "question": 8.59379768371582,
+        "template": 22.27495765686035
+      },
+      "region_measured_mean": {
+        "gold_span": 6.579007625579834,
+        "context": 0.29781755805015564,
+        "question": 1.164185881614685,
+        "template": 3.369642734527588
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.018531724835087495,
+        "context": 0.22129253068301963,
+        "question": 0.10162841671542462,
+        "template": 0.6585473277664683
+      }
+    },
+    {
+      "question": "When was Luther's 95 Theses translated into German?",
+      "gold_text": "January 1518",
+      "reply_text": "In January 1518.",
+      "reply_logp": -0.592619776725769,
+      "correct": true,
+      "token_f1": 0.8,
+      "n_input_tokens": 108,
+      "n_reply_tokens": 9,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.012048192771084338,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.559489369392395,
+      "region_proxy_mean": {
+        "gold_span": 4.37375545501709,
+        "context": 1.858900547027588,
+        "question": 3.8829476833343506,
+        "template": 13.234079360961914
+      },
+      "region_measured_mean": {
+        "gold_span": 8.8978910446167,
+        "context": 0.09365709125995636,
+        "question": 0.3865065574645996,
+        "template": 3.7205731868743896
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05022548118078662,
+        "context": 0.23481103657718713,
+        "question": 0.08174713408554893,
+        "template": 0.6332163481564773
+      }
+    },
+    {
+      "question": "How many years has Thomas Davis played in the NFL?",
+      "gold_text": "11",
+      "reply_text": "Thomas Davis has played in the NFL for 11 years",
+      "reply_logp": -0.4543290436267853,
+      "correct": true,
+      "token_f1": 0.19999999999999998,
+      "n_input_tokens": 98,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.0958904109589041,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5353937149047852,
+      "region_proxy_mean": {
+        "gold_span": 4.25322151184082,
+        "context": 1.9496723413467407,
+        "question": 3.4898877143859863,
+        "template": 4.898785591125488
+      },
+      "region_measured_mean": {
+        "gold_span": 8.272153854370117,
+        "context": 0.09601994603872299,
+        "question": 3.6649937629699707,
+        "template": 1.9904239177703857
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.030030006531205064,
+        "context": 0.42673749667724836,
+        "question": 0.11088208843510884,
+        "template": 0.43235040835643773
+      }
+    },
+    {
+      "question": "Which region began to grow and assert itself in the 2000s?",
+      "gold_text": "Greater Sacramento",
+      "reply_text": "The Greater Sacramento region began to grow and assert itself in the",
+      "reply_logp": -1.0254204273223877,
+      "correct": true,
+      "token_f1": 0.33333333333333337,
+      "n_input_tokens": 134,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4059169888496399,
+      "region_proxy_mean": {
+        "gold_span": 22.17294692993164,
+        "context": 3.653519630432129,
+        "question": 8.844709396362305,
+        "template": 23.169584274291992
+      },
+      "region_measured_mean": {
+        "gold_span": 18.22018814086914,
+        "context": 0.49898868799209595,
+        "question": 4.541290760040283,
+        "template": 2.8852102756500244
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.040595666812882784,
+        "context": 0.3076986125986893,
+        "question": 0.12145101221186203,
+        "template": 0.5302547083765659
+      }
+    },
+    {
+      "question": "How many times was Cam Newton sacked in Super Bowl 50?",
+      "gold_text": "seven",
+      "reply_text": "Cam Newton was sacked seven times in Super Bowl 50",
+      "reply_logp": -0.2708771824836731,
+      "correct": true,
+      "token_f1": 0.18181818181818182,
+      "n_input_tokens": 109,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.05952380952380952,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.3625313639640808,
+      "region_proxy_mean": {
+        "gold_span": 4.0291829109191895,
+        "context": 1.278759479522705,
+        "question": 3.1793479919433594,
+        "template": 4.900889873504639
+      },
+      "region_measured_mean": {
+        "gold_span": 8.804490089416504,
+        "context": 0.1055011972784996,
+        "question": 5.487586975097656,
+        "template": 1.8759090900421143
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.01577007213774774,
+        "context": 0.35535621392157524,
+        "question": 0.14932620059927704,
+        "template": 0.4795475133414
+      }
+    },
+    {
+      "question": "Who became the King of the Canary Islands?",
+      "gold_text": "Bethencourt",
+      "reply_text": "Jean's nephew Maciot de Bethencourt became the King",
+      "reply_logp": -1.2309043407440186,
+      "correct": true,
+      "token_f1": 0.2222222222222222,
+      "n_input_tokens": 94,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.014492753623188406,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5018508434295654,
+      "region_proxy_mean": {
+        "gold_span": 27.138357162475586,
+        "context": 7.472326755523682,
+        "question": 9.131142616271973,
+        "template": 18.56859588623047
+      },
+      "region_measured_mean": {
+        "gold_span": 1.1082156896591187,
+        "context": 3.7743985652923584,
+        "question": 4.795195579528809,
+        "template": 3.411588668823242
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.07750751576184538,
+        "context": 0.41970762174032245,
+        "question": 0.060850222168369196,
+        "template": 0.44193464032946295
+      }
+    },
+    {
+      "question": "How many yards did the Panthers get for the division championshipt game?",
+      "gold_text": "487",
+      "reply_text": "The Panthers scored 487 yards in the division championship",
+      "reply_logp": -1.6074848175048828,
+      "correct": true,
+      "token_f1": 0.25,
+      "n_input_tokens": 122,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.020618556701030927,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.20880836248397827,
+      "region_proxy_mean": {
+        "gold_span": 5.605009078979492,
+        "context": 4.239378929138184,
+        "question": 9.01040267944336,
+        "template": 17.152673721313477
+      },
+      "region_measured_mean": {
+        "gold_span": 10.481230735778809,
+        "context": 0.6115877628326416,
+        "question": 3.4846272468566895,
+        "template": 1.4767690896987915
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.018556419984831613,
+        "context": 0.3789517362566946,
+        "question": 0.12926595609884198,
+        "template": 0.4732258876596318
+      }
+    },
+    {
+      "question": "How many Grammy Award's does the text say Lady Gaga has won?",
+      "gold_text": "Six",
+      "reply_text": "Lady Gaga has won 6 Grammy Awards.",
+      "reply_logp": -2.023467540740967,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 69,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.09090909090909091,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.6642228960990906,
+      "region_proxy_mean": {
+        "gold_span": 58.092933654785156,
+        "context": 18.916248321533203,
+        "question": 46.56650161743164,
+        "template": 21.238548278808594
+      },
+      "region_measured_mean": {
+        "gold_span": 13.108169555664062,
+        "context": 1.060644507408142,
+        "question": 3.5996665954589844,
+        "template": 3.057014226913452
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03349727749793628,
+        "context": 0.33812936922785997,
+        "question": 0.32221152761362604,
+        "template": 0.30616182566057765
+      }
+    },
+    {
+      "question": "What industry has managed to survive major military spending cutbacks?",
+      "gold_text": "aerospace",
+      "reply_text": "Aerospace has managed to survive major military spending cutbacks",
+      "reply_logp": -0.7131751179695129,
+      "correct": true,
+      "token_f1": 0.19999999999999998,
+      "n_input_tokens": 100,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.05333333333333334,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.39309436082839966,
+      "region_proxy_mean": {
+        "gold_span": 5.42809534072876,
+        "context": 1.6820167303085327,
+        "question": 4.586672782897949,
+        "template": 7.923069953918457
+      },
+      "region_measured_mean": {
+        "gold_span": 22.3702392578125,
+        "context": 0.24194543063640594,
+        "question": 8.265932083129883,
+        "template": 3.000447988510132
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.015203869770732507,
+        "context": 0.30152054522910743,
+        "question": 0.12847080975392702,
+        "template": 0.5548047752462331
+      }
+    },
+    {
+      "question": "What is the name of the team from USC?",
+      "gold_text": "Trojans",
+      "reply_text": "The USC Trojans.",
+      "reply_logp": -0.6199219226837158,
+      "correct": true,
+      "token_f1": 0.6666666666666666,
+      "n_input_tokens": 75,
+      "n_reply_tokens": 7,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.26,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5037679672241211,
+      "region_proxy_mean": {
+        "gold_span": 5.2677764892578125,
+        "context": 4.65338659286499,
+        "question": 9.959348678588867,
+        "template": 22.860620498657227
+      },
+      "region_measured_mean": {
+        "gold_span": 2.6023576259613037,
+        "context": 0.21023787558078766,
+        "question": 3.2305235862731934,
+        "template": 2.6672635078430176
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.018625552796964245,
+        "context": 0.21389190299688232,
+        "question": 0.09390344425828884,
+        "template": 0.6735790999478646
+      }
+    },
+    {
+      "question": "Which year resulted in the suspension of one of the two soccer teams?",
+      "gold_text": "2014",
+      "reply_text": "The suspension occurred in 2014.",
+      "reply_logp": -1.1528732776641846,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 112,
+      "n_reply_tokens": 11,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.8390804597701149,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.021194878965616226,
+      "region_proxy_mean": {
+        "gold_span": 0.7770054340362549,
+        "context": 2.0372843742370605,
+        "question": 5.782895565032959,
+        "template": 7.891348838806152
+      },
+      "region_measured_mean": {
+        "gold_span": 0.06178298592567444,
+        "context": 0.24511587619781494,
+        "question": 3.488184690475464,
+        "template": 2.538699150085449
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.007499442924495738,
+        "context": 0.34902375629105764,
+        "question": 0.16744474851894475,
+        "template": 0.4760320522655019
+      }
+    },
+    {
+      "question": "What do some sources say Nikola's brother died from?",
+      "gold_text": "a stroke",
+      "reply_text": "Some sources say Nikola Tesla's brother died of a stroke.",
+      "reply_logp": -1.2465542554855347,
+      "correct": true,
+      "token_f1": 0.18181818181818182,
+      "n_input_tokens": 128,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.20388349514563106,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.2767835855484009,
+      "region_proxy_mean": {
+        "gold_span": 2.2131128311157227,
+        "context": 1.794165849685669,
+        "question": 12.562116622924805,
+        "template": 8.8894624710083
+      },
+      "region_measured_mean": {
+        "gold_span": 8.073610305786133,
+        "context": 0.17880141735076904,
+        "question": 7.187394142150879,
+        "template": 2.0598371028900146
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.008768534021456487,
+        "context": 0.32699709208111305,
+        "question": 0.22397462319342792,
+        "template": 0.44025975070400253
+      }
+    },
+    {
+      "question": "The two listed teams play for which NCAA group?",
+      "gold_text": "Division I",
+      "reply_text": "The two listed teams play for the NCAA Division I Pac-",
+      "reply_logp": -1.6845251321792603,
+      "correct": true,
+      "token_f1": 0.3636363636363636,
+      "n_input_tokens": 75,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.14,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.3642330765724182,
+      "region_proxy_mean": {
+        "gold_span": 10.835763931274414,
+        "context": 5.792733192443848,
+        "question": 19.652332305908203,
+        "template": 11.773503303527832
+      },
+      "region_measured_mean": {
+        "gold_span": 3.5336685180664062,
+        "context": 0.8490745425224304,
+        "question": 11.213821411132812,
+        "template": 1.9423251152038574
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03074249790825347,
+        "context": 0.3286950265789269,
+        "question": 0.22302509146271804,
+        "template": 0.41753738405010155
+      }
+    },
+    {
+      "question": "How much money did John Jacob Astor IV provide Tesla with?",
+      "gold_text": "$100,000",
+      "reply_text": "John Jacob Astor IV provided Tesla with $100",
+      "reply_logp": -0.10954569280147552,
+      "correct": false,
+      "token_f1": 0.2,
+      "n_input_tokens": 81,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.4107142857142857,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": -0.021739130839705467,
+      "region_proxy_mean": {
+        "gold_span": 0.5237953066825867,
+        "context": 0.7267457842826843,
+        "question": 1.421298861503601,
+        "template": 2.7716383934020996
+      },
+      "region_measured_mean": {
+        "gold_span": 2.4940552711486816,
+        "context": 0.13050422072410583,
+        "question": 2.4237756729125977,
+        "template": 1.546132206916809
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03612219386924444,
+        "context": 0.23179643679357295,
+        "question": 0.1347722816285773,
+        "template": 0.5973090877086054
+      }
+    },
+    {
+      "question": "Who won the MVP for the Super Bowl?",
+      "gold_text": "Von Miller",
+      "reply_text": "The MVP was Von Miller of Denver.",
+      "reply_logp": -1.7687422037124634,
+      "correct": true,
+      "token_f1": 0.5,
+      "n_input_tokens": 104,
+      "n_reply_tokens": 9,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.34177215189873417,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.6518425345420837,
+      "region_proxy_mean": {
+        "gold_span": 5.631377220153809,
+        "context": 6.6994709968566895,
+        "question": 17.606752395629883,
+        "template": 17.10310935974121
+      },
+      "region_measured_mean": {
+        "gold_span": 19.12545394897461,
+        "context": 0.43807369470596313,
+        "question": 3.7377047538757324,
+        "template": 1.9851748943328857
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.010923568849740035,
+        "context": 0.4548398900217771,
+        "question": 0.11953560262400759,
+        "template": 0.4147009385044753
+      }
+    },
+    {
+      "question": "What part of the Teaching Council Act requires registration?",
+      "gold_text": "Section 30",
+      "reply_text": "Section 30 of the Teaching Council Act 20",
+      "reply_logp": -0.5487908124923706,
+      "correct": true,
+      "token_f1": 0.4444444444444445,
+      "n_input_tokens": 91,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.10606060606060606,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.38816946744918823,
+      "region_proxy_mean": {
+        "gold_span": 3.202725887298584,
+        "context": 2.875478982925415,
+        "question": 7.468664646148682,
+        "template": 9.961318016052246
+      },
+      "region_measured_mean": {
+        "gold_span": 8.480123519897461,
+        "context": 0.6798917055130005,
+        "question": 1.1076699495315552,
+        "template": 3.116395950317383
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.026864613715896594,
+        "context": 0.3256153247978752,
+        "question": 0.12529501756798078,
+        "template": 0.5222250439182474
+      }
+    },
+    {
+      "question": "When did Luther enter into the senate of the Theology faculty of the University of Wittenberg?",
+      "gold_text": "21 October 1512",
+      "reply_text": "On 21 October 1512, Luther",
+      "reply_logp": -0.541839063167572,
+      "correct": true,
+      "token_f1": 0.7499999999999999,
+      "n_input_tokens": 120,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.2,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.15516065061092377,
+      "region_proxy_mean": {
+        "gold_span": 1.8040238618850708,
+        "context": 3.231945514678955,
+        "question": 4.946379661560059,
+        "template": 17.66507339477539
+      },
+      "region_measured_mean": {
+        "gold_span": 2.450514554977417,
+        "context": 0.2545579969882965,
+        "question": 1.0379008054733276,
+        "template": 2.472825050354004
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.01878951523715704,
+        "context": 0.29033305087903005,
+        "question": 0.11591597059565524,
+        "template": 0.5749614632881577
+      }
+    },
+    {
+      "question": "Which organization released a California Earthquake forecast?",
+      "gold_text": "USGS",
+      "reply_text": "The USGS released a California Earthquake forecast.",
+      "reply_logp": -0.18254321813583374,
+      "correct": true,
+      "token_f1": 0.33333333333333337,
+      "n_input_tokens": 105,
+      "n_reply_tokens": 11,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.0125,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.3796742260456085,
+      "region_proxy_mean": {
+        "gold_span": 2.4270739555358887,
+        "context": 0.6436530351638794,
+        "question": 1.2393805980682373,
+        "template": 1.884814739227295
+      },
+      "region_measured_mean": {
+        "gold_span": 18.81002426147461,
+        "context": 0.1569487303495407,
+        "question": 1.9431514739990234,
+        "template": 1.5696488618850708
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04564333484908328,
+        "context": 0.4297090767044873,
+        "question": 0.08157687598906974,
+        "template": 0.4430707124573597
+      }
+    },
+    {
+      "question": "What place had the Norman Arab architectural style?",
+      "gold_text": "Sicily",
+      "reply_text": "The Norman-Arab architectural style was introduced in the Kingdom of",
+      "reply_logp": -3.3767664432525635,
+      "correct": false,
+      "token_f1": 0.3333333333333333,
+      "n_input_tokens": 95,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.6225998401641846,
+      "region_proxy_mean": {
+        "gold_span": 35.85994338989258,
+        "context": 5.731967449188232,
+        "question": 14.272175788879395,
+        "template": 19.541595458984375
+      },
+      "region_measured_mean": {
+        "gold_span": 0.47398579120635986,
+        "context": 1.3054348230361938,
+        "question": 4.729097843170166,
+        "template": 1.9304255247116089
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.07102279683942148,
+        "context": 0.3462515411425901,
+        "question": 0.098934190264741,
+        "template": 0.48379147175324744
+      }
+    },
+    {
+      "question": "What did he hope to locate underground?",
+      "gold_text": "mineral deposits",
+      "reply_text": "Tesla hoped to locate underground mineral deposits.",
+      "reply_logp": -0.44279608130455017,
+      "correct": true,
+      "token_f1": 0.4444444444444445,
+      "n_input_tokens": 80,
+      "n_reply_tokens": 9,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.6181818181818182,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.10469387471675873,
+      "region_proxy_mean": {
+        "gold_span": 1.1926853656768799,
+        "context": 1.6264784336090088,
+        "question": 3.7675487995147705,
+        "template": 8.05765151977539
+      },
+      "region_measured_mean": {
+        "gold_span": 4.027492523193359,
+        "context": 0.5895639061927795,
+        "question": 3.281893730163574,
+        "template": 1.8655086755752563
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.007875722413715156,
+        "context": 0.25239498290812945,
+        "question": 0.07463535957463438,
+        "template": 0.665093935103521
+      }
+    },
+    {
+      "question": "At what point in the day was the couple married?",
+      "gold_text": "evening",
+      "reply_text": "The couple was married on 13 June 15",
+      "reply_logp": -0.9264402985572815,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 122,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.08247422680412371,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4834102690219879,
+      "region_proxy_mean": {
+        "gold_span": 5.819569110870361,
+        "context": 2.4859561920166016,
+        "question": 8.628043174743652,
+        "template": 14.196277618408203
+      },
+      "region_measured_mean": {
+        "gold_span": 0.3018479645252228,
+        "context": 0.8345792293548584,
+        "question": 1.9054540395736694,
+        "template": 1.1744332313537598
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.008889492408313935,
+        "context": 0.3303686735357546,
+        "question": 0.11861536139882994,
+        "template": 0.5421264726571016
+      }
+    },
+    {
+      "question": "What happened to his lab?",
+      "gold_text": "His lab was torn down",
+      "reply_text": "Tesla's lab was destroyed in 1904 and",
+      "reply_logp": -1.7242753505706787,
+      "correct": false,
+      "token_f1": 0.3333333333333333,
+      "n_input_tokens": 71,
+      "n_reply_tokens": 12,
+      "gold_span_hit": true,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "gold_span",
+      "rho_proxy_dlogp_context": 0.14950166642665863,
+      "region_proxy_mean": {
+        "gold_span": 17.26465606689453,
+        "context": 3.9242396354675293,
+        "question": 7.493666648864746,
+        "template": 8.943249702453613
+      },
+      "region_measured_mean": {
+        "gold_span": 0.8419981002807617,
+        "context": 1.0558782815933228,
+        "question": 2.6284964084625244,
+        "template": 2.2886147499084473
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.1779582401315025,
+        "context": 0.2993280761121809,
+        "question": 0.061793744502888895,
+        "template": 0.4609199392534277
+      }
+    },
+    {
+      "question": "What app did viewers use to watch the game on their smartphones? ",
+      "gold_text": "NFL Mobile service",
+      "reply_text": "The app used for watching the game on smartphones is the NFL",
+      "reply_logp": -4.703812599182129,
+      "correct": true,
+      "token_f1": 0.19999999999999998,
+      "n_input_tokens": 114,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.11235955056179775,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.2520900368690491,
+      "region_proxy_mean": {
+        "gold_span": 10.962090492248535,
+        "context": 6.858717441558838,
+        "question": 13.12579345703125,
+        "template": 17.47321128845215
+      },
+      "region_measured_mean": {
+        "gold_span": 3.9562158584594727,
+        "context": 0.9101850986480713,
+        "question": 4.902630805969238,
+        "template": 2.5929152965545654
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.028980532167955514,
+        "context": 0.4472664564314638,
+        "question": 0.13880287975490388,
+        "template": 0.3849501316456768
+      }
+    },
+    {
+      "question": "Why did he fire the secretary?",
+      "gold_text": "her weight",
+      "reply_text": "He fired the secretary because of her weight.",
+      "reply_logp": -1.5880221128463745,
+      "correct": true,
+      "token_f1": 0.4444444444444445,
+      "n_input_tokens": 84,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.3050847457627119,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.34362491965293884,
+      "region_proxy_mean": {
+        "gold_span": 4.928558826446533,
+        "context": 4.426666259765625,
+        "question": 6.457955837249756,
+        "template": 10.530340194702148
+      },
+      "region_measured_mean": {
+        "gold_span": 2.459951162338257,
+        "context": 0.32787948846817017,
+        "question": 4.402486801147461,
+        "template": 1.902982234954834
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.018404151098319527,
+        "context": 0.4297798039272272,
+        "question": 0.0602880093683398,
+        "template": 0.4915280356061135
+      }
+    },
+    {
+      "question": "How many forced fumbles did Von Miller have during the Super Bowl 50 game?",
+      "gold_text": "2",
+      "reply_text": "Von Miller had two forced fumbles.",
+      "reply_logp": -0.5148014426231384,
+      "correct": true,
+      "token_f1": 0.2857142857142857,
+      "n_input_tokens": 113,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.9545454545454546,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.2210109978914261,
+      "region_proxy_mean": {
+        "gold_span": 0.9343910217285156,
+        "context": 2.4882256984710693,
+        "question": 4.551273822784424,
+        "template": 10.086714744567871
+      },
+      "region_measured_mean": {
+        "gold_span": 0.07968505471944809,
+        "context": 0.21711114048957825,
+        "question": 1.133190393447876,
+        "template": 2.4598302841186523
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0018591639955114292,
+        "context": 0.35150959102088375,
+        "question": 0.14489120206389802,
+        "template": 0.5017400429197069
+      }
+    },
+    {
+      "question": "When was the Teaching Council Act passed?",
+      "gold_text": "2001",
+      "reply_text": "The Teaching Council Act 2001 was passed.",
+      "reply_logp": -0.6128183603286743,
+      "correct": true,
+      "token_f1": 0.2857142857142857,
+      "n_input_tokens": 89,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.640625,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.264326810836792,
+      "region_proxy_mean": {
+        "gold_span": 0.9251950979232788,
+        "context": 2.0633394718170166,
+        "question": 5.963990688323975,
+        "template": 7.3234477043151855
+      },
+      "region_measured_mean": {
+        "gold_span": 5.476673126220703,
+        "context": 0.35142409801483154,
+        "question": 3.118245840072632,
+        "template": 1.8320183753967285
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.01108047142125132,
+        "context": 0.33360253137877754,
+        "question": 0.1071403538032979,
+        "template": 0.5481766433966733
+      }
+    },
+    {
+      "question": "Where did Tesla teach in Gospic?",
+      "gold_text": "Higher Real Gymnasium",
+      "reply_text": "Tesla taught in Gospi\u0107.",
+      "reply_logp": -1.5243169069290161,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 126,
+      "n_reply_tokens": 8,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.07920792079207921,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.6880106925964355,
+      "region_proxy_mean": {
+        "gold_span": 13.686861038208008,
+        "context": 5.942837715148926,
+        "question": 38.163368225097656,
+        "template": 13.826943397521973
+      },
+      "region_measured_mean": {
+        "gold_span": 0.5052364468574524,
+        "context": 0.4741467237472534,
+        "question": 2.705662965774536,
+        "template": 2.1666786670684814
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.056549611969504844,
+        "context": 0.43705853530746436,
+        "question": 0.220749911851026,
+        "template": 0.28564194087200484
+      }
+    },
+    {
+      "question": "When were Luther and his prospective bride engaged?",
+      "gold_text": "13 June 1525",
+      "reply_text": "Luther and his prospective bride were engaged on 13",
+      "reply_logp": -0.7410511374473572,
+      "correct": false,
+      "token_f1": 0.16666666666666666,
+      "n_input_tokens": 120,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.09473684210526316,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.2765136957168579,
+      "region_proxy_mean": {
+        "gold_span": 2.7846875190734863,
+        "context": 3.266009569168091,
+        "question": 9.229640007019043,
+        "template": 13.556897163391113
+      },
+      "region_measured_mean": {
+        "gold_span": 3.3403329849243164,
+        "context": 0.22087807953357697,
+        "question": 11.171483039855957,
+        "template": 2.1860668659210205
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03242305697912407,
+        "context": 0.380272540068735,
+        "question": 0.0940308423975723,
+        "template": 0.4932735605545686
+      }
+    },
+    {
+      "question": "In what Super Bowl did Rivera play?",
+      "gold_text": "Super Bowl XX",
+      "reply_text": "The Super Bowl in which Rivera played is the one in which",
+      "reply_logp": -4.036505699157715,
+      "correct": false,
+      "token_f1": 0.30769230769230765,
+      "n_input_tokens": 88,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.015873015873015872,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.46603575348854065,
+      "region_proxy_mean": {
+        "gold_span": 28.078989028930664,
+        "context": 7.710840225219727,
+        "question": 18.372222900390625,
+        "template": 14.322286605834961
+      },
+      "region_measured_mean": {
+        "gold_span": 1.3539214134216309,
+        "context": 0.6434214115142822,
+        "question": 11.981292724609375,
+        "template": 2.5790185928344727
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0869396745774263,
+        "context": 0.4297449255286133,
+        "question": 0.11377012880957957,
+        "template": 0.3695452710843808
+      }
+    },
+    {
+      "question": "Who asked Luther to teach theology at the University of Wittenberg?",
+      "gold_text": "von Staupitz",
+      "reply_text": "Von Staupitz.",
+      "reply_logp": -0.5194230675697327,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 122,
+      "n_reply_tokens": 7,
+      "gold_span_hit": true,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "gold_span",
+      "rho_proxy_dlogp_context": 0.47723275423049927,
+      "region_proxy_mean": {
+        "gold_span": 9.161538124084473,
+        "context": 1.0443040132522583,
+        "question": 2.0820422172546387,
+        "template": 5.807476043701172
+      },
+      "region_measured_mean": {
+        "gold_span": 22.164955139160156,
+        "context": 0.31753790378570557,
+        "question": 0.4514760673046112,
+        "template": 3.1602282524108887
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.1257562595765152,
+        "context": 0.29027738004345277,
+        "question": 0.08573773638687701,
+        "template": 0.49822862399315504
+      }
+    },
+    {
+      "question": "Who was Ralph in charge of being at war with?",
+      "gold_text": "the Welsh",
+      "reply_text": "Ralph was in charge of war with Wales.",
+      "reply_logp": -1.8486117124557495,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 100,
+      "n_reply_tokens": 11,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.16,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.15236406028270721,
+      "region_proxy_mean": {
+        "gold_span": 7.423437118530273,
+        "context": 5.968977451324463,
+        "question": 16.025888442993164,
+        "template": 12.097989082336426
+      },
+      "region_measured_mean": {
+        "gold_span": 0.8681091070175171,
+        "context": 0.351337194442749,
+        "question": 5.4512176513671875,
+        "template": 3.190516471862793
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.01760058850845801,
+        "context": 0.45286848576777405,
+        "question": 0.17098453264747507,
+        "template": 0.3585463930762929
+      }
+    },
+    {
+      "question": "what did tesla do at his old school in 1879?",
+      "gold_text": "taught",
+      "reply_text": "Tesla taught a large class at his old school in Gospi",
+      "reply_logp": -1.2697802782058716,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 133,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.08333333333333333,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5981938242912292,
+      "region_proxy_mean": {
+        "gold_span": 8.716005325317383,
+        "context": 3.512606143951416,
+        "question": 4.748813629150391,
+        "template": 8.57973575592041
+      },
+      "region_measured_mean": {
+        "gold_span": 7.9796857833862305,
+        "context": 0.8685867786407471,
+        "question": 0.9868332743644714,
+        "template": 1.8763022422790527
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.014140977070080074,
+        "context": 0.5299981283382831,
+        "question": 0.10786364276292222,
+        "template": 0.3479972518287146
+      }
+    },
+    {
+      "question": "Which Super Bowl halftime show did Beyonc\u00e9 headline?",
+      "gold_text": "Super Bowl XLVII",
+      "reply_text": "Beyonc\u00e9 headed the Super Bowl halftime show.",
+      "reply_logp": -1.2046664953231812,
+      "correct": false,
+      "token_f1": 0.4444444444444444,
+      "n_input_tokens": 123,
+      "n_reply_tokens": 11,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.11224489795918367,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.37676259875297546,
+      "region_proxy_mean": {
+        "gold_span": 6.430975437164307,
+        "context": 4.534100532531738,
+        "question": 14.407964706420898,
+        "template": 13.421412467956543
+      },
+      "region_measured_mean": {
+        "gold_span": 1.268271803855896,
+        "context": 0.4751741886138916,
+        "question": 5.904717445373535,
+        "template": 3.047316312789917
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03702975018944431,
+        "context": 0.4438273528398912,
+        "question": 0.13273839838915788,
+        "template": 0.3864044985815066
+      }
+    },
+    {
+      "question": "What magnitude of earthquake can many faults produce?",
+      "gold_text": "6.7",
+      "reply_text": "The magnitude of earthquakes produced by many faults is typically 6",
+      "reply_logp": -3.061579465866089,
+      "correct": false,
+      "token_f1": 0.16666666666666669,
+      "n_input_tokens": 105,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.2125,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5056461095809937,
+      "region_proxy_mean": {
+        "gold_span": 5.8276448249816895,
+        "context": 5.2093987464904785,
+        "question": 18.30999183654785,
+        "template": 17.989974975585938
+      },
+      "region_measured_mean": {
+        "gold_span": 2.68615984916687,
+        "context": 0.23097823560237885,
+        "question": 4.734111309051514,
+        "template": 2.713947057723999
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.018210249285312178,
+        "context": 0.3798282010218117,
+        "question": 0.13350197528197832,
+        "template": 0.4684595744108978
+      }
+    },
+    {
+      "question": "In 2007, what was the high end of the salary range?",
+      "gold_text": "41,004",
+      "reply_text": "The high end of the salary range in 200",
+      "reply_logp": -0.5986267328262329,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 129,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.7211538461538461,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.47444674372673035,
+      "region_proxy_mean": {
+        "gold_span": 0.42868706583976746,
+        "context": 1.5903807878494263,
+        "question": 3.112788438796997,
+        "template": 3.927126407623291
+      },
+      "region_measured_mean": {
+        "gold_span": 0.09988641738891602,
+        "context": 0.10283912718296051,
+        "question": 3.965649366378784,
+        "template": 1.350879192352295
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.009204436899310338,
+        "context": 0.47237278742506955,
+        "question": 0.1670884820701757,
+        "template": 0.35133429360544444
+      }
+    },
+    {
+      "question": "What helped the Lama determine to be reborn?",
+      "gold_text": "through phowa and siddhi",
+      "reply_text": "A Lama determines to be reborn through phowa and s",
+      "reply_logp": -1.751579999923706,
+      "correct": false,
+      "token_f1": 0.46153846153846156,
+      "n_input_tokens": 87,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5880312323570251,
+      "region_proxy_mean": {
+        "gold_span": 19.841400146484375,
+        "context": 8.193842887878418,
+        "question": 14.174599647521973,
+        "template": 25.605670928955078
+      },
+      "region_measured_mean": {
+        "gold_span": 10.528579711914062,
+        "context": 0.5997321009635925,
+        "question": 3.4024527072906494,
+        "template": 3.2015492916107178
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.10871668597716357,
+        "context": 0.3014472373297109,
+        "question": 0.08876191236842321,
+        "template": 0.5010741643247023
+      }
+    },
+    {
+      "question": "Jamboree Business Parks belongs to which business center?",
+      "gold_text": "West Irvine",
+      "reply_text": "Jamboree Business Parks belongs to West Irvine.",
+      "reply_logp": -0.7748982310295105,
+      "correct": true,
+      "token_f1": 0.4444444444444445,
+      "n_input_tokens": 99,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.08108108108108109,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.07564102113246918,
+      "region_proxy_mean": {
+        "gold_span": 15.69288444519043,
+        "context": 6.205297470092773,
+        "question": 25.51851463317871,
+        "template": 7.4422197341918945
+      },
+      "region_measured_mean": {
+        "gold_span": 9.986663818359375,
+        "context": 0.4986099302768707,
+        "question": 9.7959623336792,
+        "template": 2.65753173828125
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.036607674800715015,
+        "context": 0.4487388594564086,
+        "question": 0.2976423958761164,
+        "template": 0.21701106986675997
+      }
+    },
+    {
+      "question": "What BBC radio station will carry the game in the United Kingdom?",
+      "gold_text": "BBC Radio 5",
+      "reply_text": "BBC Radio 5 Live.",
+      "reply_logp": -0.7227967381477356,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 79,
+      "n_reply_tokens": 7,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4652673006057739,
+      "region_proxy_mean": {
+        "gold_span": 12.574122428894043,
+        "context": 3.704949378967285,
+        "question": 6.499077320098877,
+        "template": 12.958891868591309
+      },
+      "region_measured_mean": {
+        "gold_span": 2.608302593231201,
+        "context": 0.22322070598602295,
+        "question": 0.7732145190238953,
+        "template": 2.73905086517334
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.0852119408117944,
+        "context": 0.24479901604866752,
+        "question": 0.12111758067550436,
+        "template": 0.5488714624640337
+      }
+    },
+    {
+      "question": "What will the number \"50\" be plated with? ",
+      "gold_text": "18-karat gold-plated",
+      "reply_text": "The number \"50\" will be plated with a large",
+      "reply_logp": -0.9446914196014404,
+      "correct": false,
+      "token_f1": 0.18181818181818182,
+      "n_input_tokens": 121,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.020833333333333332,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.4254446029663086,
+      "region_proxy_mean": {
+        "gold_span": 9.517220497131348,
+        "context": 4.04984712600708,
+        "question": 9.83291244506836,
+        "template": 7.074247360229492
+      },
+      "region_measured_mean": {
+        "gold_span": 0.413220077753067,
+        "context": 0.38763654232025146,
+        "question": 6.664529323577881,
+        "template": 1.4541316032409668
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.09980204522695703,
+        "context": 0.47322153221709057,
+        "question": 0.16203399069907407,
+        "template": 0.2649424318568783
+      }
+    },
+    {
+      "question": "Whose saying about purgatory did Martin Luther object to?",
+      "gold_text": "Johann Tetzel",
+      "reply_text": "Johann Tetzel.",
+      "reply_logp": -0.5232532620429993,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 76,
+      "n_reply_tokens": 7,
+      "gold_span_hit": true,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "gold_span",
+      "rho_proxy_dlogp_context": 0.7454032897949219,
+      "region_proxy_mean": {
+        "gold_span": 19.711000442504883,
+        "context": 2.7073447704315186,
+        "question": 5.451320648193359,
+        "template": 6.845422267913818
+      },
+      "region_measured_mean": {
+        "gold_span": 15.489008903503418,
+        "context": 0.31273818016052246,
+        "question": 3.401916265487671,
+        "template": 3.378972053527832
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.15146583439293929,
+        "context": 0.2565843063841516,
+        "question": 0.1535957609401181,
+        "template": 0.43835409828279104
+      }
+    },
+    {
+      "question": "How long did Tesla hold this position?",
+      "gold_text": "1892 to 1894",
+      "reply_text": "Tesla held the position from 1892 to ",
+      "reply_logp": -0.6717081665992737,
+      "correct": false,
+      "token_f1": 0.6,
+      "n_input_tokens": 76,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.2549019607843137,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": -0.30922266840934753,
+      "region_proxy_mean": {
+        "gold_span": 1.5812695026397705,
+        "context": 3.371975898742676,
+        "question": 5.710897445678711,
+        "template": 6.0661702156066895
+      },
+      "region_measured_mean": {
+        "gold_span": 1.3353784084320068,
+        "context": 0.24488285183906555,
+        "question": 2.6806106567382812,
+        "template": 2.0146186351776123
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.04945307433980923,
+        "context": 0.369096502909029,
+        "question": 0.10716256064481879,
+        "template": 0.474287862106343
+      }
+    },
+    {
+      "question": "Which company sponsored a contest called \"Small Business Big Game\"?",
+      "gold_text": "QuickBooks.",
+      "reply_text": "QuickBooks sponsored the \"Small Business Big Game\" contest.",
+      "reply_logp": -1.378795862197876,
+      "correct": true,
+      "token_f1": 0.25,
+      "n_input_tokens": 86,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.6557377049180327,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.3767106831073761,
+      "region_proxy_mean": {
+        "gold_span": 5.332421779632568,
+        "context": 11.878985404968262,
+        "question": 27.09563446044922,
+        "template": 25.194374084472656
+      },
+      "region_measured_mean": {
+        "gold_span": 1.528325080871582,
+        "context": 0.7415443658828735,
+        "question": 2.0862925052642822,
+        "template": 2.7848126888275146
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.010649076016214093,
+        "context": 0.37165790995375164,
+        "question": 0.19840754531449123,
+        "template": 0.41928546871554306
+      }
+    },
+    {
+      "question": "Which Florida venue was one of three considered for Super Bowl 50?",
+      "gold_text": "Miami's Sun Life Stadium",
+      "reply_text": "The answer is the San Francisco Bay Area's Levi's Stadium",
+      "reply_logp": -2.232281446456909,
+      "correct": false,
+      "token_f1": 0.26666666666666666,
+      "n_input_tokens": 73,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.14583333333333334,
+      "top_token_region": "context",
+      "rho_proxy_dlogp_context": -0.01764705963432789,
+      "region_proxy_mean": {
+        "gold_span": 8.331086158752441,
+        "context": 11.981656074523926,
+        "question": 8.109160423278809,
+        "template": 11.446450233459473
+      },
+      "region_measured_mean": {
+        "gold_span": 0.35153084993362427,
+        "context": 2.875701665878296,
+        "question": 0.6080396175384521,
+        "template": 2.605886459350586
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.05254975771274436,
+        "context": 0.45345816010070394,
+        "question": 0.13298980176186703,
+        "template": 0.36100228042468463
+      }
+    },
+    {
+      "question": "Where was Ralph earl of?",
+      "gold_text": "Hereford",
+      "reply_text": "Ralph earl of Hereford.",
+      "reply_logp": -0.3111917972564697,
+      "correct": true,
+      "token_f1": 0.4,
+      "n_input_tokens": 96,
+      "n_reply_tokens": 9,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.11267605633802817,
+      "top_token_region": "question",
+      "rho_proxy_dlogp_context": 0.5064816474914551,
+      "region_proxy_mean": {
+        "gold_span": 4.722952842712402,
+        "context": 2.106895685195923,
+        "question": 11.742388725280762,
+        "template": 6.504141330718994
+      },
+      "region_measured_mean": {
+        "gold_span": 12.13099479675293,
+        "context": 0.12733633816242218,
+        "question": 6.172530174255371,
+        "template": 1.7575738430023193
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.025836530788948556,
+        "context": 0.36881928281176,
+        "question": 0.16058947818815503,
+        "template": 0.4447547082111364
+      }
+    },
+    {
+      "question": "How long did it take for the Theses to spread through Europe?",
+      "gold_text": "two months",
+      "reply_text": "Within two months.",
+      "reply_logp": -1.1673150062561035,
+      "correct": true,
+      "token_f1": 0.8,
+      "n_input_tokens": 109,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5673033595085144,
+      "region_proxy_mean": {
+        "gold_span": 14.760393142700195,
+        "context": 4.125848770141602,
+        "question": 6.948863983154297,
+        "template": 15.87618637084961
+      },
+      "region_measured_mean": {
+        "gold_span": 5.8678388595581055,
+        "context": 0.3765261173248291,
+        "question": 1.858568787574768,
+        "template": 3.3966546058654785
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.03696468955322779,
+        "context": 0.36163505598213885,
+        "question": 0.10441290712481704,
+        "template": 0.4969873473398163
+      }
+    },
+    {
+      "question": "How many types of science fiction have been impacted by Tesla?",
+      "gold_text": "several",
+      "reply_text": "Tesla's legacy has impacted several types of science fiction.",
+      "reply_logp": -2.189913511276245,
+      "correct": true,
+      "token_f1": 0.18181818181818182,
+      "n_input_tokens": 79,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.07407407407407407,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5454545617103577,
+      "region_proxy_mean": {
+        "gold_span": 10.389649391174316,
+        "context": 4.650965690612793,
+        "question": 8.176165580749512,
+        "template": 14.362325668334961
+      },
+      "region_measured_mean": {
+        "gold_span": 1.9580086469650269,
+        "context": 0.89670330286026,
+        "question": 2.236196994781494,
+        "template": 3.3024988174438477
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.015954597621953906,
+        "context": 0.307111825624025,
+        "question": 0.1255551881363021,
+        "template": 0.551378388617719
+      }
+    },
+    {
+      "question": "What did Tesla tell Brisbane he didn't believe in?",
+      "gold_text": "telepathy",
+      "reply_text": "Tesla did not believe in telepathy.",
+      "reply_logp": -0.6455182433128357,
+      "correct": true,
+      "token_f1": 0.2857142857142857,
+      "n_input_tokens": 118,
+      "n_reply_tokens": 10,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.15053763440860216,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.5300395488739014,
+      "region_proxy_mean": {
+        "gold_span": 3.3678877353668213,
+        "context": 2.0313358306884766,
+        "question": 7.46502161026001,
+        "template": 5.564776420593262
+      },
+      "region_measured_mean": {
+        "gold_span": 6.790451526641846,
+        "context": 0.21566298604011536,
+        "question": 1.7526793479919434,
+        "template": 2.037437677383423
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.02652252831440887,
+        "context": 0.4319194572570907,
+        "question": 0.17636389367142277,
+        "template": 0.3651941207570777
+      }
+    },
+    {
+      "question": "What is the concrete choice typically assumed by most complexity-theoretic theorems?",
+      "gold_text": "input encoding",
+      "reply_text": "A concrete choice is typically assumed by most complexity-theoretic",
+      "reply_logp": -1.2939151525497437,
+      "correct": false,
+      "token_f1": 0.0,
+      "n_input_tokens": 94,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.43478260869565216,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.41818180680274963,
+      "region_proxy_mean": {
+        "gold_span": 2.3752355575561523,
+        "context": 2.4007325172424316,
+        "question": 4.417686939239502,
+        "template": 7.546002388000488
+      },
+      "region_measured_mean": {
+        "gold_span": 0.2026669979095459,
+        "context": 0.28047579526901245,
+        "question": 4.2999186515808105,
+        "template": 3.2812576293945312
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.012354805190775156,
+        "context": 0.3246731309269924,
+        "question": 0.17233974801689514,
+        "template": 0.4906323158653373
+      }
+    },
+    {
+      "question": "What is the other NHL team aside from the Anaheim Ducks to reside in Southern California?",
+      "gold_text": "Los Angeles Kings",
+      "reply_text": "Los Angeles Kings.",
+      "reply_logp": -0.17773616313934326,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 100,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.18666666666666668,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4610169529914856,
+      "region_proxy_mean": {
+        "gold_span": 1.4160209894180298,
+        "context": 1.098788857460022,
+        "question": 2.3914437294006348,
+        "template": 7.373339653015137
+      },
+      "region_measured_mean": {
+        "gold_span": 2.276014566421509,
+        "context": 0.11976779252290726,
+        "question": 0.8733602166175842,
+        "template": 3.1589105129241943
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.014797272718019729,
+        "context": 0.2181623626290287,
+        "question": 0.12495168452868384,
+        "template": 0.6420886801242678
+      }
+    },
+    {
+      "question": "How many teams did Los Angeles used to have?",
+      "gold_text": "two",
+      "reply_text": "Los Angeles used to have two Major League Soccer teams.",
+      "reply_logp": -1.0096250772476196,
+      "correct": true,
+      "token_f1": 0.18181818181818182,
+      "n_input_tokens": 108,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.21686746987951808,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.4257752597332001,
+      "region_proxy_mean": {
+        "gold_span": 5.7926225662231445,
+        "context": 3.228860378265381,
+        "question": 9.894730567932129,
+        "template": 7.8441481590271
+      },
+      "region_measured_mean": {
+        "gold_span": 2.489041805267334,
+        "context": 0.6317149996757507,
+        "question": 7.827364921569824,
+        "template": 2.563894748687744
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.011139876591096621,
+        "context": 0.4595006875405837,
+        "question": 0.15222959046946735,
+        "template": 0.3771298453988523
+      }
+    },
+    {
+      "question": "When did the Normans attack Dyrrachium?",
+      "gold_text": "1185",
+      "reply_text": "1185.",
+      "reply_logp": -0.42103058099746704,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 105,
+      "n_reply_tokens": 6,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.8125,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.2100939154624939,
+      "region_proxy_mean": {
+        "gold_span": 0.8344690203666687,
+        "context": 1.7699236869812012,
+        "question": 3.64599347114563,
+        "template": 15.442985534667969
+      },
+      "region_measured_mean": {
+        "gold_span": 10.34515380859375,
+        "context": 0.1207638755440712,
+        "question": 1.8615177869796753,
+        "template": 4.331364154815674
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.00617197832540761,
+        "context": 0.21927217708560454,
+        "question": 0.060675394055679385,
+        "template": 0.7138804505333085
+      }
+    },
+    {
+      "question": "The traveling salesman problem is an example of what type of problem?",
+      "gold_text": "A function problem",
+      "reply_text": "A function problem.",
+      "reply_logp": -0.22080229222774506,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 97,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.44669482111930847,
+      "region_proxy_mean": {
+        "gold_span": 10.058058738708496,
+        "context": 1.9050873517990112,
+        "question": 4.159698963165283,
+        "template": 7.57078742980957
+      },
+      "region_measured_mean": {
+        "gold_span": 9.548890113830566,
+        "context": 0.22080789506435394,
+        "question": 1.395058512687683,
+        "template": 2.1476385593414307
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.08031548860590279,
+        "context": 0.294107969228039,
+        "question": 0.1217919331553838,
+        "template": 0.5037846090106745
+      }
+    },
+    {
+      "question": "What ground based group did Tesla think the weapon could be used on?",
+      "gold_text": "infantry",
+      "reply_text": "Tesla thought the weapon could be used against ground-based infantry.",
+      "reply_logp": -1.0207905769348145,
+      "correct": true,
+      "token_f1": 0.18181818181818182,
+      "n_input_tokens": 96,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.23943661971830985,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.30005842447280884,
+      "region_proxy_mean": {
+        "gold_span": 4.653853416442871,
+        "context": 3.2099246978759766,
+        "question": 5.894937992095947,
+        "template": 12.859138488769531
+      },
+      "region_measured_mean": {
+        "gold_span": 10.913656234741211,
+        "context": 0.4078088104724884,
+        "question": 2.0066092014312744,
+        "template": 3.0326027870178223
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.007981949902813189,
+        "context": 0.31931485722180464,
+        "question": 0.12132681121824636,
+        "template": 0.5513763816571358
+      }
+    },
+    {
+      "question": "What are two complexity classes between L and P?",
+      "gold_text": "NL and NC",
+      "reply_text": "NL and NC.",
+      "reply_logp": -0.644157350063324,
+      "correct": true,
+      "token_f1": 1.0,
+      "n_input_tokens": 95,
+      "n_reply_tokens": 5,
+      "gold_span_hit": false,
+      "content_hit_top1": true,
+      "gold_best_rank_frac": 0.0,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.542494535446167,
+      "region_proxy_mean": {
+        "gold_span": 11.758525848388672,
+        "context": 3.0757007598876953,
+        "question": 7.470333576202393,
+        "template": 11.174166679382324
+      },
+      "region_measured_mean": {
+        "gold_span": 7.211675643920898,
+        "context": 0.29663631319999695,
+        "question": 3.74583101272583,
+        "template": 4.1590142250061035
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.06346140695754411,
+        "context": 0.3264612366374202,
+        "question": 0.10751412633439339,
+        "template": 0.5025632300706423
+      }
+    },
+    {
+      "question": "How many ACL injuries has Thomas Davis had during his career?",
+      "gold_text": "three",
+      "reply_text": "Thomas Davis had already overcome three ACL tears in his career.",
+      "reply_logp": -1.2913748025894165,
+      "correct": true,
+      "token_f1": 0.16666666666666669,
+      "n_input_tokens": 99,
+      "n_reply_tokens": 12,
+      "gold_span_hit": false,
+      "content_hit_top1": false,
+      "gold_best_rank_frac": 0.21621621621621623,
+      "top_token_region": "template",
+      "rho_proxy_dlogp_context": 0.6894688010215759,
+      "region_proxy_mean": {
+        "gold_span": 8.917366981506348,
+        "context": 5.491508483886719,
+        "question": 12.935091972351074,
+        "template": 14.540975570678711
+      },
+      "region_measured_mean": {
+        "gold_span": 16.591472625732422,
+        "context": 1.038773775100708,
+        "question": 3.1393449306488037,
+        "template": 2.418203830718994
+      },
+      "region_share_of_proxy": {
+        "gold_span": 0.010518769118560442,
+        "context": 0.408094222032796,
+        "question": 0.15258006006105373,
+        "template": 0.4288069487875898
+      }
+    }
+  ]
+}
